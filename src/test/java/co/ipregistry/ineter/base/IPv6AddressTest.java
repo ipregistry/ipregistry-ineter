@@ -14,8 +14,6 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import co.ipregistry.ineter.range.IPv6Range;
-import co.ipregistry.ineter.range.IPv6Subnet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,6 +22,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 
+import co.ipregistry.ineter.range.IPv6Range;
+import co.ipregistry.ineter.range.IPv6Subnet;
 
 @RunWith(JUnitPlatform.class)
 public class IPv6AddressTest {

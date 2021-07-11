@@ -34,6 +34,7 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 
 import co.ipregistry.ineter.base.IPv4Address;
+
 import com.google.common.collect.ImmutableList;
 
 @RunWith(JUnitPlatform.class)

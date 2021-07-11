@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Arrays;
 import java.util.List;
 
-import co.ipregistry.ineter.base.IPv6Address;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 
+import co.ipregistry.ineter.base.IPv6Address;
 
 @RunWith(JUnitPlatform.class)
 public class IPv6SubnetTest {

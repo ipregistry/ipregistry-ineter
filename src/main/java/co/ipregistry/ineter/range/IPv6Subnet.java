@@ -11,7 +11,6 @@ import java.math.BigInteger;
 
 import co.ipregistry.ineter.base.IPv6Address;
 
-
 public class IPv6Subnet extends IPv6Range implements IPSubnet<IPv6Subnet, IPv6Range, IPv6Address, BigInteger> {
 
 	enum IPv6SubnetMask {

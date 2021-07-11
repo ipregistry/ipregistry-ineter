@@ -12,7 +12,6 @@ import java.net.Inet4Address;
 import co.ipregistry.ineter.range.IPv4Range;
 import co.ipregistry.ineter.range.IPv4Subnet;
 
-
 public class IPv4Address implements IPAddress, Comparable<IPv4Address> {
 
 	public static enum IPv4KnownRange {

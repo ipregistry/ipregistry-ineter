@@ -12,8 +12,6 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import co.ipregistry.ineter.base.IPv6Address;
-import co.ipregistry.ineter.base.IPv6AddressParseTest;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Level;
@@ -24,6 +22,9 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.infra.Blackhole;
+
+import co.ipregistry.ineter.base.IPv6Address;
+import co.ipregistry.ineter.base.IPv6AddressParseTest;
 
 import com.google.common.net.InetAddresses;
 

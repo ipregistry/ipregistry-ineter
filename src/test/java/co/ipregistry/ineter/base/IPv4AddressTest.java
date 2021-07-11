@@ -14,8 +14,6 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import co.ipregistry.ineter.range.IPv4Range;
-import co.ipregistry.ineter.range.IPv4Subnet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,6 +22,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 
+import co.ipregistry.ineter.range.IPv4Range;
+import co.ipregistry.ineter.range.IPv4Subnet;
 
 @SuppressWarnings("JUnit5Platform")
 @RunWith(JUnitPlatform.class)
@@ -199,7 +199,8 @@ public class IPv4AddressTest {
 
 	@Test
 	void toRange() {
-		Assertions.assertEquals(IPv4Range.of("0.0.0.0", "1.2.3.4"), IPv4Address.of("0.0.0.0").toRange(IPv4Address.of("1.2.3.4")));
+		Assertions.assertEquals(IPv4Range.of("0.0.0.0", "1.2.3.4"),
+				IPv4Address.of("0.0.0.0").toRange(IPv4Address.of("1.2.3.4")));
 		assertEquals(IPv4Range.of("0.0.0.0", "1.2.3.4"), IPv4Address.of("1.2.3.4").toRange(IPv4Address.of("0.0.0.0")));
 	}
 
