@@ -23,9 +23,9 @@ ineter (pronounced "Eye-netter") is a tiny Java library for working with:
 #### Maven:
 
 	<dependency>
-    	<groupId>com.github.maltalex</groupId>
+    	<groupId>co.ipregistry</groupId>
     	<artifactId>ineter</artifactId>
-    	<version>0.2.0</version>
+    	<version>1.0.0</version>
 	</dependency>
 
 #### Gradle:
