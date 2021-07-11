@@ -25,7 +25,7 @@ abstract class IPRangeUtils {
 		for (int i = from.length() - 1; i > 1; i--) {
 			char c = from.charAt(i);
 			if (c == '-') {
-				return rangeProducer.apply(from.substring(0, i).trim(), from.substring(i + 1, from.length()).trim());
+				return rangeProducer.apply(from.substring(0, i).trim(), from.substring(i + 1).trim());
 			}
 			if (c == '/') {
 				return subnetProducer.apply(from.trim());
@@ -42,7 +42,7 @@ abstract class IPRangeUtils {
 		while (position > 0 && charsToCheck > 0) {
 			if (from.charAt(position) == '/') {
 				return subnetProducer.apply(from.substring(0, position).trim(),
-						Integer.parseUnsignedInt(from.substring(position + 1, from.length()).trim()));
+						Integer.parseUnsignedInt(from.substring(position + 1).trim()));
 			}
 			position--;
 			charsToCheck--;

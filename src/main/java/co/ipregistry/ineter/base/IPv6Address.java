@@ -105,7 +105,7 @@ public class IPv6Address implements IPAddress, Comparable<IPv6Address> {
 		SITE_LOCAL_UNICAST_DEPRECATED(IPv6Subnet.of("fec::/10"));
 		//@formatter:on
 
-		private IPv6Range range;
+		private final IPv6Range range;
 
 		private IPv6KnownRange(IPv6Range subnet) {
 			this.range = subnet;
@@ -355,7 +355,7 @@ public class IPv6Address implements IPAddress, Comparable<IPv6Address> {
 				if (partIndex <= lastFilledPartIndex) {
 					throw new IllegalArgumentException("Too many parts. Expected 8 parts");
 				}
-				partAccumulator |= ((Character.digit(c, 16) & 0xffff) << (partHexDigitCount << 2));
+				partAccumulator |= ((long) (Character.digit(c, 16) & 0xffff) << (partHexDigitCount << 2));
 				if (++partHexDigitCount > 4) {
 					throw new IllegalArgumentException(
 							"Address parts must contain no more than 16 bits (4 hex digits)");
@@ -485,10 +485,7 @@ public class IPv6Address implements IPAddress, Comparable<IPv6Address> {
 		if (this.lower != other.lower) {
 			return false;
 		}
-		if (this.upper != other.upper) {
-			return false;
-		}
-		return true;
+		return this.upper == other.upper;
 	}
 
 	/**
@@ -681,23 +678,14 @@ public class IPv6Address implements IPAddress, Comparable<IPv6Address> {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder(39);
-		builder.append(Integer.toHexString(LongShort.SHORT_A.isolateAsInt(this.upper)));
-		builder.append(":");
-		builder.append(Integer.toHexString(LongShort.SHORT_B.isolateAsInt(this.upper)));
-		builder.append(":");
-		builder.append(Integer.toHexString(LongShort.SHORT_C.isolateAsInt(this.upper)));
-		builder.append(":");
-		builder.append(Integer.toHexString(LongShort.SHORT_D.isolateAsInt(this.upper)));
-		builder.append(":");
-		builder.append(Integer.toHexString(LongShort.SHORT_A.isolateAsInt(this.lower)));
-		builder.append(":");
-		builder.append(Integer.toHexString(LongShort.SHORT_B.isolateAsInt(this.lower)));
-		builder.append(":");
-		builder.append(Integer.toHexString(LongShort.SHORT_C.isolateAsInt(this.lower)));
-		builder.append(":");
-		builder.append(Integer.toHexString(LongShort.SHORT_D.isolateAsInt(this.lower)));
-		return builder.toString();
+		return Integer.toHexString(LongShort.SHORT_A.isolateAsInt(this.upper)) + ":"
+				+ Integer.toHexString(LongShort.SHORT_B.isolateAsInt(this.upper)) + ":"
+				+ Integer.toHexString(LongShort.SHORT_C.isolateAsInt(this.upper)) + ":"
+				+ Integer.toHexString(LongShort.SHORT_D.isolateAsInt(this.upper)) + ":"
+				+ Integer.toHexString(LongShort.SHORT_A.isolateAsInt(this.lower)) + ":"
+				+ Integer.toHexString(LongShort.SHORT_B.isolateAsInt(this.lower)) + ":"
+				+ Integer.toHexString(LongShort.SHORT_C.isolateAsInt(this.lower)) + ":"
+				+ Integer.toHexString(LongShort.SHORT_D.isolateAsInt(this.lower));
 	}
 
 	@Override

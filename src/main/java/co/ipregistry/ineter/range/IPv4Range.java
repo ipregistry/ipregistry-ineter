@@ -102,7 +102,7 @@ public class IPv4Range implements IPRange<IPv4Range, IPv4Subnet, IPv4Address, Lo
 		if (this.firstAddress.compareTo(lastAddress) > 0) {
 			throw new IllegalArgumentException(
 					String.format("The first address in the range (%s) has to be lower than the last address (%s)",
-							firstAddress.toString(), lastAddress.toString()));
+							firstAddress, lastAddress));
 		}
 	}
 

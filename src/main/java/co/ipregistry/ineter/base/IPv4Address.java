@@ -83,7 +83,7 @@ public class IPv4Address implements IPAddress, Comparable<IPv4Address> {
 		BROADCAST(IPv4Subnet.of("255.255.255.255/32"));
 		//@formatter:on
 
-		private IPv4Range range;
+		private final IPv4Range range;
 
 		private IPv4KnownRange(IPv4Range range) {
 			this.range = range;
@@ -137,9 +137,8 @@ public class IPv4Address implements IPAddress, Comparable<IPv4Address> {
 			throw new NullPointerException("The given array is null");
 		}
 		if (bigEndianByteArr.length != ADDRESS_BYTES) {
-			throw new IllegalArgumentException(
-					String.format("The array has to be 4 bytes long, the given array is %d bytes long",
-							Integer.valueOf(bigEndianByteArr.length)));
+			throw new IllegalArgumentException(String.format(
+					"The array has to be 4 bytes long, the given array is %d bytes long", bigEndianByteArr.length));
 		}
 
 		return new IPv4Address(

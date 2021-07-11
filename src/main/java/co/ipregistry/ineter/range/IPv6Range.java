@@ -148,11 +148,9 @@ public class IPv6Range implements IPRange<IPv6Range, IPv6Subnet, IPv6Address, Bi
 		} else if (!this.firstAddress.equals(other.firstAddress))
 			return false;
 		if (this.lastAddress == null) {
-			if (other.lastAddress != null)
-				return false;
-		} else if (!this.lastAddress.equals(other.lastAddress))
-			return false;
-		return true;
+			return other.lastAddress == null;
+		} else
+			return this.lastAddress.equals(other.lastAddress);
 	}
 
 	@Override
@@ -164,9 +162,9 @@ public class IPv6Range implements IPRange<IPv6Range, IPv6Subnet, IPv6Address, Bi
 	public Iterator<IPv6Address> iterator(boolean skipFirst, boolean skipLast) {
 		return new Iterator<IPv6Address>() {
 
-			AtomicLong nextAddition = new AtomicLong(skipFirst ? 1 : 0);
+			final AtomicLong nextAddition = new AtomicLong(skipFirst ? 1 : 0);
 			// Will throw exception if length is greater than max long
-			long totalCount = skipLast ? length().longValueExact() - 1 : length().longValueExact();
+			final long totalCount = skipLast ? length().longValueExact() - 1 : length().longValueExact();
 
 			@Override
 			public void remove() {
