@@ -19,11 +19,11 @@ import co.ipregistry.ineter.base.IpAddress;
 
 abstract class IpRangeUtils {
 
-	static <T> T parseRange(String from, BiFunction<String, String, ? extends T> rangeProducer,
-			Function<String, ? extends T> subnetProducer) {
+	static <T> T parseRange(final String from, final BiFunction<String, String, ? extends T> rangeProducer,
+			final Function<String, ? extends T> subnetProducer) {
 		// The shortest valid string is :: (length 2)
 		for (int i = from.length() - 1; i > 1; i--) {
-			char c = from.charAt(i);
+			final char c = from.charAt(i);
 			if (c == '-') {
 				return rangeProducer.apply(from.substring(0, i).trim(), from.substring(i + 1).trim());
 			}
@@ -31,12 +31,12 @@ abstract class IpRangeUtils {
 				return subnetProducer.apply(from.trim());
 			}
 		}
-		String trimmed = from.trim();
+		final String trimmed = from.trim();
 		return rangeProducer.apply(trimmed, trimmed);
 	}
 
-	static <T> T parseSubnet(String from, BiFunction<String, Integer, ? extends T> subnetProducer,
-			int singleAddressMask) {
+	static <T> T parseSubnet(final String from, final BiFunction<String, Integer, ? extends T> subnetProducer,
+			final int singleAddressMask) {
 		int position = from.length() - 1;
 		int charsToCheck = 4; // The slash (/) has to be in the last 4 positions
 		while (position > 0 && charsToCheck > 0) {
@@ -51,22 +51,22 @@ abstract class IpRangeUtils {
 	}
 
 	static <L extends Number & Comparable<L>, I extends IpAddress, R extends IpRange<R, ?, I, L>> List<R> merge(
-			Collection<R> rangesToMerge, BiFunction<I, I, R> rangeCreator) {
+			final Collection<R> rangesToMerge, final BiFunction<I, I, R> rangeCreator) {
 		if (rangesToMerge.isEmpty()) {
 			return Collections.emptyList();
 		}
 
-		ArrayList<R> sortedRanges = new ArrayList<>(rangesToMerge);
+		final ArrayList<R> sortedRanges = new ArrayList<>(rangesToMerge);
 		sortedRanges.sort(Comparator.comparing(R::getFirst));
 
 		int mergedRangeIndex = 0, candidateIndex = 0;
 		while (candidateIndex < sortedRanges.size()) {
 			// Grab first un-merged range
 			R mergedRange = sortedRanges.get(candidateIndex++);
-			I pendingRangeStart = mergedRange.getFirst();
+			final I pendingRangeStart = mergedRange.getFirst();
 			// extend "mergedRange" as much as possible
 			while (candidateIndex < sortedRanges.size()) {
-				R candidateRange = sortedRanges.get(candidateIndex);
+				final R candidateRange = sortedRanges.get(candidateIndex);
 				if (!overlapsOrAdjacent(mergedRange, candidateRange)) {
 					break;
 				}
@@ -81,7 +81,7 @@ abstract class IpRangeUtils {
 	}
 
 	static <L extends Number & Comparable<L>, I extends IpAddress, R extends IpRange<R, ?, I, L>> boolean overlapsOrAdjacent(
-			R mergedRange, R candidateRange) {
+			final R mergedRange, final R candidateRange) {
 		return mergedRange.overlaps(candidateRange) || mergedRange.getLast().next().equals(candidateRange.getFirst());
 	}
 }

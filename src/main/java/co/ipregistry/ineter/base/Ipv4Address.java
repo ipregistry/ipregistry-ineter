@@ -14,82 +14,82 @@ import co.ipregistry.ineter.range.Ipv4Subnet;
 
 public class Ipv4Address implements IpAddress {
 
-	public static enum IPv4KnownRange {
+	public enum IPv4KnownRange {
 
 		//@formatter:off
-		/**
-		 * 127.0.0.0/8 - RFC 990
-		 */
-		LOOPBACK(Ipv4Subnet.of("127.0.0.0/8")),
-		/**
-		 * 0.0.0.0/8 - RFC 1700
-		 */
-		UNSPECIFIED(Ipv4Subnet.of("0.0.0.0/8")),
-		/**
-		 * 10.0.0.0/8 - RFC 1918
-		 */
-		PRIVATE_10(Ipv4Subnet.of("10.0.0.0/8")),
-		/**
-		 * 172.16.0.0/12 - RFC 1918
-		 */
-		PRIVATE_172_16(Ipv4Subnet.of("172.16.0.0/12")),
-		/**
-		 * 192.168.0.0/16 - RFC 1918
-		 */
-		PRIVATE_192_168(Ipv4Subnet.of("192.168.0.0/16")),
-		/**
-		 * 198.18.0.0/15 - RFC 2544
-		 */
-		TESTING(Ipv4Subnet.of("198.18.0.0/15")),
-		/**
-		 * 192.88.99.0/24 - RFC 3068
-		 */
-		TRANSLATION_6_TO_4(Ipv4Subnet.of("192.88.99.0/24")),
-		/**
-		 * 169.254.0.0/16 - RFC 3927
-		 */
-		LINK_LOCAL(Ipv4Subnet.of("169.254.0.0/16")),
-		/**
-		 * 192.0.0.0/24 - RFC 5736
-		 */
-		SPECIAL_PURPOSE(Ipv4Subnet.of("192.0.0.0/24")),
-		/**
-		 * 192.0.2.0/24 - RFC 5737
-		 */
-		TEST_NET1(Ipv4Subnet.of("192.0.2.0/24")),
-		/**
-		 * 198.51.100.0/24 - RFC 5737
-		 */
-		TEST_NET2(Ipv4Subnet.of("198.51.100.0/24")),
-		/**
-		 * 203.0.113.0/24 - RFC 5737
-		 */
-		TEST_NET3(Ipv4Subnet.of("203.0.113.0/24")),
-		/**
-		 * 224.0.0.0/4 - RFC 5771
-		 */
-		MULTICAST(Ipv4Subnet.of("224.0.0.0/4")),
-		/**
-		 * "100.64.0.0/10 - RFC 6598
-		 */
-		CGNAT(Ipv4Subnet.of("100.64.0.0/10")),
-		/**
-		 * 240.0.0.0/4 - RFC 6890
-		 */
-		RESERVED_240(Ipv4Subnet.of("240.0.0.0/4")),
-		/**
-		 * 255.255.255.255/32 - RFC 6890
-		 */
-		BROADCAST(Ipv4Subnet.of("255.255.255.255/32"));
-		//@formatter:on
+        /**
+         * 127.0.0.0/8 - RFC 990
+         */
+        LOOPBACK(Ipv4Subnet.of("127.0.0.0/8")),
+        /**
+         * 0.0.0.0/8 - RFC 1700
+         */
+        UNSPECIFIED(Ipv4Subnet.of("0.0.0.0/8")),
+        /**
+         * 10.0.0.0/8 - RFC 1918
+         */
+        PRIVATE_10(Ipv4Subnet.of("10.0.0.0/8")),
+        /**
+         * 172.16.0.0/12 - RFC 1918
+         */
+        PRIVATE_172_16(Ipv4Subnet.of("172.16.0.0/12")),
+        /**
+         * 192.168.0.0/16 - RFC 1918
+         */
+        PRIVATE_192_168(Ipv4Subnet.of("192.168.0.0/16")),
+        /**
+         * 198.18.0.0/15 - RFC 2544
+         */
+        TESTING(Ipv4Subnet.of("198.18.0.0/15")),
+        /**
+         * 192.88.99.0/24 - RFC 3068
+         */
+        TRANSLATION_6_TO_4(Ipv4Subnet.of("192.88.99.0/24")),
+        /**
+         * 169.254.0.0/16 - RFC 3927
+         */
+        LINK_LOCAL(Ipv4Subnet.of("169.254.0.0/16")),
+        /**
+         * 192.0.0.0/24 - RFC 5736
+         */
+        SPECIAL_PURPOSE(Ipv4Subnet.of("192.0.0.0/24")),
+        /**
+         * 192.0.2.0/24 - RFC 5737
+         */
+        TEST_NET1(Ipv4Subnet.of("192.0.2.0/24")),
+        /**
+         * 198.51.100.0/24 - RFC 5737
+         */
+        TEST_NET2(Ipv4Subnet.of("198.51.100.0/24")),
+        /**
+         * 203.0.113.0/24 - RFC 5737
+         */
+        TEST_NET3(Ipv4Subnet.of("203.0.113.0/24")),
+        /**
+         * 224.0.0.0/4 - RFC 5771
+         */
+        MULTICAST(Ipv4Subnet.of("224.0.0.0/4")),
+        /**
+         * "100.64.0.0/10 - RFC 6598
+         */
+        CGNAT(Ipv4Subnet.of("100.64.0.0/10")),
+        /**
+         * 240.0.0.0/4 - RFC 6890
+         */
+        RESERVED_240(Ipv4Subnet.of("240.0.0.0/4")),
+        /**
+         * 255.255.255.255/32 - RFC 6890
+         */
+        BROADCAST(Ipv4Subnet.of("255.255.255.255/32"));
+        //@formatter:on
 
 		private final Ipv4Range range;
 
-		private IPv4KnownRange(Ipv4Range range) {
+		IPv4KnownRange(final Ipv4Range range) {
 			this.range = range;
 		}
 
-		public boolean contains(Ipv4Address address) {
+		public boolean contains(final Ipv4Address address) {
 			return this.range.contains(address);
 		}
 
@@ -98,22 +98,22 @@ public class Ipv4Address implements IpAddress {
 		}
 	}
 
-	protected static enum Ip4Octet {
+	protected enum Ip4Octet {
 		OCTET_A(0), OCTET_B(1), OCTET_C(2), OCTET_D(3);
 
 		private final int mask;
 		private final int shift;
 
-		private Ip4Octet(int byteShift) {
+		Ip4Octet(final int byteShift) {
 			this.shift = 24 - (byteShift << 3);
 			this.mask = 0xff000000 >>> (byteShift << 3);
 		}
 
-		public int isolateAsInt(int ip) {
+		public int isolateAsInt(final int ip) {
 			return (ip & this.mask) >>> this.shift;
 		}
 
-		public byte isolateAsByte(int ip) {
+		public byte isolateAsByte(final int ip) {
 			return (byte) isolateAsInt(ip);
 		}
 	}
@@ -132,7 +132,7 @@ public class Ipv4Address implements IpAddress {
 	 * @param bigEndianByteArr 4 byte big-endian byte array
 	 * @return new IPv4Address instance
 	 */
-	public static Ipv4Address of(byte[] bigEndianByteArr) {
+	public static Ipv4Address of(final byte[] bigEndianByteArr) {
 		if (bigEndianByteArr == null) {
 			throw new NullPointerException("The given array is null");
 		}
@@ -151,7 +151,7 @@ public class Ipv4Address implements IpAddress {
 	 * @param intIp
 	 * @return new IPv4Address instance
 	 */
-	public static Ipv4Address of(int intIp) {
+	public static Ipv4Address of(final int intIp) {
 		return new Ipv4Address(intIp);
 	}
 
@@ -162,7 +162,7 @@ public class Ipv4Address implements IpAddress {
 	 * @param ip literal IP address String
 	 * @return new IPv4Address instance
 	 */
-	public static Ipv4Address of(String ip) {
+	public static Ipv4Address of(final String ip) {
 		if (ip == null) {
 			throw new NullPointerException("String IP address is null");
 		}
@@ -173,7 +173,7 @@ public class Ipv4Address implements IpAddress {
 		int ipInt = 0;
 		int octet = 0;
 		int dots = 0;
-		for (char c : ip.toCharArray()) {
+		for (final char c : ip.toCharArray()) {
 			if (c >= '0' && c <= '9') {
 				octetEmpty = false;
 				octet *= 10;
@@ -215,15 +215,15 @@ public class Ipv4Address implements IpAddress {
 	 * @param address
 	 * @return new IPv4Address instance
 	 */
-	public static Ipv4Address of(Inet4Address address) {
+	public static Ipv4Address of(final Inet4Address address) {
 		return of(address.getAddress());
 	}
 
-	protected static int shiftToInt(int a, int b, int c, int d) {
+	protected static int shiftToInt(final int a, final int b, final int c, final int d) {
 		return (a << 24 | b << 16 | c << 8 | d);
 	}
 
-	protected static int shiftToInt(byte a, byte b, byte c, byte d) {
+	protected static int shiftToInt(final byte a, final byte b, final byte c, final byte d) {
 		return shiftToInt(a & 0xff, b & 0xff, c & 0xff, d & 0xff);
 	}
 
@@ -234,7 +234,7 @@ public class Ipv4Address implements IpAddress {
 	 *
 	 * @param intIp the integer representation of the IPv4 address.
 	 */
-	public Ipv4Address(int intIp) {
+	public Ipv4Address(final int intIp) {
 		this.ip = intIp;
 	}
 
@@ -249,7 +249,7 @@ public class Ipv4Address implements IpAddress {
 			return 1;
 		}
 
-		Ipv4Address other = (Ipv4Address) o;
+		final Ipv4Address other = (Ipv4Address) o;
 
 		if (this.ip == other.ip) {
 			return 0;
@@ -258,7 +258,7 @@ public class Ipv4Address implements IpAddress {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (obj == null) {
 			return false;
 		}
@@ -333,7 +333,7 @@ public class Ipv4Address implements IpAddress {
 	}
 
 	@Override
-	public Ipv4Address plus(int n) {
+	public Ipv4Address plus(final int n) {
 		return new Ipv4Address((int) (toLong() + n));
 	}
 
@@ -343,7 +343,7 @@ public class Ipv4Address implements IpAddress {
 	}
 
 	@Override
-	public Ipv4Address minus(int n) {
+	public Ipv4Address minus(final int n) {
 		return new Ipv4Address((int) (toLong() - n));
 	}
 
@@ -398,7 +398,7 @@ public class Ipv4Address implements IpAddress {
 	 * Return this address in /32 subnet form. Note that {@link Ipv4Subnet} is a
 	 * type of {@link Ipv4Range}, so the returned value is also a single address
 	 * range
-	 * 
+	 *
 	 * @return This address as a single /32 subnet
 	 */
 	public Ipv4Subnet toSubnet() {
@@ -409,34 +409,34 @@ public class Ipv4Address implements IpAddress {
 	 * Returns a range between this address and an arbitrary one This method takes
 	 * care of comparing the addresses so they're always passed to the range factory
 	 * in the right order
-	 * 
+	 *
 	 * @return an IPv4Range between this address and a given one
 	 */
-	public Ipv4Range toRange(Ipv4Address address) {
+	public Ipv4Range toRange(final Ipv4Address address) {
 		return this.compareTo(address) < 0 ? Ipv4Range.of(this, address) : Ipv4Range.of(address, this);
 	}
 
 	/**
 	 * Returns true iff the given address is adjacent (above or below) the current
 	 * one
-	 * 
+	 *
 	 * @return true iff the given address is adjacent to this one
 	 */
-	public boolean isAdjacentTo(Ipv4Address other) {
-		Long distance = distanceTo(other);
+	public boolean isAdjacentTo(final Ipv4Address other) {
+		final Long distance = distanceTo(other);
 		return distance == 1 || distance == -1;
 	}
 
 	/**
 	 * Returns the distance to the given address. If the provided address is bigger,
 	 * the result will be positive. If it's smaller, the result will be negative.
-	 * 
+	 * <p>
 	 * For example, the distance from 10.0.0.1 to 10.0.0.3 is 2, the distance from
 	 * 10.0.0.3 to 10.0.0.1 is -2
-	 * 
+	 *
 	 * @return the distance between this address and the given one
 	 */
-	public Long distanceTo(Ipv4Address other) {
+	public Long distanceTo(final Ipv4Address other) {
 		return other.toLong() - this.toLong();
 	}
 
@@ -444,10 +444,10 @@ public class Ipv4Address implements IpAddress {
 	 * Returns the address which is the results of a bitwise AND between this
 	 * address and the given one. This operation is useful for masking and various
 	 * low level bit manipulation
-	 * 
+	 *
 	 * @return a bitwise AND between this address and the given one
 	 */
-	public Ipv4Address and(Ipv4Address other) {
+	public Ipv4Address and(final Ipv4Address other) {
 		return Ipv4Address.of(this.ip & other.ip);
 	}
 
@@ -455,10 +455,10 @@ public class Ipv4Address implements IpAddress {
 	 * Returns the address which is the results of a bitwise OR between this address
 	 * and the given one. This operation is useful for masking and various low level
 	 * bit manipulation
-	 * 
+	 *
 	 * @return a bitwise OR between this address and the given one
 	 */
-	public Ipv4Address or(Ipv4Address other) {
+	public Ipv4Address or(final Ipv4Address other) {
 		return Ipv4Address.of(this.ip | other.ip);
 	}
 
@@ -466,17 +466,17 @@ public class Ipv4Address implements IpAddress {
 	 * Returns the address which is the results of a bitwise XOR between this
 	 * address and the given one. This operation is useful for masking and various
 	 * low level bit manipulation
-	 * 
+	 *
 	 * @return a bitwise XOR between this address and the given one
 	 */
-	public Ipv4Address xor(Ipv4Address other) {
+	public Ipv4Address xor(final Ipv4Address other) {
 		return Ipv4Address.of(this.ip ^ other.ip);
 	}
 
 	/**
 	 * Returns the address which is the results of a bitwise NOT of this address
 	 * This operation is useful for masking and various low level bit manipulation
-	 * 
+	 *
 	 * @return a bitwise NOT of this address
 	 */
 	public Ipv4Address not() {

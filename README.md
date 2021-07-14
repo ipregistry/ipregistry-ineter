@@ -6,20 +6,23 @@
 ## What?
 
 ineter (pronounced "Eye-netter") is a tiny Java library for working with:
+
 - Individual IP addresses - `IPv4Address`, `IPv6Address`/`ZonedIPv6Address`
 - IP address ranges - `IPv4Range`, `IPv6Range`
 - IP subnets - `IPv4Subnet`, `IPv6Subnet`
 
 ## Why?
 
-- Low memory (and GC) footprint: *ineter* uses primitive types to represent addresses - an `int` for IPv4, two `long` fields for IPv6. For comparison, Java's `InetAddress` uses an `InetAddressHolder` with two `String` fields and two `int` fields just for IPv4
+- Low memory (and GC) footprint: *ineter* uses primitive types to represent addresses - an `int` for IPv4, two `long`
+  fields for IPv6. For comparison, Java's `InetAddress` uses an `InetAddressHolder` with two `String` fields and
+  two `int` fields just for IPv4
 - Immutability: *ineter* is immutable and thread-safe by default
 - Speed: *ineter* is written with performance in mind
 - Rich set of supported operations
 - MPL-2.0 license, allowing commercial use as well as re-licensing under GNU
 
 ## Where?
-	
+
 #### Maven:
 
 	<dependency>
@@ -48,7 +51,7 @@ ineter (pronounced "Eye-netter") is a tiny Java library for working with:
 	ipv4.plus(5); // 10.0.0.6
 	ipv4.distanceTo(IPv4Address.of("10.0.0.100")); // 99
 	ipv4.previous(); // 10.0.0.0
-	
+
 ### Arbitrary address ranges
 
 	IPv4Range ipv4Range = IPv4Range.parse("192.168.100.0-192.168.101.127");

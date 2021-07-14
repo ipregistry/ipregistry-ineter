@@ -44,21 +44,21 @@ public class Ipv6RangeTest {
 
 	@Test
 	void ofAddress() {
-		Ipv6Range range = Ipv6Range.of(Ipv6Address.of("::1"), Ipv6Address.of("1::"));
+		final Ipv6Range range = Ipv6Range.of(Ipv6Address.of("::1"), Ipv6Address.of("1::"));
 		Assertions.assertEquals(range.getFirst(), Ipv6Address.of("::1"));
 		Assertions.assertEquals(range.getLast(), Ipv6Address.of("1::"));
 	}
 
 	@Test
 	void ofString() {
-		Ipv6Range range = Ipv6Range.of("::1", "1::");
+		final Ipv6Range range = Ipv6Range.of("::1", "1::");
 		Assertions.assertEquals(range.getFirst(), Ipv6Address.of("::1"));
 		Assertions.assertEquals(range.getLast(), Ipv6Address.of("1::"));
 	}
 
 	@Test
 	void ofInetAddress() throws UnknownHostException {
-		Ipv6Range range = Ipv6Range.of((Inet6Address) InetAddress.getByName("::1"),
+		final Ipv6Range range = Ipv6Range.of((Inet6Address) InetAddress.getByName("::1"),
 				(Inet6Address) InetAddress.getByName("1::"));
 		Assertions.assertEquals(range.getFirst(), Ipv6Address.of("::1"));
 		Assertions.assertEquals(range.getLast(), Ipv6Address.of("1::"));
@@ -66,7 +66,7 @@ public class Ipv6RangeTest {
 
 	@Test
 	void ofArray() {
-		Ipv6Range range = Ipv6Range.of(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		final Ipv6Range range = Ipv6Range.of(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 				new byte[] { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
 		Assertions.assertEquals(range.getFirst(), Ipv6Address.of("::1"));
 		Assertions.assertEquals(range.getLast(), Ipv6Address.of("1::"));
@@ -85,7 +85,7 @@ public class Ipv6RangeTest {
 
 	@Test
 	void parse() {
-		Ipv6Range range = Ipv6Range.parse("::-1::");
+		final Ipv6Range range = Ipv6Range.parse("::-1::");
 		Assertions.assertEquals(range.getFirst(), Ipv6Address.of("::"));
 		Assertions.assertEquals(range.getLast(), Ipv6Address.of("1::"));
 		assertTrue(range.toString().contains("1:0:0:0:0:0:0:0"));
@@ -94,44 +94,44 @@ public class Ipv6RangeTest {
 
 	@ParameterizedTest
 	@CsvSource({ "::,::,::", "::,::1234,::1000", "1234::,1234::1234,1234::1000" })
-	void contains(String start, String end, String parse) {
+	void contains(final String start, final String end, final String parse) {
 		assertTrue(Ipv6Range.parse(start + "-" + end).contains(Ipv6Address.of(parse)));
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "::,::,::1", "::,::1234,::1235", "1234::,1234::1234,1234::1235" })
-	void notContains(String start, String end, String parse) {
+	void notContains(final String start, final String end, final String parse) {
 		assertFalse(Ipv6Range.parse(start + "-" + end).contains(Ipv6Address.of(parse)));
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "::,::,::/128", "::,::1234,::1000/120", "1234::,1234::1234,1234::1230/126" })
-	void containsRange(String start, String end, String parse) {
+	void containsRange(final String start, final String end, final String parse) {
 		assertTrue(Ipv6Range.parse(start + "-" + end).contains(Ipv6Subnet.of(parse)));
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "::,::,::1/128", "::,::1234,::/112", "1234::,1234::1234,1235::/16" })
-	void notContainsRange(String start, String end, String parse) {
+	void notContainsRange(final String start, final String end, final String parse) {
 		assertFalse(Ipv6Range.parse(start + "-" + end).contains(Ipv6Subnet.of(parse)));
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "::,::,::-::", "::,::1234,::1-::2", "1234::,1234::1234,::-1234::", "1::,f::,::-ffff::" })
-	void overlaps(String start, String end, String parse) {
+	void overlaps(final String start, final String end, final String parse) {
 		assertTrue(Ipv6Range.parse(start + "-" + end).overlaps(Ipv6Range.parse(parse)));
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "::,::,::1-::2", "::,::1234,::1235-1::", "1234::,1234::1234,1234::1235-1234::1235" })
-	void notOverlaps(String start, String end, String parse) {
+	void notOverlaps(final String start, final String end, final String parse) {
 		assertFalse(Ipv6Range.parse(start + "-" + end).overlaps(Ipv6Range.parse(parse)));
 	}
 
 	@Test
 	void equal() {
-		Ipv6Range range1 = Ipv6Range.parse("1234::1234-1234::ffff");
-		Ipv6Range range2 = Ipv6Range.of(Ipv6Address.of("1234::1234"), Ipv6Address.of("1234::ffff"));
+		final Ipv6Range range1 = Ipv6Range.parse("1234::1234-1234::ffff");
+		final Ipv6Range range2 = Ipv6Range.of(Ipv6Address.of("1234::1234"), Ipv6Address.of("1234::ffff"));
 
 		assertEquals(range1, range1);
 		assertEquals(range2, range2);
@@ -142,15 +142,15 @@ public class Ipv6RangeTest {
 
 	@Test
 	void notEqual() {
-		Ipv6Range range1 = Ipv6Range.parse("1234::1234-1234::ffff");
-		Ipv6Range range2 = Ipv6Range.of(Ipv6Address.of("1234::"), Ipv6Address.of("1234::ffff"));
+		final Ipv6Range range1 = Ipv6Range.parse("1234::1234-1234::ffff");
+		final Ipv6Range range2 = Ipv6Range.of(Ipv6Address.of("1234::"), Ipv6Address.of("1234::ffff"));
 
 		assertNotEquals(range1, range2);
 	}
 
 	@Test
 	void unequalToNull() {
-		Ipv6Range range1 = Ipv6Range.parse("1234::1234-1234::ffff");
+		final Ipv6Range range1 = Ipv6Range.parse("1234::1234-1234::ffff");
 		assertNotEquals(range1, null);
 	}
 
@@ -164,13 +164,13 @@ public class Ipv6RangeTest {
 			"::-ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffe,ffffffffffffffffffffffffffffffff",
 			"::-0000:0000:0000:0000:ffff:ffff:ffff:fffe,0000000000000000ffffffffffffffff",
 			"::-0000:0000:0000:0001:ffff:ffff:ffff:fffe,0000000000000001ffffffffffffffff" })
-	void length(String parse, String length) {
+	void length(final String parse, final String length) {
 		assertEquals(Ipv6Range.parse(parse).length(), new BigInteger(length, 16));
 	}
 
 	@Test
 	void iterationOrder() {
-		ArrayList<Ipv6Address> itemList = new ArrayList<>();
+		final ArrayList<Ipv6Address> itemList = new ArrayList<>();
 		Ipv6Range.of("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ff00", "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff").iterator()
 				.forEachRemaining(itemList::add);
 
@@ -178,10 +178,10 @@ public class Ipv6RangeTest {
 		assertEquals(itemList.get(0), Ipv6Address.of("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ff00"));
 		assertEquals(itemList.get(itemList.size() - 1), Ipv6Address.of("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff"));
 
-		ListIterator<Ipv6Address> listIterator = itemList.listIterator();
+		final ListIterator<Ipv6Address> listIterator = itemList.listIterator();
 		Ipv6Address previous = listIterator.next();
 		while (listIterator.hasNext()) {
-			Ipv6Address current = listIterator.next();
+			final Ipv6Address current = listIterator.next();
 			assertTrue(current.compareTo(previous) > 0);
 			previous = current;
 		}
@@ -189,7 +189,7 @@ public class Ipv6RangeTest {
 
 	@Test
 	void iterationOrderSkipEdges() {
-		ArrayList<Ipv6Address> itemList = new ArrayList<>();
+		final ArrayList<Ipv6Address> itemList = new ArrayList<>();
 		Ipv6Range.of("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ff00", "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff")
 				.iterator(true).forEachRemaining(itemList::add);
 
@@ -197,10 +197,10 @@ public class Ipv6RangeTest {
 		assertEquals(itemList.get(0), Ipv6Address.of("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ff01"));
 		assertEquals(itemList.get(itemList.size() - 1), Ipv6Address.of("ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffe"));
 
-		ListIterator<Ipv6Address> listIterator = itemList.listIterator();
+		final ListIterator<Ipv6Address> listIterator = itemList.listIterator();
 		Ipv6Address previous = listIterator.next();
 		while (listIterator.hasNext()) {
-			Ipv6Address current = listIterator.next();
+			final Ipv6Address current = listIterator.next();
 			assertTrue(current.compareTo(previous) > 0);
 			previous = current;
 		}
@@ -208,7 +208,7 @@ public class Ipv6RangeTest {
 
 	@Test
 	void iterationLastElement() {
-		Iterator<Ipv6Address> i = Ipv6Range.of("1234::", "1234::").iterator();
+		final Iterator<Ipv6Address> i = Ipv6Range.of("1234::", "1234::").iterator();
 		assertTrue(i.hasNext());
 		assertEquals(i.next(), Ipv6Address.of("1234::"));
 		assertThrows(NoSuchElementException.class, i::next);
@@ -216,7 +216,7 @@ public class Ipv6RangeTest {
 
 	@Test
 	void iterationRemove() {
-		Iterator<Ipv6Address> i = Ipv6Range.of("1234::", "1234::").iterator();
+		final Iterator<Ipv6Address> i = Ipv6Range.of("1234::", "1234::").iterator();
 		assertThrows(UnsupportedOperationException.class, i::remove);
 	}
 
@@ -226,9 +226,10 @@ public class Ipv6RangeTest {
 			"::ffff:ffff:ffff:ffff-::1:0:0:0:1fff,::ffff:ffff:ffff:ffff/128 ::1:0:0:0:0/115",
 			"::-1::0:0:0:1234, 0:0:0:0:0:0:0:0/16 1:0:0:0:0:0:0:0/116 1:0:0:0:0:0:0:1000/119 1:0:0:0:0:0:0:1200/123 1:0:0:0:0:0:0:1220/124 1:0:0:0:0:0:0:1230/126 1:0:0:0:0:0:0:1234/128",
 			"::ffff:ffff:ffff:ffff-::ffff:ffff:ffff:ffff,0:0:0:0:ffff:ffff:ffff:ffff/128" })
-	void toSubnets(String range, String subnets) {
-		List<Ipv6Subnet> generated = Ipv6Range.parse(range).toSubnets();
-		List<Ipv6Subnet> manual = Arrays.stream(subnets.split(" ")).map(Ipv6Subnet::of).collect(Collectors.toList());
+	void toSubnets(final String range, final String subnets) {
+		final List<Ipv6Subnet> generated = Ipv6Range.parse(range).toSubnets();
+		final List<Ipv6Subnet> manual = Arrays.stream(subnets.split(" ")).map(Ipv6Subnet::of)
+				.collect(Collectors.toList());
 		assertEquals(generated, manual);
 		// noinspection OptionalGetWithoutIsPresent
 		assertEquals(manual.stream().map(Ipv6Subnet::length).reduce(BigInteger::add).get(),
@@ -358,7 +359,7 @@ public class Ipv6RangeTest {
 
 	@Test
 	void withRemovedAll() {
-		Ipv6Range subnet = Ipv6Range.parse("2001::/16");
+		final Ipv6Range subnet = Ipv6Range.parse("2001::/16");
 		assertEquals(Arrays.asList(subnet), subnet.withRemoved(emptyList()));
 		assertEquals(emptyList(), subnet.withRemoved(subnet));
 		assertEquals(emptyList(), subnet.withRemoved(Ipv6Range.parse("2000::/8")));
@@ -369,16 +370,16 @@ public class Ipv6RangeTest {
 	@ParameterizedTest
 	@CsvSource({
 	//@formatter:off
-		"::1234:1-::1234:ffff, ::1234:0/112, ::1234:0",
-		"::1234:0-::1234:fffe, ::1234:0/112, ::1234:ffff",
-			"::1234:0/113, ::1234:0/112, ::1234:8000/113",
-			"::1234:8000/113, ::1234:0/112, ::1234:0/113",
-			"::1234:0-::1234:fff ::1234:2001-::1234:ffff, ::1234:0/112, ::1234:1000-::1234:2000",
-			"::-0fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff 1001::-ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff, ::/0, 1000::/16"
-	//@formatter:on
+            "::1234:1-::1234:ffff, ::1234:0/112, ::1234:0",
+            "::1234:0-::1234:fffe, ::1234:0/112, ::1234:ffff",
+            "::1234:0/113, ::1234:0/112, ::1234:8000/113",
+            "::1234:8000/113, ::1234:0/112, ::1234:0/113",
+            "::1234:0-::1234:fff ::1234:2001-::1234:ffff, ::1234:0/112, ::1234:1000-::1234:2000",
+            "::-0fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff 1001::-ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff, ::/0, 1000::/16"
+            //@formatter:on
 	})
-	void withRemovedSingle(String ans, String original, String toExclude) {
-		List<Ipv6Range> ansList = Arrays.stream(ans.trim().split(" ")).map(Ipv6Range::parse)
+	void withRemovedSingle(final String ans, final String original, final String toExclude) {
+		final List<Ipv6Range> ansList = Arrays.stream(ans.trim().split(" ")).map(Ipv6Range::parse)
 				.collect(Collectors.toList());
 		assertEquals(ansList, Ipv6Range.parse(original).withRemoved(Ipv6Range.parse(toExclude)));
 	}
@@ -397,21 +398,21 @@ public class Ipv6RangeTest {
 	@ParameterizedTest
 	@CsvSource({
 	//@formatter:off
-		"::1234:0/112 , ::1234:0/112 , ::1235:0/112 ::1236:0/112",
-		"::1234:0/112 , ::1234:0/112 , ::1232:0/112 ::1233:0/112",
-		"::1234:0/112 , ::1234:0/112 , 4321::",
-		"::1234:1001-::1234:1fff ::1234:3001-::1234:efff, ::1234:0/112, ::1000:0/112 ::1233:f000-::1234:1000 ::1234:2000-::1234:3000 ::1234:f000-::1235:1000 ::1236:0/112",
-		"::1234:1-::1234:0fff ::1234:1001-::1234:fffe,::1234:0/112, ::-::1234:0 ::1234:1000 ::1234:ffff-::1235:0",
-		"::1234:0/112,::1234:0/112, ::1232:0/113 ::1233:0/113",
-		"::1234:0/112,::1234:0/112, ::1232:0/113 ::1235:0/113",
-		"::1234:0-::1234:ff ::1234:101-::1234:fff ::1234:1001-::1234:ffff,::1234:0/112, ::1234:100 ::1234:1000",
-		"::1234:0-::1234:0fff,::1234:0/112, ::1232:0/113 ::1234:1000-::1235:1000"
-	//@formatter:on
+            "::1234:0/112 , ::1234:0/112 , ::1235:0/112 ::1236:0/112",
+            "::1234:0/112 , ::1234:0/112 , ::1232:0/112 ::1233:0/112",
+            "::1234:0/112 , ::1234:0/112 , 4321::",
+            "::1234:1001-::1234:1fff ::1234:3001-::1234:efff, ::1234:0/112, ::1000:0/112 ::1233:f000-::1234:1000 ::1234:2000-::1234:3000 ::1234:f000-::1235:1000 ::1236:0/112",
+            "::1234:1-::1234:0fff ::1234:1001-::1234:fffe,::1234:0/112, ::-::1234:0 ::1234:1000 ::1234:ffff-::1235:0",
+            "::1234:0/112,::1234:0/112, ::1232:0/113 ::1233:0/113",
+            "::1234:0/112,::1234:0/112, ::1232:0/113 ::1235:0/113",
+            "::1234:0-::1234:ff ::1234:101-::1234:fff ::1234:1001-::1234:ffff,::1234:0/112, ::1234:100 ::1234:1000",
+            "::1234:0-::1234:0fff,::1234:0/112, ::1232:0/113 ::1234:1000-::1235:1000"
+            //@formatter:on
 	})
-	void withRemovedCollection(String ans, String original, String toExclude) {
-		List<Ipv6Range> ansList = Arrays.stream(ans.trim().split(" ")).map(Ipv6Range::parse)
+	void withRemovedCollection(final String ans, final String original, final String toExclude) {
+		final List<Ipv6Range> ansList = Arrays.stream(ans.trim().split(" ")).map(Ipv6Range::parse)
 				.collect(Collectors.toList());
-		List<Ipv6Range> toExcludeList = toExclude == null ? emptyList()
+		final List<Ipv6Range> toExcludeList = toExclude == null ? emptyList()
 				: Arrays.stream(toExclude.trim().split(" ")).map(Ipv6Range::parse).collect(Collectors.toList());
 
 		assertEquals(ansList, Ipv6Range.parse(original).withRemoved(toExcludeList));

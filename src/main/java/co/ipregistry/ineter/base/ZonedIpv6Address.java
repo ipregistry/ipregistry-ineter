@@ -22,8 +22,8 @@ public class ZonedIpv6Address extends Ipv6Address {
 	 * @return new ZonedIPv6Address instance
 	 * @throws IllegalArgumentException if the provided address is invalid
 	 */
-	public static ZonedIpv6Address of(String address) {
-		IpAddress ip = Ipv6Address.of(address);
+	public static ZonedIpv6Address of(final String address) {
+		final IpAddress ip = Ipv6Address.of(address);
 		if (!(ip instanceof ZonedIpv6Address)) {
 			throw new IllegalArgumentException(String.format("The provided address (%s) is not zoned", address));
 		}
@@ -39,7 +39,7 @@ public class ZonedIpv6Address extends Ipv6Address {
 	 * @param zone  zone String
 	 * @return new IPv6Address instance
 	 */
-	public static ZonedIpv6Address of(long upper, long lower, String zone) {
+	public static ZonedIpv6Address of(final long upper, final long lower, final String zone) {
 		return new ZonedIpv6Address(upper, lower, zone);
 	}
 
@@ -51,10 +51,10 @@ public class ZonedIpv6Address extends Ipv6Address {
 	 * @param zone             zone String
 	 * @return new ZoneIPv6Address instance
 	 */
-	public static ZonedIpv6Address of(byte[] bigEndianByteArr, String zone) {
+	public static ZonedIpv6Address of(final byte[] bigEndianByteArr, final String zone) {
 		verifyArray(bigEndianByteArr);
-		long upper = LongByte.extractLong(bigEndianByteArr, 0);
-		long lower = LongByte.extractLong(bigEndianByteArr, 8);
+		final long upper = LongByte.extractLong(bigEndianByteArr, 0);
+		final long lower = LongByte.extractLong(bigEndianByteArr, 8);
 		return new ZonedIpv6Address(upper, lower, zone);
 	}
 
@@ -65,7 +65,7 @@ public class ZonedIpv6Address extends Ipv6Address {
 	 * @param zone
 	 * @return new ZonedIPv6Address instance
 	 */
-	public static ZonedIpv6Address of(Ipv6Address address, String zone) {
+	public static ZonedIpv6Address of(final Ipv6Address address, final String zone) {
 		return of(address.upper, address.lower, zone);
 	}
 
@@ -76,7 +76,7 @@ public class ZonedIpv6Address extends Ipv6Address {
 	 * @param address
 	 * @return new IPv6Address instance
 	 */
-	public static ZonedIpv6Address of(Inet6Address address) {
+	public static ZonedIpv6Address of(final Inet6Address address) {
 		if (address.getScopedInterface() != null) {
 			return of(address.getAddress(), address.getScopedInterface().getName());
 		}
@@ -93,21 +93,21 @@ public class ZonedIpv6Address extends Ipv6Address {
 	 * @param lower lower 64 bits of the IPv6Address
 	 * @param zone  the IPv6Address
 	 */
-	public ZonedIpv6Address(long upper, long lower, String zone) {
+	public ZonedIpv6Address(final long upper, final long lower, final String zone) {
 		super(upper, lower);
 		this.zone = zone;
 	}
 
 	@Override
 	public int hashCode() {
-		int prime = 31;
+		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((this.zone == null) ? 0 : this.zone.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -121,7 +121,7 @@ public class ZonedIpv6Address extends Ipv6Address {
 	}
 
 	@Override
-	public int compareTo(IpAddress o) {
+	public int compareTo(final IpAddress o) {
 		if (o == null) {
 			return 1; // Bigger than null
 		}
@@ -129,7 +129,7 @@ public class ZonedIpv6Address extends Ipv6Address {
 		final Ipv6Address other = (Ipv6Address) o;
 
 		if (other.isZoned()) {
-			int zoneCompare = this.zone.compareTo(((ZonedIpv6Address) o).zone);
+			final int zoneCompare = this.zone.compareTo(((ZonedIpv6Address) o).zone);
 			return zoneCompare == 0 ? super.longCompare(other) : zoneCompare;
 		}
 		return 1; // Zoned addresses are "bigger"
@@ -146,11 +146,11 @@ public class ZonedIpv6Address extends Ipv6Address {
 	}
 
 	@Override
-	public ZonedIpv6Address plus(long n) {
+	public ZonedIpv6Address plus(final long n) {
 		if (n < 0) {
 			return minus(-n);
 		}
-		long newLower = this.lower + n;
+		final long newLower = this.lower + n;
 		long newUpper = this.upper;
 
 		if (hasCarry(this.lower, n, newLower)) {
@@ -161,7 +161,7 @@ public class ZonedIpv6Address extends Ipv6Address {
 	}
 
 	@Override
-	public ZonedIpv6Address plus(int n) {
+	public ZonedIpv6Address plus(final int n) {
 		return plus((long) n);
 	}
 
@@ -171,16 +171,16 @@ public class ZonedIpv6Address extends Ipv6Address {
 	}
 
 	@Override
-	public ZonedIpv6Address minus(int n) {
+	public ZonedIpv6Address minus(final int n) {
 		return minus((long) n);
 	}
 
 	@Override
-	public ZonedIpv6Address minus(long n) {
+	public ZonedIpv6Address minus(final long n) {
 		if (n < 0) {
 			return plus(-n);
 		}
-		long newLower = this.lower - n;
+		final long newLower = this.lower - n;
 		long newUpper = this.upper;
 
 		// If there's a borrow from the lower addition

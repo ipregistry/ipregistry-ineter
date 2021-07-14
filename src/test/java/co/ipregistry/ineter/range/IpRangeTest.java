@@ -27,9 +27,9 @@ class IpRangeTest {
 		private static final long serialVersionUID = 1L;
 		boolean intLengthUsed = false;
 		boolean lengthUsed = false;
-		private int intLength;
+		private final int intLength;
 
-		public TestIPRange(Ipv4Address firstAddress, Ipv4Address lastAddress, int intLength) {
+		public TestIPRange(final Ipv4Address firstAddress, final Ipv4Address lastAddress, final int intLength) {
 			super(firstAddress, lastAddress);
 			this.intLength = intLength;
 		}
@@ -49,10 +49,10 @@ class IpRangeTest {
 
 	@Test
 	void testListEqualToIter() {
-		Ipv4Range range = Ipv4Range.of("10.0.0.0", "10.0.0.100");
-		List<Ipv4Address> list = range.toList();
+		final Ipv4Range range = Ipv4Range.of("10.0.0.0", "10.0.0.100");
+		final List<Ipv4Address> list = range.toList();
 		assertEquals(range.intLength(), list.size());
-		Iterator<Ipv4Address> iterator = range.iterator();
+		final Iterator<Ipv4Address> iterator = range.iterator();
 		int i = 0;
 		while (iterator.hasNext()) {
 			assertEquals(iterator.next(), list.get(i++));
@@ -61,8 +61,8 @@ class IpRangeTest {
 
 	@Test
 	void testToListUsesIntLength_NotLength() {
-		TestIPRange range = new TestIPRange(Ipv4Address.of("10.0.0.0"), Ipv4Address.of("10.0.0.100"), 5);
-		List<Ipv4Address> list = range.toList();
+		final TestIPRange range = new TestIPRange(Ipv4Address.of("10.0.0.0"), Ipv4Address.of("10.0.0.100"), 5);
+		final List<Ipv4Address> list = range.toList();
 		assertEquals(range.intLength(), list.size());
 		assertTrue(range.intLengthUsed);
 		assertFalse(range.lengthUsed);

@@ -15,103 +15,103 @@ import co.ipregistry.ineter.range.Ipv6Subnet;
 
 public class Ipv6Address implements IpAddress {
 
-	public static enum IPv6KnownRange {
+	public enum IPv6KnownRange {
 
 		//@formatter:off
-		/**
-		 * ::/128 - RFC 4291
-		 */
-		UNSPECIFIED(Ipv6Subnet.of("::/128")),
-		/**
-		 * ::1/128 - RFC 4291
-		 */
-		LOOPBACK(Ipv6Subnet.of("::1/128")),
+        /**
+         * ::/128 - RFC 4291
+         */
+        UNSPECIFIED(Ipv6Subnet.of("::/128")),
+        /**
+         * ::1/128 - RFC 4291
+         */
+        LOOPBACK(Ipv6Subnet.of("::1/128")),
 
-		/**
-		 * 100::/64 - RFC 6666
-		 */
-		DISCARD(Ipv6Subnet.of("100::/64")),
-		/**
-		 * 2001:10::/28 - RFC 4843
-		 */
-		ORCHID(Ipv6Subnet.of("2001:10::/28")),
-		/**
-		 * 2001:20::/28
-		 */
-		ORCHID_2(Ipv6Subnet.of("2001:20::/28")),
-		/**
-		 * 2001:db8::/32 - RFC 3849
-		 */
-		DOCUMENTATION(Ipv6Subnet.of("2001:db8::/32")),
+        /**
+         * 100::/64 - RFC 6666
+         */
+        DISCARD(Ipv6Subnet.of("100::/64")),
+        /**
+         * 2001:10::/28 - RFC 4843
+         */
+        ORCHID(Ipv6Subnet.of("2001:10::/28")),
+        /**
+         * 2001:20::/28
+         */
+        ORCHID_2(Ipv6Subnet.of("2001:20::/28")),
+        /**
+         * 2001:db8::/32 - RFC 3849
+         */
+        DOCUMENTATION(Ipv6Subnet.of("2001:db8::/32")),
 
-		/**
-		 * ::/96 - RFC 4291
-		 */
-		IPV4_COMPATIBLE_IPV6_DEPRECATED(Ipv6Subnet.of("::/96")),
-		/**
-		 * ::ffff:0:0/96 - RFC 4291
-		 */
-		IPV4_MAPPED_IPV6(Ipv6Subnet.of("::ffff:0:0/96")),
-		/**
-		 * 64:ff9b::/96 - RFC 6052
-		 */
-		IPV4_IPV6_TRANSLATION_WELL_KNOWN(Ipv6Subnet.of("64:ff9b::/96")),
-		/**
-		 * 2002::/16 - RFC 3056
-		 */
-		TRANSLATION_6_TO_4(Ipv6Subnet.of("2002::/16")),
-		/**
-		 * 2001:0000:/32 - RFC 4380
-		 */
-		TEREDO(Ipv6Subnet.of("2001::/32")),
+        /**
+         * ::/96 - RFC 4291
+         */
+        IPV4_COMPATIBLE_IPV6_DEPRECATED(Ipv6Subnet.of("::/96")),
+        /**
+         * ::ffff:0:0/96 - RFC 4291
+         */
+        IPV4_MAPPED_IPV6(Ipv6Subnet.of("::ffff:0:0/96")),
+        /**
+         * 64:ff9b::/96 - RFC 6052
+         */
+        IPV4_IPV6_TRANSLATION_WELL_KNOWN(Ipv6Subnet.of("64:ff9b::/96")),
+        /**
+         * 2002::/16 - RFC 3056
+         */
+        TRANSLATION_6_TO_4(Ipv6Subnet.of("2002::/16")),
+        /**
+         * 2001:0000:/32 - RFC 4380
+         */
+        TEREDO(Ipv6Subnet.of("2001::/32")),
 
-		/**
-		 * fc00::/7 - RFC 4193
-		 */
-		ULA(Ipv6Subnet.of("fc00::/7")),
+        /**
+         * fc00::/7 - RFC 4193
+         */
+        ULA(Ipv6Subnet.of("fc00::/7")),
 
-		/**
-		 * ff00::/8 - RFC 4291
-		 */
-		MULTICAST(Ipv6Subnet.of("ff00::/8")),
-		/**
-		 * ff0e::/16 - RFC 4291
-		 */
-		GLOBAL_MULTICAST(Ipv6Subnet.of("ff0e::/16")),
-		/**
-		 * ff05::/16 - RFC 4291
-		 */
-		SITE_LOCAL_MULTICAST(Ipv6Subnet.of("ff05::/16")),
-		/**
-		 * ff02::/16 - RFC 4291
-		 */
-		LINK_LOCAL_MULTICAST(Ipv6Subnet.of("ff02::/16")),
-		/**
-		 * ff01::/16 - RFC 4291
-		 */
-		INTERFACE_LOCAL_MULTICAST(Ipv6Subnet.of("ff01::/16")),
+        /**
+         * ff00::/8 - RFC 4291
+         */
+        MULTICAST(Ipv6Subnet.of("ff00::/8")),
+        /**
+         * ff0e::/16 - RFC 4291
+         */
+        GLOBAL_MULTICAST(Ipv6Subnet.of("ff0e::/16")),
+        /**
+         * ff05::/16 - RFC 4291
+         */
+        SITE_LOCAL_MULTICAST(Ipv6Subnet.of("ff05::/16")),
+        /**
+         * ff02::/16 - RFC 4291
+         */
+        LINK_LOCAL_MULTICAST(Ipv6Subnet.of("ff02::/16")),
+        /**
+         * ff01::/16 - RFC 4291
+         */
+        INTERFACE_LOCAL_MULTICAST(Ipv6Subnet.of("ff01::/16")),
 
-		/**
-		 * 2000::/3 - RFC 3587
-		 */
-		GLOBAL_UNICAST(Ipv6Subnet.of("2000::/3")),
-		/**
-		 * fe80::/10 - RFC 4291
-		 */
-		LINK_LOCAL_UNICAST(Ipv6Subnet.of("fe80::/10")),
-		/**
-		 * fec::/10 - RFC 4291
-		 */
-		SITE_LOCAL_UNICAST_DEPRECATED(Ipv6Subnet.of("fec::/10"));
-		//@formatter:on
+        /**
+         * 2000::/3 - RFC 3587
+         */
+        GLOBAL_UNICAST(Ipv6Subnet.of("2000::/3")),
+        /**
+         * fe80::/10 - RFC 4291
+         */
+        LINK_LOCAL_UNICAST(Ipv6Subnet.of("fe80::/10")),
+        /**
+         * fec::/10 - RFC 4291
+         */
+        SITE_LOCAL_UNICAST_DEPRECATED(Ipv6Subnet.of("fec::/10"));
+        //@formatter:on
 
 		private final Ipv6Range range;
 
-		private IPv6KnownRange(Ipv6Range subnet) {
+		IPv6KnownRange(final Ipv6Range subnet) {
 			this.range = subnet;
 		}
 
-		public boolean contains(Ipv6Address address) {
+		public boolean contains(final Ipv6Address address) {
 			return this.range.contains(address);
 		}
 
@@ -123,22 +123,22 @@ public class Ipv6Address implements IpAddress {
 	/**
 	 * Enum for extracting 16-bit shorts from 64-bit longs
 	 */
-	protected static enum LongShort {
+	protected enum LongShort {
 		SHORT_A(0), SHORT_B(1), SHORT_C(2), SHORT_D(3);
 
 		private final long mask;
 		private final int shift;
 
-		private LongShort(int shortShift) {
+		LongShort(final int shortShift) {
 			this.shift = 48 - (shortShift << 4);
 			this.mask = 0xffff000000000000L >>> (shortShift << 4);
 		}
 
-		public long isolateAsLong(long l) {
+		public long isolateAsLong(final long l) {
 			return (l & this.mask) >>> this.shift;
 		}
 
-		public int isolateAsInt(long l) {
+		public int isolateAsInt(final long l) {
 			return (int) isolateAsLong(l);
 		}
 	}
@@ -146,30 +146,30 @@ public class Ipv6Address implements IpAddress {
 	/**
 	 * Enum for extracting bytes from 64-bit longs
 	 */
-	protected static enum LongByte {
+	protected enum LongByte {
 		BYTE_A(0), BYTE_B(1), BYTE_C(2), BYTE_D(3), BYTE_E(4), BYTE_F(5), BYTE_G(6), BYTE_H(7);
 
 		private final long mask;
 		private final int shift;
 
-		private LongByte(int shortShift) {
+		LongByte(final int shortShift) {
 			this.shift = 56 - (shortShift << 3);
 			this.mask = 0xff00000000000000L >>> (shortShift << 3);
 		}
 
-		public long isolateAsLong(long l) {
+		public long isolateAsLong(final long l) {
 			return (l & this.mask) >>> this.shift;
 		}
 
-		public byte isolateAsByte(long l) {
+		public byte isolateAsByte(final long l) {
 			return (byte) isolateAsLong(l);
 		}
 
-		public long expand(byte b) {
+		public long expand(final byte b) {
 			return (b & 0xffL) << this.shift;
 		}
 
-		static long extractLong(byte[] bigEndianByteArr, int offset) {
+		static long extractLong(final byte[] bigEndianByteArr, final int offset) {
 			return LongByte.BYTE_A.expand(bigEndianByteArr[offset])
 					| LongByte.BYTE_B.expand(bigEndianByteArr[offset + 1])
 					| LongByte.BYTE_C.expand(bigEndianByteArr[offset + 2])
@@ -199,11 +199,11 @@ public class Ipv6Address implements IpAddress {
 	 * @param lower lower 64 bits of the IPv6Address
 	 * @return new IPv6Address instance
 	 */
-	public static Ipv6Address of(long upper, long lower) {
+	public static Ipv6Address of(final long upper, final long lower) {
 		return new Ipv6Address(upper, lower);
 	}
 
-	protected static void verifyArray(byte[] bigEndianByteArr) {
+	protected static void verifyArray(final byte[] bigEndianByteArr) {
 		if (bigEndianByteArr == null) {
 			throw new NullPointerException();
 		}
@@ -219,7 +219,7 @@ public class Ipv6Address implements IpAddress {
 	 * @param bigEndianByteArr 16 byte big-endian byte array
 	 * @return new IPv6Address instance
 	 */
-	public static Ipv6Address of(byte[] bigEndianByteArr) {
+	public static Ipv6Address of(final byte[] bigEndianByteArr) {
 		verifyArray(bigEndianByteArr);
 		return new Ipv6Address(LongByte.extractLong(bigEndianByteArr, 0), LongByte.extractLong(bigEndianByteArr, 8));
 	}
@@ -230,7 +230,7 @@ public class Ipv6Address implements IpAddress {
 	 * @param address
 	 * @return new IPv6Address instance
 	 */
-	public static Ipv6Address of(Inet6Address address) {
+	public static Ipv6Address of(final Inet6Address address) {
 		if (address.getScopeId() == 0 && address.getScopedInterface() == null) {
 			return of(address.getAddress());
 		}
@@ -245,7 +245,7 @@ public class Ipv6Address implements IpAddress {
 	 * @param address
 	 * @return new IPv6Address instance
 	 */
-	public static Ipv6Address of(String address) {
+	public static Ipv6Address of(final String address) {
 		// This (over-engineered) method parses and validates an IPv6 address in
 		// String form in a single pass using only primitive types (except the
 		// zone String).
@@ -282,18 +282,18 @@ public class Ipv6Address implements IpAddress {
 		}
 		String zone = null;
 		for (int i = last - 1; i > first; i--) {
-			char ch = address.charAt(i);
+			final char ch = address.charAt(i);
 			if (ch == ':') { // Looks like a normal address, carry on parsing
 				break;
 			}
 			if (ch == '%') { // This is a zoned address - take out the zone and
-								// move the "last" index
+				// move the "last" index
 				zone = address.substring(i + 1, last); // skip the "%" itself
 				last = i;
 				break;
 			}
 		}
-		int length = last - first;
+		final int length = last - first;
 		if (length > 39) {
 			throw new IllegalArgumentException(
 					String.format("Invalid length - the string %s is too long to be an IPv6 address. Length: %d",
@@ -301,20 +301,20 @@ public class Ipv6Address implements IpAddress {
 		}
 
 		//@formatter:off
-		//Holders
-		long partAccumulator = 0; // Accumulator for the current address part, before it's added to the upper/lower accumulators
-		long upperAccumulator = 0, lowerAccumulator = 0; //Accumulators for the upper and lower 64 bit parts of the address
-		//Indexes
-		int partIndex = 0; //Index of the current 16 bit part - should be 0 to 7
-		int afterDoubleSemicolonIndex = last + 2; //Index after :: characters. Originally set past the string length
-		//Counters
-		int partCount = 1; //Total number of 16 bit address parts, for address verification
-		int partHexDigitCount = 0; //Number of hex digits in current 16 bit part (should be up to 4)
-		//@formatter:on
+        //Holders
+        long partAccumulator = 0; // Accumulator for the current address part, before it's added to the upper/lower accumulators
+        long upperAccumulator = 0, lowerAccumulator = 0; //Accumulators for the upper and lower 64 bit parts of the address
+        //Indexes
+        int partIndex = 0; //Index of the current 16 bit part - should be 0 to 7
+        int afterDoubleSemicolonIndex = last + 2; //Index after :: characters. Originally set past the string length
+        //Counters
+        int partCount = 1; //Total number of 16 bit address parts, for address verification
+        int partHexDigitCount = 0; //Number of hex digits in current 16 bit part (should be up to 4)
+        //@formatter:on
 
 		// 2. Iterate start to finish or until a :: is encountered
 		for (int i = first; i < last; i++) {
-			char c = address.charAt(i);
+			final char c = address.charAt(i);
 			if (isHexDigit(c)) {
 				if (++partHexDigitCount > 4) {
 					throw new IllegalArgumentException(
@@ -347,10 +347,10 @@ public class Ipv6Address implements IpAddress {
 		}
 
 		// 3. Iterate from the end until the ::
-		int lastFilledPartIndex = partIndex - 1;
+		final int lastFilledPartIndex = partIndex - 1;
 		partIndex = 7;
 		for (int i = last - 1; i >= afterDoubleSemicolonIndex; i--) {
-			char c = address.charAt(i);
+			final char c = address.charAt(i);
 			if (isHexDigit(c)) {
 				if (partIndex <= lastFilledPartIndex) {
 					throw new IllegalArgumentException("Too many parts. Expected 8 parts");
@@ -395,54 +395,54 @@ public class Ipv6Address implements IpAddress {
 				: new ZonedIpv6Address(upperAccumulator, lowerAccumulator, zone);
 	}
 
-	protected static boolean isHexDigit(char c) {
+	protected static boolean isHexDigit(final char c) {
 		return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
 	}
 
-	protected static int unsignedCompare(long a, long b) {
+	protected static int unsignedCompare(final long a, final long b) {
 		if (a == b) {
 			return 0;
 		}
 		return (a + Long.MIN_VALUE) < (b + Long.MIN_VALUE) ? -1 : 1;
 	}
 
-	static boolean hasCarry(long a, long b, long result) {
-		long aMSB = a >>> 63;
-		long bMSB = b >>> 63;
-		long resutlMSB = result >>> 63;
+	static boolean hasCarry(final long a, final long b, final long result) {
+		final long aMSB = a >>> 63;
+		final long bMSB = b >>> 63;
+		final long resutlMSB = result >>> 63;
 
 		/* @formatter:off
-		 * a b r Carry
-		 * 0 0 0 0
-		 * 0 0 1 0
-		 * 0 1 0 1
-		 * 0 1 1 0
-		 * 1 0 0 1
-		 * 1 0 1 0
-		 * 1 1 0 1
-		 * 1 1 1 1
-		 * @formatter:on
-		 */
+         * a b r Carry
+         * 0 0 0 0
+         * 0 0 1 0
+         * 0 1 0 1
+         * 0 1 1 0
+         * 1 0 0 1
+         * 1 0 1 0
+         * 1 1 0 1
+         * 1 1 1 1
+         * @formatter:on
+         */
 		return ((aMSB & bMSB) == 1) || ((aMSB ^ bMSB) == 1 && resutlMSB == 0);
 	}
 
-	static boolean hasBorrow(long a, long b, long result) {
-		long aMSB = a >>> 63;
-		long bMSB = b >>> 63;
-		long resutlMSB = result >>> 63;
+	static boolean hasBorrow(final long a, final long b, final long result) {
+		final long aMSB = a >>> 63;
+		final long bMSB = b >>> 63;
+		final long resutlMSB = result >>> 63;
 
 		/* @formatter:off
-		 * a b r Borrow
-		 * 0 0 0 0
-		 * 0 0 1 1
-		 * 0 1 0 1
-		 * 0 1 1 1
-		 * 1 0 0 0
-		 * 1 0 1 0
-		 * 1 1 0 0
-		 * 1 1 1 1
-		 * @formatter:on
-		 */
+         * a b r Borrow
+         * 0 0 0 0
+         * 0 0 1 1
+         * 0 1 0 1
+         * 0 1 1 1
+         * 1 0 0 0
+         * 1 0 1 0
+         * 1 1 0 0
+         * 1 1 1 1
+         * @formatter:on
+         */
 		return ((aMSB & bMSB & resutlMSB) == 1) || (aMSB == 0 && (bMSB | resutlMSB) == 1);
 	}
 
@@ -456,14 +456,14 @@ public class Ipv6Address implements IpAddress {
 	 * @param upper upper 64 bits of the IPv6Address
 	 * @param lower lower 64 bits of the IPv6Address
 	 */
-	public Ipv6Address(long upper, long lower) {
+	public Ipv6Address(final long upper, final long lower) {
 		this.upper = upper;
 		this.lower = lower;
 	}
 
 	@Override
 	public int hashCode() {
-		int prime = 31;
+		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (this.lower ^ (this.lower >>> 32));
 		result = prime * result + (int) (this.upper ^ (this.upper >>> 32));
@@ -471,7 +471,7 @@ public class Ipv6Address implements IpAddress {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -481,7 +481,7 @@ public class Ipv6Address implements IpAddress {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Ipv6Address other = (Ipv6Address) obj;
+		final Ipv6Address other = (Ipv6Address) obj;
 		if (this.lower != other.lower) {
 			return false;
 		}
@@ -582,11 +582,11 @@ public class Ipv6Address implements IpAddress {
 	 * @param n
 	 * @return an address larger by n
 	 */
-	public Ipv6Address plus(long n) {
+	public Ipv6Address plus(final long n) {
 		if (n < 0) {
 			return minus(-n);
 		}
-		long newLower = this.lower + n;
+		final long newLower = this.lower + n;
 		long newUpper = this.upper;
 
 		if (hasCarry(this.lower, n, newLower)) {
@@ -597,7 +597,7 @@ public class Ipv6Address implements IpAddress {
 	}
 
 	@Override
-	public Ipv6Address plus(int n) {
+	public Ipv6Address plus(final int n) {
 		return plus((long) n);
 	}
 
@@ -607,7 +607,7 @@ public class Ipv6Address implements IpAddress {
 	}
 
 	@Override
-	public Ipv6Address minus(int n) {
+	public Ipv6Address minus(final int n) {
 		return minus((long) n);
 	}
 
@@ -617,11 +617,11 @@ public class Ipv6Address implements IpAddress {
 	 * @param n
 	 * @return an address smaller by n
 	 */
-	public Ipv6Address minus(long n) {
+	public Ipv6Address minus(final long n) {
 		if (n < 0) {
 			return plus(-n);
 		}
-		long newLower = this.lower - n;
+		final long newLower = this.lower - n;
 		long newUpper = this.upper;
 
 		// If there's a borrow from the lower addition
@@ -656,7 +656,7 @@ public class Ipv6Address implements IpAddress {
 	}
 
 	@Override
-	public int compareTo(IpAddress o) {
+	public int compareTo(final IpAddress o) {
 		if (o == null) {
 			return 1; // Bigger than null
 		}
@@ -669,8 +669,8 @@ public class Ipv6Address implements IpAddress {
 		return longCompare(other);
 	}
 
-	protected int longCompare(Ipv6Address o) {
-		int upperCompare = unsignedCompare(this.upper, o.upper);
+	protected int longCompare(final Ipv6Address o) {
+		final int upperCompare = unsignedCompare(this.upper, o.upper);
 		return (upperCompare == 0) ? unsignedCompare(this.lower, o.lower) : upperCompare;
 	}
 
@@ -697,7 +697,7 @@ public class Ipv6Address implements IpAddress {
 
 	/**
 	 * does this address have a specific zone?
-	 * 
+	 *
 	 * @return false
 	 */
 	public boolean isZoned() {
@@ -708,7 +708,7 @@ public class Ipv6Address implements IpAddress {
 	 * Return this address in /128 subnet form. Note that {@link Ipv6Subnet} is a
 	 * type of {@link Ipv6Range}, so the returned value is also a single address
 	 * range
-	 * 
+	 *
 	 * @return This address as a single /128 subnet
 	 */
 	public Ipv6Subnet toSubnet() {
@@ -719,34 +719,34 @@ public class Ipv6Address implements IpAddress {
 	 * Returns a range between this address and an arbitrary one This method takes
 	 * care of comparing the addresses so they're always passed to the range factory
 	 * in the right order
-	 * 
+	 *
 	 * @return an IPv6Range between this address and a given one
 	 */
-	public Ipv6Range toRange(Ipv6Address address) {
+	public Ipv6Range toRange(final Ipv6Address address) {
 		return this.compareTo(address) < 0 ? Ipv6Range.of(this, address) : Ipv6Range.of(address, this);
 	}
 
 	/**
 	 * Returns true iff the given address is adjacent (above or below) the current
 	 * one
-	 * 
+	 *
 	 * @return true iff the given address is adjacent to this one
 	 */
-	public boolean isAdjacentTo(Ipv6Address other) {
-		BigInteger distance = distanceTo(other);
+	public boolean isAdjacentTo(final Ipv6Address other) {
+		final BigInteger distance = distanceTo(other);
 		return distance.equals(BigInteger.ONE) || distance.equals(NEGATIVE_ONE);
 	}
 
 	/**
 	 * Returns the distance to the given address. If the provided address is bigger,
 	 * the result will be positive. If it's smaller, the result will be negative.
-	 * 
+	 * <p>
 	 * For example, the distance from ::1 to ::3 is 2, the distance from ::3 to ::1
 	 * is -2
-	 * 
+	 *
 	 * @return the distance between this address and the given one
 	 */
-	public BigInteger distanceTo(Ipv6Address other) {
+	public BigInteger distanceTo(final Ipv6Address other) {
 		return other.toBigInteger().subtract(this.toBigInteger());
 	}
 
@@ -754,10 +754,10 @@ public class Ipv6Address implements IpAddress {
 	 * Returns the address which is the results of a bitwise AND between this
 	 * address and the given one. This operation is useful for masking and various
 	 * low level bit manipulation
-	 * 
+	 *
 	 * @return a bitwise AND between this address and the given one
 	 */
-	public Ipv6Address and(Ipv6Address other) {
+	public Ipv6Address and(final Ipv6Address other) {
 		return Ipv6Address.of(this.upper & other.upper, this.lower & other.lower);
 	}
 
@@ -765,10 +765,10 @@ public class Ipv6Address implements IpAddress {
 	 * Returns the address which is the results of a bitwise OR between this address
 	 * and the given one. This operation is useful for masking and various low level
 	 * bit manipulation
-	 * 
+	 *
 	 * @return a bitwise OR between this address and the given one
 	 */
-	public Ipv6Address or(Ipv6Address other) {
+	public Ipv6Address or(final Ipv6Address other) {
 		return Ipv6Address.of(this.upper | other.upper, this.lower | other.lower);
 	}
 
@@ -776,17 +776,17 @@ public class Ipv6Address implements IpAddress {
 	 * Returns the address which is the results of a bitwise XOR between this
 	 * address and the given one. This operation is useful for masking and various
 	 * low level bit manipulation
-	 * 
+	 *
 	 * @return a bitwise XOR between this address and the given one
 	 */
-	public Ipv6Address xor(Ipv6Address other) {
+	public Ipv6Address xor(final Ipv6Address other) {
 		return Ipv6Address.of(this.upper ^ other.upper, this.lower ^ other.lower);
 	}
 
 	/**
 	 * Returns the address which is the results of a bitwise NOT of this address
 	 * This operation is useful for masking and various low level bit manipulation
-	 * 
+	 *
 	 * @return a bitwise NOT of this address
 	 */
 	public Ipv6Address not() {

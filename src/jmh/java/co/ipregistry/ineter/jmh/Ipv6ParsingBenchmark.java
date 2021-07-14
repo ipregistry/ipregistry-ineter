@@ -43,26 +43,26 @@ public class Ipv6ParsingBenchmark {
 	}
 
 	@Benchmark
-	public void ineterParsing(Blackhole hole) {
-		for (String addr : this.addresses) {
+	public void ineterParsing(final Blackhole hole) {
+		for (final String addr : this.addresses) {
 			hole.consume(Ipv6Address.of(addr));
 		}
 	}
 
 	@Benchmark
-	public void inetAddressParsing(Blackhole hole) {
-		for (String addr : this.addresses) {
+	public void inetAddressParsing(final Blackhole hole) {
+		for (final String addr : this.addresses) {
 			try {
 				hole.consume(InetAddress.getAllByName(addr));
-			} catch (UnknownHostException e) {
+			} catch (final UnknownHostException e) {
 				//
 			}
 		}
 	}
 
 	@Benchmark
-	public void guavaAddressParsing(Blackhole hole) {
-		for (String addr : this.addresses) {
+	public void guavaAddressParsing(final Blackhole hole) {
+		for (final String addr : this.addresses) {
 			hole.consume(InetAddresses.forString(addr));
 		}
 	}

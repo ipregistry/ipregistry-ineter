@@ -28,7 +28,7 @@ public interface IpAddress extends Comparable<IpAddress>, Serializable {
 	 * @return new IPv4Address / IPv6Address
 	 * @throws IllegalArgumentException if the given array isn't 4 or 16 bytes long
 	 */
-	public static IpAddress of(byte[] bigEndianByteArr) {
+	static IpAddress of(final byte[] bigEndianByteArr) {
 		if (bigEndianByteArr.length == Ipv4Address.ADDRESS_BYTES) {
 			return Ipv4Address.of(bigEndianByteArr);
 		}
@@ -47,12 +47,12 @@ public interface IpAddress extends Comparable<IpAddress>, Serializable {
 	 * @throws IllegalArgumentException if the given array isn't an IPv4/IPv6
 	 *                                  address
 	 */
-	public static IpAddress of(String ip) {
+	static IpAddress of(final String ip) {
 		if (ip.length() >= 2 && ip.length() <= 41) {
 			// Either a "." or ":" have to appear within the first 6 characters:
 			// [1234: or 123.
 			for (int i = 0; i < 6; i++) {
-				char c = ip.charAt(i);
+				final char c = ip.charAt(i);
 				if (c == '.') {
 					return Ipv4Address.of(ip);
 				}
@@ -70,7 +70,7 @@ public interface IpAddress extends Comparable<IpAddress>, Serializable {
 	 * @param address to copy from
 	 * @return IPv4Address or IPv6Address instance
 	 */
-	public static IpAddress of(InetAddress address) {
+	static IpAddress of(final InetAddress address) {
 		if (address instanceof Inet6Address) {
 			return Ipv6Address.of((Inet6Address) address);
 		}
@@ -78,11 +78,11 @@ public interface IpAddress extends Comparable<IpAddress>, Serializable {
 		return Ipv4Address.of((Inet4Address) address);
 	}
 
-	public static <C extends IpAddress> C max(C a, C b) {
+	static <C extends IpAddress> C max(final C a, final C b) {
 		return a.compareTo(b) > 0 ? a : b;
 	}
 
-	public static <C extends IpAddress> C min(C a, C b) {
+	static <C extends IpAddress> C min(final C a, final C b) {
 		return a.compareTo(b) < 0 ? a : b;
 	}
 
@@ -91,7 +91,7 @@ public interface IpAddress extends Comparable<IpAddress>, Serializable {
 	 *
 	 * @return true if the give address is a 6to4 address, false otherwise
 	 */
-	public boolean is6To4();
+	boolean is6To4();
 
 	/**
 	 * Martian addresses are reserved and private addresses that should not appear
@@ -99,63 +99,63 @@ public interface IpAddress extends Comparable<IpAddress>, Serializable {
 	 *
 	 * @return true if the address is martian, false otherwise
 	 */
-	public boolean isMartian();
+	boolean isMartian();
 
 	/**
 	 * Checks whether the address is a loopback address
 	 *
 	 * @return true if the address is for a loopback, false otherwise
 	 */
-	public boolean isLoopback();
+	boolean isLoopback();
 
 	/**
 	 * Checks whether the address is part of a range reserved for multicast
 	 *
 	 * @return true if the address is reserved for multicast, false otherwise
 	 */
-	public boolean isMulticast();
+	boolean isMulticast();
 
 	/**
 	 * Checks whether the address is private
 	 *
 	 * @return true if the address is private, false otherwise
 	 */
-	public boolean isPrivate();
+	boolean isPrivate();
 
 	/**
 	 * Checks whether the address part of a reserved range
 	 *
 	 * @return true if the address is part of a reserved range, false otherwise
 	 */
-	public boolean isReserved();
+	boolean isReserved();
 
 	/**
 	 * Checks whether the address is "unspecified"
 	 *
 	 * @return true if the address is "unspecified", false otherwise
 	 */
-	public boolean isUnspecified();
+	boolean isUnspecified();
 
 	/**
 	 * Checks whether the address is link-local
 	 *
 	 * @return true if the address is link-local, false otherwise
 	 */
-	public boolean isLinkLocal();
+	boolean isLinkLocal();
 
 	/**
 	 * Returns the version of the IP address
 	 *
 	 * @return 4 for IPv4, 6 for IPv6
 	 */
-	public int version();
+	int version();
 
 	/**
 	 * Returns the following address, with wraparound
 	 *
 	 * @return the address following this one
 	 */
-	public IpAddress next();
+	IpAddress next();
 
 	/**
 	 * Return an address larger than the current one by n, with wraparound
@@ -163,14 +163,14 @@ public interface IpAddress extends Comparable<IpAddress>, Serializable {
 	 * @param n
 	 * @return an address larger by n
 	 */
-	public IpAddress plus(int n);
+	IpAddress plus(int n);
 
 	/**
 	 * Returns the previous address, with wraparound
 	 *
 	 * @return the address before this one
 	 */
-	public IpAddress previous();
+	IpAddress previous();
 
 	/**
 	 * Return an address smaller than the current one by n, with wraparound
@@ -178,21 +178,21 @@ public interface IpAddress extends Comparable<IpAddress>, Serializable {
 	 * @param n
 	 * @return an address smaller by n
 	 */
-	public IpAddress minus(int n);
+	IpAddress minus(int n);
 
 	/**
 	 * The address as an array of bytes, with the highest byte first
 	 *
 	 * @return big-endian byte array
 	 */
-	public byte[] toBigEndianArray();
+	byte[] toBigEndianArray();
 
 	/**
 	 * The address as an array of bytes, with the highest byte last
 	 *
 	 * @return little-endian byte array
 	 */
-	public byte[] toLittleEndianArray();
+	byte[] toLittleEndianArray();
 
 	/**
 	 * The address as an array of bytes, with the highest byte first
@@ -229,7 +229,7 @@ public interface IpAddress extends Comparable<IpAddress>, Serializable {
 	default InetAddress toInetAddress() {
 		try {
 			return InetAddress.getByAddress(toBigEndianArray());
-		} catch (UnknownHostException e) {
+		} catch (final UnknownHostException e) {
 			throw new RuntimeException(e);
 		}
 	}

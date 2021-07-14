@@ -42,21 +42,21 @@ public class Ipv4RangeTest {
 
 	@Test
 	void ofAddress() {
-		Ipv4Range range = Ipv4Range.of(Ipv4Address.of("1.2.3.4"), Ipv4Address.of("5.4.3.2"));
+		final Ipv4Range range = Ipv4Range.of(Ipv4Address.of("1.2.3.4"), Ipv4Address.of("5.4.3.2"));
 		assertEquals(range.getFirst(), Ipv4Address.of("1.2.3.4"));
 		assertEquals(range.getLast(), Ipv4Address.of("5.4.3.2"));
 	}
 
 	@Test
 	void ofString() {
-		Ipv4Range range = Ipv4Range.of("1.2.3.4", "5.4.3.2");
+		final Ipv4Range range = Ipv4Range.of("1.2.3.4", "5.4.3.2");
 		assertEquals(range.getFirst(), Ipv4Address.of("1.2.3.4"));
 		assertEquals(range.getLast(), Ipv4Address.of("5.4.3.2"));
 	}
 
 	@Test
 	void ofInetAddress() throws UnknownHostException {
-		Ipv4Range range = Ipv4Range.of((Inet4Address) InetAddress.getByName("1.2.3.4"),
+		final Ipv4Range range = Ipv4Range.of((Inet4Address) InetAddress.getByName("1.2.3.4"),
 				(Inet4Address) InetAddress.getByName("5.4.3.2"));
 		assertEquals(range.getFirst(), Ipv4Address.of("1.2.3.4"));
 		assertEquals(range.getLast(), Ipv4Address.of("5.4.3.2"));
@@ -64,7 +64,7 @@ public class Ipv4RangeTest {
 
 	@Test
 	void ofArray() {
-		Ipv4Range range = Ipv4Range.of(new byte[] { 1, 2, 3, 4 }, new byte[] { 5, 4, 3, 2 });
+		final Ipv4Range range = Ipv4Range.of(new byte[] { 1, 2, 3, 4 }, new byte[] { 5, 4, 3, 2 });
 		assertEquals(range.getFirst(), Ipv4Address.of("1.2.3.4"));
 		assertEquals(range.getLast(), Ipv4Address.of("5.4.3.2"));
 	}
@@ -82,7 +82,7 @@ public class Ipv4RangeTest {
 
 	@Test
 	void parse() {
-		Ipv4Range range = Ipv4Range.parse("1.2.3.4-5.4.3.2");
+		final Ipv4Range range = Ipv4Range.parse("1.2.3.4-5.4.3.2");
 		assertEquals(range.getFirst(), Ipv4Address.of("1.2.3.4"));
 		assertEquals(range.getLast(), Ipv4Address.of("5.4.3.2"));
 		assertTrue(range.toString().contains("1.2.3.4"));
@@ -92,49 +92,49 @@ public class Ipv4RangeTest {
 	@ParameterizedTest
 	@CsvSource({ "1.2.3.4,2.3.4.5,1.2.3.4", "0.0.0.0,255.255.255.255,255.255.255.255",
 			"127.0.0.0,127.255.255.255,127.1.2.3" })
-	void contains(String start, String end, String parse) {
+	void contains(final String start, final String end, final String parse) {
 		assertTrue(Ipv4Range.parse(start + "-" + end).contains(Ipv4Address.of(parse)));
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "1.2.3.4,2.3.4.5,1.2.3.2", "0.0.0.0,127.255.255.255,255.255.255.255",
 			"127.0.0.0,127.255.255.255,128.0.0.0" })
-	void notContains(String start, String end, String parse) {
+	void notContains(final String start, final String end, final String parse) {
 		assertFalse(Ipv4Range.parse(start + "-" + end).contains(Ipv4Address.of(parse)));
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "1.2.3.4,2.3.4.5,1.2.4.0/24", "0.0.0.0,255.255.255.255,0.0.0.0/0",
 			"127.0.0.0,127.255.255.255,127.0.0.0/16" })
-	void containsRange(String start, String end, String parse) {
+	void containsRange(final String start, final String end, final String parse) {
 		assertTrue(Ipv4Range.parse(start + "-" + end).contains(Ipv4Subnet.of(parse)));
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "1.2.3.4,2.3.4.5,1.2.3.0/24", "0.0.0.1,255.255.255.255,0.0.0.0/0",
 			"127.0.0.0,127.255.255.255,127.0.0.0/7" })
-	void notContainsRange(String start, String end, String parse) {
+	void notContainsRange(final String start, final String end, final String parse) {
 		assertFalse(Ipv4Range.parse(start + "-" + end).contains(Ipv4Subnet.of(parse)));
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "1.2.3.4,2.3.4.5,1.0.0.0-1.2.3.5", "0.0.0.0,255.255.255.255,1.2.3.4-1.2.3.4",
 			"127.0.0.0,127.255.255.255,0.0.0.0-128.0.0.0" })
-	void overlaps(String start, String end, String parse) {
+	void overlaps(final String start, final String end, final String parse) {
 		assertTrue(Ipv4Range.parse(start + "-" + end).overlaps(Ipv4Range.parse(parse)));
 	}
 
 	@ParameterizedTest
 	@CsvSource({ "1.2.3.4,2.3.4.5,128.0.0.0-128.2.3.5", "0.0.0.1,255.255.255.255,0.0.0.0-0.0.0.0",
 			"127.0.0.0,127.255.255.255,128.0.0.0-255.255.255.255" })
-	void notOverlaps(String start, String end, String parse) {
+	void notOverlaps(final String start, final String end, final String parse) {
 		assertFalse(Ipv4Range.parse(start + "-" + end).overlaps(Ipv4Range.parse(parse)));
 	}
 
 	@Test
 	void equal() {
-		Ipv4Range range1 = Ipv4Range.parse("192.168.0.0-192.168.255.255");
-		Ipv4Range range2 = Ipv4Range.of(Ipv4Address.of("192.168.0.0"), Ipv4Address.of("192.168.255.255"));
+		final Ipv4Range range1 = Ipv4Range.parse("192.168.0.0-192.168.255.255");
+		final Ipv4Range range2 = Ipv4Range.of(Ipv4Address.of("192.168.0.0"), Ipv4Address.of("192.168.255.255"));
 
 		assertEquals(range1, range1);
 		assertEquals(range2, range2);
@@ -145,15 +145,15 @@ public class Ipv4RangeTest {
 
 	@Test
 	void notEqual() {
-		Ipv4Range range1 = Ipv4Range.parse("192.168.0.0-192.168.255.255");
-		Ipv4Range range2 = Ipv4Range.of(Ipv4Address.of("10.0.0.0"), Ipv4Address.of("10.255.255.255"));
+		final Ipv4Range range1 = Ipv4Range.parse("192.168.0.0-192.168.255.255");
+		final Ipv4Range range2 = Ipv4Range.of(Ipv4Address.of("10.0.0.0"), Ipv4Address.of("10.255.255.255"));
 
 		assertNotEquals(range1, range2);
 	}
 
 	@Test
 	void unequalToNull() {
-		Ipv4Range range1 = Ipv4Range.parse("192.168.0.0-192.168.255.255");
+		final Ipv4Range range1 = Ipv4Range.parse("192.168.0.0-192.168.255.255");
 		assertFalse(range1.equals(null));
 	}
 
@@ -164,23 +164,23 @@ public class Ipv4RangeTest {
 
 	@ParameterizedTest
 	@CsvSource({ "0.0.0.0-255.255.255.255,100000000", "10.0.0.0-10.0.0.255,100", "10.0.0.1-10.0.0.1,1" })
-	void length(String parse, String length) {
+	void length(final String parse, final String length) {
 		assertEquals(Ipv4Range.parse(parse).length().longValue(), Long.parseLong(length, 16));
 	}
 
 	@Test
 	void iterationOrder() {
-		ArrayList<Ipv4Address> itemList = new ArrayList<>();
+		final ArrayList<Ipv4Address> itemList = new ArrayList<>();
 		Ipv4Range.of("127.255.255.0", "128.0.0.1").iterator().forEachRemaining(itemList::add);
 
 		assertEquals(258, itemList.size());
 		assertEquals(itemList.get(0), Ipv4Address.of("127.255.255.0"));
 		assertEquals(itemList.get(itemList.size() - 1), Ipv4Address.of("128.0.0.1"));
 
-		ListIterator<Ipv4Address> listIterator = itemList.listIterator();
+		final ListIterator<Ipv4Address> listIterator = itemList.listIterator();
 		Ipv4Address previous = listIterator.next();
 		while (listIterator.hasNext()) {
-			Ipv4Address current = listIterator.next();
+			final Ipv4Address current = listIterator.next();
 			assertTrue(current.compareTo(previous) > 0);
 			previous = current;
 		}
@@ -188,17 +188,17 @@ public class Ipv4RangeTest {
 
 	@Test
 	void iterationOrderSkipEdges() {
-		ArrayList<Ipv4Address> itemList = new ArrayList<>();
+		final ArrayList<Ipv4Address> itemList = new ArrayList<>();
 		Ipv4Range.of("127.255.255.0", "128.0.0.1").iterator(true).forEachRemaining(itemList::add);
 
 		assertEquals(256, itemList.size());
 		assertEquals(itemList.get(0), Ipv4Address.of("127.255.255.1"));
 		assertEquals(itemList.get(itemList.size() - 1), Ipv4Address.of("128.0.0.0"));
 
-		ListIterator<Ipv4Address> listIterator = itemList.listIterator();
+		final ListIterator<Ipv4Address> listIterator = itemList.listIterator();
 		Ipv4Address previous = listIterator.next();
 		while (listIterator.hasNext()) {
-			Ipv4Address current = listIterator.next();
+			final Ipv4Address current = listIterator.next();
 			assertTrue(current.compareTo(previous) > 0);
 			previous = current;
 		}
@@ -206,7 +206,7 @@ public class Ipv4RangeTest {
 
 	@Test
 	void iterationLastElement() {
-		Iterator<Ipv4Address> i = Ipv4Range.of("127.255.255.0", "127.255.255.0").iterator();
+		final Iterator<Ipv4Address> i = Ipv4Range.of("127.255.255.0", "127.255.255.0").iterator();
 		assertTrue(i.hasNext());
 		assertEquals(i.next(), Ipv4Address.of("127.255.255.0"));
 		assertThrows(NoSuchElementException.class, () -> i.next());
@@ -214,7 +214,7 @@ public class Ipv4RangeTest {
 
 	@Test
 	void iterationRemove() {
-		Iterator<Ipv4Address> i = Ipv4Range.of("127.255.255.0", "127.255.255.0").iterator();
+		final Iterator<Ipv4Address> i = Ipv4Range.of("127.255.255.0", "127.255.255.0").iterator();
 		assertThrows(UnsupportedOperationException.class, () -> i.remove());
 	}
 
@@ -227,9 +227,10 @@ public class Ipv4RangeTest {
 			"0.0.0.0-255.255.255.255,0.0.0.0/0", "127.255.255.255-128.0.0.1,127.255.255.255/32 128.0.0.0/31",
 			"10.100.0.0-10.255.255.255,10.100.0.0/14 10.104.0.0/13 10.112.0.0/12 10.128.0.0/9",
 			"123.45.67.89-123.45.68.4, 123.45.67.89/32 123.45.67.90/31 123.45.67.92/30 123.45.67.96/27 123.45.67.128/25 123.45.68.0/30 123.45.68.4/32" })
-	void toSubnets(String range, String subnets) {
-		List<Ipv4Subnet> generated = Ipv4Range.parse(range).toSubnets();
-		List<Ipv4Subnet> manual = Arrays.stream(subnets.split(" ")).map(Ipv4Subnet::of).collect(Collectors.toList());
+	void toSubnets(final String range, final String subnets) {
+		final List<Ipv4Subnet> generated = Ipv4Range.parse(range).toSubnets();
+		final List<Ipv4Subnet> manual = Arrays.stream(subnets.split(" ")).map(Ipv4Subnet::of)
+				.collect(Collectors.toList());
 		assertEquals(generated, manual);
 		assertEquals(manual.stream().mapToLong(Ipv4Subnet::length).sum(), Ipv4Range.parse(range).length().longValue());
 	}
@@ -361,7 +362,7 @@ public class Ipv4RangeTest {
 
 	@Test
 	void withRemovedAll() {
-		Ipv4Range subnet = Ipv4Range.parse("10.0.0.0/24");
+		final Ipv4Range subnet = Ipv4Range.parse("10.0.0.0/24");
 		assertEquals(Arrays.asList(subnet), subnet.withRemoved(emptyList()));
 		assertEquals(emptyList(), subnet.withRemoved(subnet));
 		assertEquals(emptyList(), subnet.withRemoved(Ipv4Range.parse("10.0.0.0/8")));
@@ -372,16 +373,16 @@ public class Ipv4RangeTest {
 	@ParameterizedTest
 	@CsvSource({
 	//@formatter:off
-		"10.0.0.1-10.0.0.255, 10.0.0.0/24,  10.0.0.0",
-		"10.0.0.0-10.0.0.254, 10.0.0.0/24 ,10.0.0.255",
-		"10.0.0.128-10.0.0.255, 10.0.0.0/24,10.0.0.0/25",
-		"10.0.0.0-10.0.0.127, 10.0.0.0/24,10.0.0.128/25",
-		"10.0.0.0-10.0.0.99 10.0.0.201-10.0.0.255, 10.0.0.0/24, 10.0.0.100-10.0.0.200",
-		"0.0.0.0-127.255.255.255 129.0.0.0-255.255.255.255, 0.0.0.0/0, 128.0.0.0/8"
-	//@formatter:on
+            "10.0.0.1-10.0.0.255, 10.0.0.0/24,  10.0.0.0",
+            "10.0.0.0-10.0.0.254, 10.0.0.0/24 ,10.0.0.255",
+            "10.0.0.128-10.0.0.255, 10.0.0.0/24,10.0.0.0/25",
+            "10.0.0.0-10.0.0.127, 10.0.0.0/24,10.0.0.128/25",
+            "10.0.0.0-10.0.0.99 10.0.0.201-10.0.0.255, 10.0.0.0/24, 10.0.0.100-10.0.0.200",
+            "0.0.0.0-127.255.255.255 129.0.0.0-255.255.255.255, 0.0.0.0/0, 128.0.0.0/8"
+            //@formatter:on
 	})
-	void withRemovedSingle(String ans, String original, String toExclude) {
-		List<Ipv4Range> ansList = Arrays.stream(ans.trim().split(" ")).map(Ipv4Range::parse)
+	void withRemovedSingle(final String ans, final String original, final String toExclude) {
+		final List<Ipv4Range> ansList = Arrays.stream(ans.trim().split(" ")).map(Ipv4Range::parse)
 				.collect(Collectors.toList());
 		assertEquals(ansList, Ipv4Range.parse(original).withRemoved(Ipv4Range.parse(toExclude)));
 	}
@@ -401,23 +402,23 @@ public class Ipv4RangeTest {
 	@ParameterizedTest
 	@CsvSource({
 	//@formatter:off
-		"10.0.0.128-10.0.0.255, 10.0.0.0/24, 10.0.0.0/25",
-		"10.0.0.0-10.0.0.127, 10.0.0.0/24, 10.0.0.128/25",
-		"10.0.0.0/24, 10.0.0.0/24, 11.0.0.0/24 12.0.0.0/24",
-		"10.0.0.0/24, 10.0.0.0/24, 8.0.0.0/24 7.0.0.0/24",
-		"10.0.0.0/24, 10.0.0.0/24, ",
-		"10.0.0.0/24, 10.0.0.0/24, 1.2.3.4",
-		"10.0.0.1-10.0.0.9 10.0.0.20-10.0.0.249 , 10.0.0.0/24 , 8.0.0.0/24 9.0.0.0-10.0.0.0 10.0.0.10-10.0.0.19 10.0.0.250-255.255.255.255",
-		"10.0.0.20-10.0.0.249, 10.0.0.0/24 , 9.0.0.0-10.0.0.19 10.0.0.250-10.0.0.255",
-		"10.0.0.0-10.0.0.99 10.0.0.101-10.0.0.199 10.0.0.201-10.0.0.255 , 10.0.0.0/24 , 10.0.0.100 10.0.0.200",
-		"10.0.0.0-10.0.0.9 10.0.0.20-10.0.0.249, 10.0.0.0/24, 10.0.0.10-10.0.0.19 10.0.0.250-10.0.0.255 12.0.0.0/24",
-		"10.0.0.0 10.0.0.2 10.0.0.4-10.0.0.199, 10.0.0.0/24, 10.0.0.1 10.0.0.3 10.0.0.200-10.0.1.100" 
-	//@formatter:on
+            "10.0.0.128-10.0.0.255, 10.0.0.0/24, 10.0.0.0/25",
+            "10.0.0.0-10.0.0.127, 10.0.0.0/24, 10.0.0.128/25",
+            "10.0.0.0/24, 10.0.0.0/24, 11.0.0.0/24 12.0.0.0/24",
+            "10.0.0.0/24, 10.0.0.0/24, 8.0.0.0/24 7.0.0.0/24",
+            "10.0.0.0/24, 10.0.0.0/24, ",
+            "10.0.0.0/24, 10.0.0.0/24, 1.2.3.4",
+            "10.0.0.1-10.0.0.9 10.0.0.20-10.0.0.249 , 10.0.0.0/24 , 8.0.0.0/24 9.0.0.0-10.0.0.0 10.0.0.10-10.0.0.19 10.0.0.250-255.255.255.255",
+            "10.0.0.20-10.0.0.249, 10.0.0.0/24 , 9.0.0.0-10.0.0.19 10.0.0.250-10.0.0.255",
+            "10.0.0.0-10.0.0.99 10.0.0.101-10.0.0.199 10.0.0.201-10.0.0.255 , 10.0.0.0/24 , 10.0.0.100 10.0.0.200",
+            "10.0.0.0-10.0.0.9 10.0.0.20-10.0.0.249, 10.0.0.0/24, 10.0.0.10-10.0.0.19 10.0.0.250-10.0.0.255 12.0.0.0/24",
+            "10.0.0.0 10.0.0.2 10.0.0.4-10.0.0.199, 10.0.0.0/24, 10.0.0.1 10.0.0.3 10.0.0.200-10.0.1.100"
+            //@formatter:on
 	})
-	void withRemovedCollection(String ans, String original, String toExclude) {
-		List<Ipv4Range> ansList = Arrays.stream(ans.trim().split(" ")).map(Ipv4Range::parse)
+	void withRemovedCollection(final String ans, final String original, final String toExclude) {
+		final List<Ipv4Range> ansList = Arrays.stream(ans.trim().split(" ")).map(Ipv4Range::parse)
 				.collect(Collectors.toList());
-		List<Ipv4Range> toExcludeList = toExclude == null ? emptyList()
+		final List<Ipv4Range> toExcludeList = toExclude == null ? emptyList()
 				: Arrays.stream(toExclude.trim().split(" ")).map(Ipv4Range::parse).collect(Collectors.toList());
 
 		assertEquals(ansList, Ipv4Range.parse(original).withRemoved(toExcludeList));

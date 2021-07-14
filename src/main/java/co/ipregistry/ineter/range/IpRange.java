@@ -17,10 +17,10 @@ import co.ipregistry.ineter.base.IpAddress;
 
 //@formatter:off
 public interface IpRange<
-		R extends IpRange<R, S, I, L>,
+        R extends IpRange<R, S, I, L>,
         S extends IpSubnet<S, R, I, L>,
-		I extends IpAddress,
-		L extends Number & Comparable<L> > extends Iterable<I>, Serializable {
+        I extends IpAddress,
+        L extends Number & Comparable<L>> extends Iterable<I>, Serializable {
 //@formatter:on
 
 	I getFirst();
@@ -35,7 +35,7 @@ public interface IpRange<
 	 * @param range the range to check for overlap
 	 * @return true if the given range overlaps with this one
 	 */
-	default boolean overlaps(R range) {
+	default boolean overlaps(final R range) {
 		// Either one of the ends of the other range is within this one
 		// Or this range is completely inside the other range. In that case,
 		// it's enough to check just one of the edges of this range
@@ -48,7 +48,7 @@ public interface IpRange<
 	 * @param ip ip to check
 	 * @return true if the given address is inside this range
 	 */
-	default boolean contains(I ip) {
+	default boolean contains(final I ip) {
 		return this.getFirst().compareTo(ip) <= 0 && this.getLast().compareTo(ip) >= 0;
 	}
 
@@ -59,7 +59,7 @@ public interface IpRange<
 	 * @param range range to check
 	 * @return true if the entire given range is contained within this range
 	 */
-	default boolean contains(R range) {
+	default boolean contains(final R range) {
 		return this.contains(range.getFirst()) && this.contains(range.getLast());
 	}
 
@@ -72,9 +72,9 @@ public interface IpRange<
 
 	/**
 	 * Returns the number of addresses in the range
-	 * 
+	 * <p>
 	 * If the number is larger than Integer.MAX_VALUE, returns Integer.MAX_VALUE
-	 * 
+	 *
 	 * @return number of addresses in the range, up to Integer.MAX_VALUE
 	 */
 	int intLength();
@@ -92,7 +92,7 @@ public interface IpRange<
 	 * @param trim set to true to skip first and last addresses
 	 * @return a new iterator instance
 	 */
-	default Iterator<I> iterator(boolean trim) {
+	default Iterator<I> iterator(final boolean trim) {
 		return iterator(trim, trim);
 	}
 
@@ -117,12 +117,12 @@ public interface IpRange<
 	/**
 	 * Returns the list of addresses contained in the range. The list is
 	 * {@link IpRange#intLength()} elements long (up to Integer.MAX_VALUE)
-	 * 
+	 *
 	 * @return The list of addresses contained in the range
 	 */
 	default List<I> toList() {
-		ArrayList<I> list = new ArrayList<>(this.intLength());
-		Iterator<I> iter = this.iterator();
+		final ArrayList<I> list = new ArrayList<>(this.intLength());
+		final Iterator<I> iter = this.iterator();
 		for (int i = 0; i < this.intLength(); i++) {
 			list.add(iter.next());
 		}
@@ -132,7 +132,7 @@ public interface IpRange<
 	/**
 	 * Return a new range instance with the <b>same first address</b> as the current
 	 * range, and <b>the given last address</b>
-	 * 
+	 *
 	 * @return a new range instance
 	 */
 	R withLast(I address);
@@ -140,14 +140,14 @@ public interface IpRange<
 	/**
 	 * Return a new range instance with the <b>same last address</b> as the current
 	 * range, and <b>the given first address</b>
-	 * 
+	 *
 	 * @return a new range instance
 	 */
 	R withFirst(I address);
 
 	/**
 	 * exclude a range from this range
-	 * 
+	 *
 	 * @param exclusion the ranges to exclude from original range
 	 * @return A collection containing remaining ranges. If a range is empty - it
 	 *         will not be in the result.
@@ -156,7 +156,7 @@ public interface IpRange<
 
 	/**
 	 * exclude a range from this range
-	 * 
+	 *
 	 * @param exclusion the range to exclude from original range
 	 * @return A collection containing remaining ranges. If a range is empty - it
 	 *         will not be in the result.

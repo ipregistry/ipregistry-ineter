@@ -30,11 +30,11 @@ public class Ipv6AddressTest {
 
 	@ParameterizedTest
 	@ValueSource(strings = { "::1", "::", "1234:4321:abcd:dcba::" })
-	void equality(String ipStr) {
-		Ipv6Address ip1 = Ipv6Address.of(ipStr);
-		Ipv6Address zonedIp1 = Ipv6Address.of(ipStr + "%foo");
-		Ipv6Address ip2 = Ipv6Address.of(ipStr);
-		Ipv6Address zonedIp2 = Ipv6Address.of(ipStr + "%foo");
+	void equality(final String ipStr) {
+		final Ipv6Address ip1 = Ipv6Address.of(ipStr);
+		final Ipv6Address zonedIp1 = Ipv6Address.of(ipStr + "%foo");
+		final Ipv6Address ip2 = Ipv6Address.of(ipStr);
+		final Ipv6Address zonedIp2 = Ipv6Address.of(ipStr + "%foo");
 
 		assertEquals(ip1, ip2);
 		assertEquals(zonedIp1, zonedIp2);
@@ -54,8 +54,8 @@ public class Ipv6AddressTest {
 
 	@ParameterizedTest
 	@ValueSource(strings = { "::1%blah", "::%eth0", "1234:4321:abcd:dcba::%foo" })
-	void zonedType(String ipStr) {
-		Ipv6Address ip1 = Ipv6Address.of(ipStr);
+	void zonedType(final String ipStr) {
+		final Ipv6Address ip1 = Ipv6Address.of(ipStr);
 		assertTrue(ip1 instanceof ZonedIpv6Address);
 	}
 
@@ -66,22 +66,22 @@ public class Ipv6AddressTest {
 
 	@Test
 	void ip6AddressWithZoneConstructor() {
-		Ipv6Address unzoned = Ipv6Address.of("::");
+		final Ipv6Address unzoned = Ipv6Address.of("::");
 		assertEquals(ZonedIpv6Address.of(unzoned, "foo"), ZonedIpv6Address.of("::%foo"));
 	}
 
 	@Test
 	void inet6AddressConstructor() {
 		try {
-			Inet6Address a = (Inet6Address) InetAddress.getByName("::1");
+			final Inet6Address a = (Inet6Address) InetAddress.getByName("::1");
 			Ipv6Address.of(a);
-		} catch (UnknownHostException e) {
+		} catch (final UnknownHostException e) {
 			fail(e);
 		}
 		try {
-			Inet6Address a = (Inet6Address) InetAddress.getByName("fe80::1%1");
+			final Inet6Address a = (Inet6Address) InetAddress.getByName("fe80::1%1");
 			Ipv6Address.of(a);
-		} catch (UnknownHostException e) {
+		} catch (final UnknownHostException e) {
 			fail(e);
 		}
 	}
@@ -107,11 +107,11 @@ public class Ipv6AddressTest {
 	@ParameterizedTest
 	@CsvSource({ "::,::1", "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff,1234::", "1:2:3:4:5:6:7:8, 8:7:6:5:4:3:2:1",
 			"::1234,1234::", "aa::bb,aa::cc", "aa::bb,cc::bb" })
-	void inequality(String ipStr1, String ipStr2) {
-		Ipv6Address ip1 = Ipv6Address.of(ipStr1);
-		Ipv6Address zonedIp1 = Ipv6Address.of(ipStr1 + "%foo");
-		Ipv6Address ip2 = Ipv6Address.of(ipStr2);
-		Ipv6Address zonedIp2 = Ipv6Address.of(ipStr2 + "%foo");
+	void inequality(final String ipStr1, final String ipStr2) {
+		final Ipv6Address ip1 = Ipv6Address.of(ipStr1);
+		final Ipv6Address zonedIp1 = Ipv6Address.of(ipStr1 + "%foo");
+		final Ipv6Address ip2 = Ipv6Address.of(ipStr2);
+		final Ipv6Address zonedIp2 = Ipv6Address.of(ipStr2 + "%foo");
 
 		assertNotEquals(ip1, ip2);
 		assertNotEquals(zonedIp1, zonedIp2);
@@ -127,9 +127,9 @@ public class Ipv6AddressTest {
 
 	@ParameterizedTest
 	@CsvSource({ "::,ffff::", "::7fff:ffff:ffff:ffff,0:0:0:8000::" })
-	void unzonedOrdering(String ipStr1, String ipStr2) {
-		Ipv6Address ip1 = Ipv6Address.of(ipStr1);
-		Ipv6Address ip2 = Ipv6Address.of(ipStr2);
+	void unzonedOrdering(final String ipStr1, final String ipStr2) {
+		final Ipv6Address ip1 = Ipv6Address.of(ipStr1);
+		final Ipv6Address ip2 = Ipv6Address.of(ipStr2);
 		assertEquals(-1, ip1.compareTo(ip2));
 		assertEquals(1, ip2.compareTo(ip1));
 		// noinspection EqualsWithItself
@@ -143,9 +143,9 @@ public class Ipv6AddressTest {
 
 	@ParameterizedTest
 	@CsvSource({ "::%foo,ffff::%foo", "ffff::%bar,::%foo" })
-	void zonedOrdering(String ipStr1, String ipStr2) {
-		Ipv6Address ip1 = Ipv6Address.of(ipStr1);
-		Ipv6Address ip2 = Ipv6Address.of(ipStr2);
+	void zonedOrdering(final String ipStr1, final String ipStr2) {
+		final Ipv6Address ip1 = Ipv6Address.of(ipStr1);
+		final Ipv6Address ip2 = Ipv6Address.of(ipStr2);
 		assertTrue(ip1.compareTo(ip2) < 0);
 		assertTrue(ip2.compareTo(ip1) > 0);
 		// noinspection EqualsWithItself
@@ -159,8 +159,8 @@ public class Ipv6AddressTest {
 
 	@Test
 	void mixedOrdering() {
-		Ipv6Address zoned = Ipv6Address.of("::%eth0");
-		Ipv6Address unzoned = Ipv6Address.of("::");
+		final Ipv6Address zoned = Ipv6Address.of("::%eth0");
+		final Ipv6Address unzoned = Ipv6Address.of("::");
 
 		assertTrue(zoned.compareTo(unzoned) > 0);
 		assertTrue(unzoned.compareTo(zoned) < 0);
@@ -168,7 +168,7 @@ public class Ipv6AddressTest {
 
 	@Test
 	void nullStringConstructor() {
-		String a = null;
+		final String a = null;
 		assertThrows(IllegalArgumentException.class, () -> Ipv6Address.of(a));
 		assertThrows(IllegalArgumentException.class, () -> ZonedIpv6Address.of(a));
 	}
@@ -176,21 +176,21 @@ public class Ipv6AddressTest {
 	@Test
 	void inetAddressConstructor() {
 		try {
-			String zonedIp = "1234:0:0:0:0:0:0:4321%1";
+			final String zonedIp = "1234:0:0:0:0:0:0:4321%1";
 			assertEquals(zonedIp, IpAddress.of(InetAddress.getByName(zonedIp)).toString());
 			assertEquals("1234:0:0:0:0:0:0:4321", IpAddress.of(InetAddress.getByName("1234::4321")).toString());
-		} catch (UnknownHostException e) {
+		} catch (final UnknownHostException e) {
 			fail(e);
 		}
 	}
 
 	@Test
 	void byteArrayConstructor() {
-		byte[] goodArr = new byte[] { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, (byte) 0x88, (byte) 0x99,
+		final byte[] goodArr = new byte[] { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, (byte) 0x88, (byte) 0x99,
 				(byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd, (byte) 0xee, (byte) 0xff };
-		byte[] badArr1 = new byte[] { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, (byte) 0x88, (byte) 0x99,
+		final byte[] badArr1 = new byte[] { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, (byte) 0x88, (byte) 0x99,
 				(byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd, (byte) 0xee };
-		byte[] badArr2 = new byte[] { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, (byte) 0x88, (byte) 0x99,
+		final byte[] badArr2 = new byte[] { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, (byte) 0x88, (byte) 0x99,
 				(byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd, (byte) 0xee, (byte) 0xff, 0x00 };
 
 		assertEquals("11:2233:4455:6677:8899:aabb:ccdd:eeff", Ipv6Address.of(goodArr).toString());
@@ -211,12 +211,12 @@ public class Ipv6AddressTest {
 			"::7fff:ffff:ffff:ffff,7fffffffffffffff,::ffff:ffff:ffff:fffe",
 			"::ffff:ffff:ffff:ffff,7fffffffffffffff,::1:7fff:ffff:ffff:fffe", "::,0,::", "1::1,0,1::1",
 			"ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff,1,::", "::ffff:ffff:ffff:ffff,1,0:0:0:1::" })
-	void plusMinus(String ipStr1, String i, String ipStr2) {
-		Ipv6Address ip1 = Ipv6Address.of(ipStr1);
-		Ipv6Address zonedIp1 = Ipv6Address.of(ipStr1 + "%foo");
-		Ipv6Address ip2 = Ipv6Address.of(ipStr2);
-		Ipv6Address zonedIp2 = Ipv6Address.of(ipStr2 + "%foo");
-		BigInteger j = new BigInteger(i, 16);
+	void plusMinus(final String ipStr1, final String i, final String ipStr2) {
+		final Ipv6Address ip1 = Ipv6Address.of(ipStr1);
+		final Ipv6Address zonedIp1 = Ipv6Address.of(ipStr1 + "%foo");
+		final Ipv6Address ip2 = Ipv6Address.of(ipStr2);
+		final Ipv6Address zonedIp2 = Ipv6Address.of(ipStr2 + "%foo");
+		final BigInteger j = new BigInteger(i, 16);
 
 		assertEquals(ip1.plus(j.longValue()), ip2);
 		assertEquals(ip2.plus(-j.longValue()), ip1);
@@ -232,11 +232,11 @@ public class Ipv6AddressTest {
 
 	@ParameterizedTest
 	@CsvSource({ "::,::1", "::1234,::1235", "8000::,8000::1" })
-	void nextPrev(String ipStr1, String ipStr2) {
-		Ipv6Address ip1 = Ipv6Address.of(ipStr1);
-		Ipv6Address zonedIp1 = Ipv6Address.of(ipStr1 + "%foo");
-		Ipv6Address ip2 = Ipv6Address.of(ipStr2);
-		Ipv6Address zonedIp2 = Ipv6Address.of(ipStr2 + "%foo");
+	void nextPrev(final String ipStr1, final String ipStr2) {
+		final Ipv6Address ip1 = Ipv6Address.of(ipStr1);
+		final Ipv6Address zonedIp1 = Ipv6Address.of(ipStr1 + "%foo");
+		final Ipv6Address ip2 = Ipv6Address.of(ipStr2);
+		final Ipv6Address zonedIp2 = Ipv6Address.of(ipStr2 + "%foo");
 
 		assertEquals(ip1.next(), ip2);
 		assertEquals(ip2.previous(), ip1);
@@ -248,23 +248,23 @@ public class Ipv6AddressTest {
 
 	@Test
 	void toStr() {
-		Ipv6Address ip = Ipv6Address.of("::1");
+		final Ipv6Address ip = Ipv6Address.of("::1");
 		assertEquals("0:0:0:0:0:0:0:1", ip.toString());
 	}
 
 	@Test
 	void toInetAddress() {
-		Ipv6Address ip = Ipv6Address.of("::1");
+		final Ipv6Address ip = Ipv6Address.of("::1");
 		try {
 			assertEquals(InetAddress.getByName("::1"), ip.toInet6Address());
-		} catch (UnknownHostException e) {
+		} catch (final UnknownHostException e) {
 			fail(e);
 		}
 	}
 
 	@Test
 	void toArray() {
-		Ipv6Address ip = Ipv6Address.of("0010:2030:4050:6070:8090:a0b0:c0d0:e0f0");
+		final Ipv6Address ip = Ipv6Address.of("0010:2030:4050:6070:8090:a0b0:c0d0:e0f0");
 		assertArrayEquals(ip.toArray(), new byte[] { 0, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, (byte) 0x80,
 				(byte) 0x90, (byte) 0xa0, (byte) 0xb0, (byte) 0xc0, (byte) 0xd0, (byte) 0xe0, (byte) 0xf0 });
 		assertArrayEquals(ip.toBigEndianArray(), new byte[] { 0, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, (byte) 0x80,
@@ -278,7 +278,7 @@ public class Ipv6AddressTest {
 		assertEquals(BigInteger.valueOf(2), Ipv6Address.of("::1").distanceTo(Ipv6Address.of("::3")));
 		assertEquals(BigInteger.valueOf(-2), Ipv6Address.of("::3").distanceTo(Ipv6Address.of("::1")));
 		assertEquals(BigInteger.ZERO, Ipv6Address.of("::1").distanceTo(Ipv6Address.of("::1")));
-		BigInteger v = BigInteger.valueOf(2).pow(128).subtract(BigInteger.ONE);
+		final BigInteger v = BigInteger.valueOf(2).pow(128).subtract(BigInteger.ONE);
 		assertEquals(v, Ipv6Address.of("::").distanceTo(Ipv6Address.of("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff")));
 		assertEquals(v.negate(),
 				Ipv6Address.of("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff").distanceTo(Ipv6Address.of("::")));

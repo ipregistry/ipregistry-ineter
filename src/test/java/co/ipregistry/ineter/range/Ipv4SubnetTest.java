@@ -27,9 +27,9 @@ public class Ipv4SubnetTest {
 
 	@Test
 	void constructors() {
-		Ipv4Subnet a = Ipv4Subnet.of("10.0.0.0/8");
-		Ipv4Subnet b = Ipv4Subnet.of(Ipv4Address.of("10.0.0.0"), 8);
-		Ipv4Subnet c = Ipv4Subnet.of("10.0.0.0", 8);
+		final Ipv4Subnet a = Ipv4Subnet.of("10.0.0.0/8");
+		final Ipv4Subnet b = Ipv4Subnet.of(Ipv4Address.of("10.0.0.0"), 8);
+		final Ipv4Subnet c = Ipv4Subnet.of("10.0.0.0", 8);
 
 		Assertions.assertEquals(a.getFirst(), Ipv4Address.of("10.0.0.0"));
 		Assertions.assertEquals(a.getLast(), Ipv4Address.of("10.255.255.255"));
@@ -43,7 +43,7 @@ public class Ipv4SubnetTest {
 
 	@Test
 	void getters() {
-		Ipv4Subnet subnet = Ipv4Subnet.of("192.168.1.0/24");
+		final Ipv4Subnet subnet = Ipv4Subnet.of("192.168.1.0/24");
 
 		Assertions.assertEquals(subnet.getFirst(), Ipv4Address.of("192.168.1.0"));
 		Assertions.assertEquals(subnet.getLast(), Ipv4Address.of("192.168.1.255"));
@@ -56,19 +56,19 @@ public class Ipv4SubnetTest {
 
 	@Test
 	void equality() {
-		Ipv4Subnet subnet1 = Ipv4Subnet.of("192.168.1.0/24");
-		Ipv4Subnet subnet2 = Ipv4Subnet.of("192.168.1.0/24");
+		final Ipv4Subnet subnet1 = Ipv4Subnet.of("192.168.1.0/24");
+		final Ipv4Subnet subnet2 = Ipv4Subnet.of("192.168.1.0/24");
 		assertEquals(subnet1, subnet2);
 		assertEquals(subnet1.hashCode(), subnet2.hashCode());
 	}
 
 	@Test
 	void unequal() {
-		List<Ipv4Subnet> l = Arrays.asList(Ipv4Subnet.of("192.168.1.0/24"), Ipv4Subnet.of("192.168.1.0/25"),
+		final List<Ipv4Subnet> l = Arrays.asList(Ipv4Subnet.of("192.168.1.0/24"), Ipv4Subnet.of("192.168.1.0/25"),
 				Ipv4Subnet.of("192.168.0.0/24"), Ipv4Subnet.of("192.168.0.0/16"), Ipv4Subnet.of("192.168.0.0/32"));
 
-		for (Ipv4Subnet s1 : l) {
-			for (Ipv4Subnet s2 : l) {
+		for (final Ipv4Subnet s1 : l) {
+			for (final Ipv4Subnet s2 : l) {
 				if (s1 != s2) {
 					assertNotEquals(s1, s2);
 				}
@@ -88,8 +88,8 @@ public class Ipv4SubnetTest {
 
 	@Test
 	void equalToRangeWithSameAddresses() {
-		Ipv4Subnet subnet1 = Ipv4Subnet.of("192.168.1.0/24");
-		Ipv4Range subnet2 = Ipv4Range.parse("192.168.1.0-192.168.1.255");
+		final Ipv4Subnet subnet1 = Ipv4Subnet.of("192.168.1.0/24");
+		final Ipv4Range subnet2 = Ipv4Range.parse("192.168.1.0-192.168.1.255");
 		assertEquals(subnet1, subnet2);
 		assertEquals(subnet2, subnet1);
 		assertEquals(subnet1.hashCode(), subnet2.hashCode());
@@ -118,11 +118,11 @@ public class Ipv4SubnetTest {
 			assertNotNull(Ipv4Subnet.IPv4SubnetMask.fromMaskLen(i));
 		}
 		for (int i = -100; i < 0; i++) {
-			int j = i;
+			final int j = i;
 			assertThrows(IllegalArgumentException.class, () -> Ipv4Subnet.IPv4SubnetMask.fromMaskLen(j));
 		}
 		for (int i = 33; i < 200; i++) {
-			int j = i;
+			final int j = i;
 			assertThrows(IllegalArgumentException.class, () -> Ipv4Subnet.IPv4SubnetMask.fromMaskLen(j));
 		}
 	}

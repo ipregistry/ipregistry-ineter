@@ -27,9 +27,9 @@ public class Ipv6SubnetTest {
 
 	@Test
 	void constructors() {
-		Ipv6Subnet a = Ipv6Subnet.of("::/16");
-		Ipv6Subnet b = Ipv6Subnet.of(Ipv6Address.of("::"), (byte) 16);
-		Ipv6Subnet c = Ipv6Subnet.of("::", (byte) 16);
+		final Ipv6Subnet a = Ipv6Subnet.of("::/16");
+		final Ipv6Subnet b = Ipv6Subnet.of(Ipv6Address.of("::"), (byte) 16);
+		final Ipv6Subnet c = Ipv6Subnet.of("::", (byte) 16);
 
 		Assertions.assertEquals(a.getFirst(), Ipv6Address.of("::"));
 		Assertions.assertEquals(a.getLast(), Ipv6Address.of("1::").previous());
@@ -43,7 +43,7 @@ public class Ipv6SubnetTest {
 
 	@Test
 	void getters() {
-		Ipv6Subnet subnet = Ipv6Subnet.of("1234::/16");
+		final Ipv6Subnet subnet = Ipv6Subnet.of("1234::/16");
 
 		Assertions.assertEquals(subnet.getFirst(), Ipv6Address.of("1234::"));
 		Assertions.assertEquals(subnet.getLast(), Ipv6Address.of("1235::").previous());
@@ -56,19 +56,19 @@ public class Ipv6SubnetTest {
 
 	@Test
 	void equality() {
-		Ipv6Subnet subnet1 = Ipv6Subnet.of("1234::/16");
-		Ipv6Subnet subnet2 = Ipv6Subnet.of("1234::/16");
+		final Ipv6Subnet subnet1 = Ipv6Subnet.of("1234::/16");
+		final Ipv6Subnet subnet2 = Ipv6Subnet.of("1234::/16");
 		assertEquals(subnet1, subnet2);
 		assertEquals(subnet1.hashCode(), subnet2.hashCode());
 	}
 
 	@Test
 	void unequal() {
-		List<Ipv6Subnet> l = Arrays.asList(Ipv6Subnet.of("1234::/16"), Ipv6Subnet.of("1234::/17"),
+		final List<Ipv6Subnet> l = Arrays.asList(Ipv6Subnet.of("1234::/16"), Ipv6Subnet.of("1234::/17"),
 				Ipv6Subnet.of("1234::/15"), Ipv6Subnet.of("::1234/128"), Ipv6Subnet.of("::1234/127"));
 
-		for (Ipv6Subnet s1 : l) {
-			for (Ipv6Subnet s2 : l) {
+		for (final Ipv6Subnet s1 : l) {
+			for (final Ipv6Subnet s2 : l) {
 				if (!(s1 == s2)) {
 					assertNotEquals(s1, s2);
 				}
@@ -88,8 +88,8 @@ public class Ipv6SubnetTest {
 
 	@Test
 	void equalToRangeWithSameAddresses() {
-		Ipv6Subnet subnet1 = Ipv6Subnet.of("1234::/16");
-		Ipv6Range subnet2 = Ipv6Range.parse("1234::-1234:ffff:ffff:ffff:ffff:ffff:ffff:ffff");
+		final Ipv6Subnet subnet1 = Ipv6Subnet.of("1234::/16");
+		final Ipv6Range subnet2 = Ipv6Range.parse("1234::-1234:ffff:ffff:ffff:ffff:ffff:ffff:ffff");
 		assertEquals(subnet1, subnet2);
 		assertEquals(subnet2, subnet1);
 		assertEquals(subnet1.hashCode(), subnet2.hashCode());
@@ -97,17 +97,17 @@ public class Ipv6SubnetTest {
 
 	@Test
 	void parseSingleAddress() {
-		String address = "1234::";
-		Ipv6Subnet parsedSubnet = Ipv6Subnet.parse(address);
-		Ipv6Subnet subnet = Ipv6Subnet.of("1234::/128");
+		final String address = "1234::";
+		final Ipv6Subnet parsedSubnet = Ipv6Subnet.parse(address);
+		final Ipv6Subnet subnet = Ipv6Subnet.of("1234::/128");
 		assertEquals(subnet, parsedSubnet);
 	}
 
 	@Test
 	void parseCidr() {
-		String address = "1234::/64";
-		Ipv6Subnet parsedSubnet = Ipv6Subnet.parse(address);
-		Ipv6Subnet subnet = Ipv6Subnet.of("1234::", 64);
+		final String address = "1234::/64";
+		final Ipv6Subnet parsedSubnet = Ipv6Subnet.parse(address);
+		final Ipv6Subnet subnet = Ipv6Subnet.of("1234::", 64);
 		assertEquals(subnet, parsedSubnet);
 	}
 
@@ -117,11 +117,11 @@ public class Ipv6SubnetTest {
 			assertNotNull(Ipv6Subnet.IPv6SubnetMask.fromMaskLen(i));
 		}
 		for (int i = -100; i < 0; i++) {
-			int j = i;
+			final int j = i;
 			assertThrows(IllegalArgumentException.class, () -> Ipv6Subnet.IPv6SubnetMask.fromMaskLen(j));
 		}
 		for (int i = 129; i < 200; i++) {
-			int j = i;
+			final int j = i;
 			assertThrows(IllegalArgumentException.class, () -> Ipv6Subnet.IPv6SubnetMask.fromMaskLen(j));
 		}
 	}
