@@ -19,7 +19,7 @@ import co.ipregistry.ineter.base.IPAddress;
 public interface IPRange<
 		R extends IPRange<R, S, I, L>,
         S extends IPSubnet<S, R, I, L>,
-		I extends IPAddress & Comparable<I>,
+		I extends IPAddress,
 		L extends Number & Comparable<L> > extends Iterable<I>, Serializable {
 //@formatter:on
 

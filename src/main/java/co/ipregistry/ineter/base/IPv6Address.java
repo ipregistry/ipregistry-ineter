@@ -13,7 +13,7 @@ import java.net.Inet6Address;
 import co.ipregistry.ineter.range.IPv6Range;
 import co.ipregistry.ineter.range.IPv6Subnet;
 
-public class IPv6Address implements IPAddress, Comparable<IPv6Address> {
+public class IPv6Address implements IPAddress {
 
 	public static enum IPv6KnownRange {
 
@@ -656,15 +656,17 @@ public class IPv6Address implements IPAddress, Comparable<IPv6Address> {
 	}
 
 	@Override
-	public int compareTo(IPv6Address o) {
+	public int compareTo(IPAddress o) {
 		if (o == null) {
 			return 1; // Bigger than null
 		}
-		if (o.isZoned()) {
+
+		final IPv6Address other = (IPv6Address) o;
+		if (other.isZoned()) {
 			return -1;// Zoned addresses are "bigger"
 		}
 
-		return longCompare(o);
+		return longCompare(other);
 	}
 
 	protected int longCompare(IPv6Address o) {

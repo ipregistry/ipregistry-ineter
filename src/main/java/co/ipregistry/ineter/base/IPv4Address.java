@@ -12,7 +12,7 @@ import java.net.Inet4Address;
 import co.ipregistry.ineter.range.IPv4Range;
 import co.ipregistry.ineter.range.IPv4Subnet;
 
-public class IPv4Address implements IPAddress, Comparable<IPv4Address> {
+public class IPv4Address implements IPAddress {
 
 	public static enum IPv4KnownRange {
 
@@ -232,7 +232,7 @@ public class IPv4Address implements IPAddress, Comparable<IPv4Address> {
 	/**
 	 * IPv4Address int constructor
 	 *
-	 * @param intIp
+	 * @param intIp the integer representation of the IPv4 address.
 	 */
 	public IPv4Address(int intIp) {
 		this.ip = intIp;
@@ -244,15 +244,17 @@ public class IPv4Address implements IPAddress, Comparable<IPv4Address> {
 	}
 
 	@Override
-	public int compareTo(IPv4Address o) {
+	public int compareTo(final IPAddress o) {
 		if (o == null) {
 			return 1;
 		}
 
-		if (this.ip == o.ip) {
+		IPv4Address other = (IPv4Address) o;
+
+		if (this.ip == other.ip) {
 			return 0;
 		}
-		return (this.ip + Integer.MIN_VALUE) < (o.toInt() + Integer.MIN_VALUE) ? -1 : 1;
+		return (this.ip + Integer.MIN_VALUE) < (other.toInt() + Integer.MIN_VALUE) ? -1 : 1;
 	}
 
 	@Override

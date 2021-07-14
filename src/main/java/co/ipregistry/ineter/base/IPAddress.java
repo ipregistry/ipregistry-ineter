@@ -19,7 +19,7 @@ import java.net.UnknownHostException;
  *
  * @author maltalex
  */
-public interface IPAddress extends Serializable {
+public interface IPAddress extends Comparable<IPAddress>, Serializable {
 
 	/**
 	 * Returns either an IPv4 or an IPv6 address
@@ -78,11 +78,11 @@ public interface IPAddress extends Serializable {
 		return IPv4Address.of((Inet4Address) address);
 	}
 
-	public static <C extends Comparable<C> & IPAddress> C max(C a, C b) {
+	public static <C extends IPAddress> C max(C a, C b) {
 		return a.compareTo(b) > 0 ? a : b;
 	}
 
-	public static <C extends Comparable<C> & IPAddress> C min(C a, C b) {
+	public static <C extends IPAddress> C min(C a, C b) {
 		return a.compareTo(b) < 0 ? a : b;
 	}
 

@@ -9,7 +9,7 @@ package co.ipregistry.ineter.range;
 
 import co.ipregistry.ineter.base.IPAddress;
 
-public interface IPSubnet<S extends IPSubnet<S, R, I, L>, R extends IPRange<R, S, I, L>, I extends IPAddress & Comparable<I>, L extends Number & Comparable<L>>
+public interface IPSubnet<S extends IPSubnet<S, R, I, L>, R extends IPRange<R, S, I, L>, I extends IPAddress, L extends Number & Comparable<L>>
 		extends IPRange<R, S, I, L> {
 
 	/**

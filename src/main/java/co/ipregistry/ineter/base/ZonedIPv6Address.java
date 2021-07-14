@@ -121,13 +121,16 @@ public class ZonedIPv6Address extends IPv6Address {
 	}
 
 	@Override
-	public int compareTo(IPv6Address o) {
+	public int compareTo(IPAddress o) {
 		if (o == null) {
 			return 1; // Bigger than null
 		}
-		if (o.isZoned()) {
+
+		final IPv6Address other = (IPv6Address) o;
+
+		if (other.isZoned()) {
 			int zoneCompare = this.zone.compareTo(((ZonedIPv6Address) o).zone);
-			return zoneCompare == 0 ? super.longCompare(o) : zoneCompare;
+			return zoneCompare == 0 ? super.longCompare(other) : zoneCompare;
 		}
 		return 1; // Zoned addresses are "bigger"
 	}
