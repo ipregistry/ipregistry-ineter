@@ -7,10 +7,10 @@
  */
 package co.ipregistry.ineter.range;
 
-import co.ipregistry.ineter.base.IPAddress;
+import co.ipregistry.ineter.base.IpAddress;
 
-public interface IPSubnet<S extends IPSubnet<S, R, I, L>, R extends IPRange<R, S, I, L>, I extends IPAddress, L extends Number & Comparable<L>>
-		extends IPRange<R, S, I, L> {
+public interface IpSubnet<S extends IpSubnet<S, R, I, L>, R extends IpRange<R, S, I, L>, I extends IpAddress, L extends Number & Comparable<L>>
+		extends IpRange<R, S, I, L> {
 
 	/**
 	 * Returns the network mask in address form
@@ -40,7 +40,7 @@ public interface IPSubnet<S extends IPSubnet<S, R, I, L>, R extends IPRange<R, S
 
 	/**
 	 * Returns the address of the network (with all host bits set to zero) same as
-	 * {@link IPSubnet#getFirst()}
+	 * {@link IpSubnet#getFirst()}
 	 *
 	 * @return network address
 	 */

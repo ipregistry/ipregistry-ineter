@@ -7,9 +7,9 @@
  */
 package co.ipregistry.ineter.range;
 
-import co.ipregistry.ineter.base.IPv4Address;
+import co.ipregistry.ineter.base.Ipv4Address;
 
-public class IPv4Subnet extends IPv4Range implements IPSubnet<IPv4Subnet, IPv4Range, IPv4Address, Long> {
+public class Ipv4Subnet extends Ipv4Range implements IpSubnet<Ipv4Subnet, Ipv4Range, Ipv4Address, Long> {
 
 	protected enum IPv4SubnetMask {
 
@@ -25,7 +25,7 @@ public class IPv4Subnet extends IPv4Range implements IPSubnet<IPv4Subnet, IPv4Ra
 		// @formatter:on
 
 		public static IPv4SubnetMask fromMaskLen(int maskLen) {
-			if (maskLen >= 0 && maskLen <= IPv4Address.ADDRESS_BITS) {
+			if (maskLen >= 0 && maskLen <= Ipv4Address.ADDRESS_BITS) {
 				return IPv4SubnetMask.values()[maskLen];
 			}
 			throw new IllegalArgumentException("The mask length must be between 0 and 32");
@@ -51,26 +51,26 @@ public class IPv4Subnet extends IPv4Range implements IPSubnet<IPv4Subnet, IPv4Ra
 			return this.mask & ip;
 		}
 
-		public IPv4Address and(IPv4Address ip) {
-			return IPv4Address.of(and(ip.toInt()));
+		public Ipv4Address and(Ipv4Address ip) {
+			return Ipv4Address.of(and(ip.toInt()));
 		}
 
 		public int orInverted(int ip) {
 			return (~this.mask) | ip;
 		}
 
-		public IPv4Address orInverted(IPv4Address ip) {
-			return IPv4Address.of(orInverted(ip.toInt()));
+		public Ipv4Address orInverted(Ipv4Address ip) {
+			return Ipv4Address.of(orInverted(ip.toInt()));
 		}
 
-		public IPv4Address toAddress() {
-			return IPv4Address.of(mask());
+		public Ipv4Address toAddress() {
+			return Ipv4Address.of(mask());
 		}
 	}
 
 	private static final long serialVersionUID = 3L;
 
-	public static IPv4Subnet of(String cidr) {
+	public static Ipv4Subnet of(String cidr) {
 		int slashIndex = cidr.indexOf('/');
 		if (slashIndex == -1) {
 			throw new IllegalArgumentException("Expected '/' in cidr");
@@ -78,29 +78,29 @@ public class IPv4Subnet extends IPv4Range implements IPSubnet<IPv4Subnet, IPv4Ra
 		return of(cidr.substring(0, slashIndex), cidr.substring(slashIndex + 1));
 	}
 
-	public static IPv4Subnet of(String address, int maskLen) {
-		return new IPv4Subnet(IPv4Address.of(address), IPv4SubnetMask.fromMaskLen(maskLen));
+	public static Ipv4Subnet of(String address, int maskLen) {
+		return new Ipv4Subnet(Ipv4Address.of(address), IPv4SubnetMask.fromMaskLen(maskLen));
 	}
 
-	public static IPv4Subnet of(IPv4Address address, int maskLen) {
-		return new IPv4Subnet(address, IPv4SubnetMask.fromMaskLen(maskLen));
+	public static Ipv4Subnet of(Ipv4Address address, int maskLen) {
+		return new Ipv4Subnet(address, IPv4SubnetMask.fromMaskLen(maskLen));
 	}
 
-	public static IPv4Subnet of(String address, String maskLen) {
-		return new IPv4Subnet(IPv4Address.of(address), IPv4SubnetMask.fromMaskLen(Integer.parseUnsignedInt(maskLen)));
+	public static Ipv4Subnet of(String address, String maskLen) {
+		return new Ipv4Subnet(Ipv4Address.of(address), IPv4SubnetMask.fromMaskLen(Integer.parseUnsignedInt(maskLen)));
 	}
 
-	public static IPv4Subnet parse(String from) throws IllegalArgumentException {
-		return IPRangeUtils.parseSubnet(from, IPv4Subnet::of, 32);
+	public static Ipv4Subnet parse(String from) throws IllegalArgumentException {
+		return IpRangeUtils.parseSubnet(from, Ipv4Subnet::of, 32);
 	}
 
-	static IPv4Subnet of(String address, Integer subnet) {
-		return IPv4Subnet.of(address, subnet.intValue());
+	static Ipv4Subnet of(String address, Integer subnet) {
+		return Ipv4Subnet.of(address, subnet.intValue());
 	}
 
 	protected final int networkBitCount;
 
-	public IPv4Subnet(IPv4Address address, IPv4SubnetMask mask) {
+	public Ipv4Subnet(Ipv4Address address, IPv4SubnetMask mask) {
 		super(mask.and(address), mask.orInverted(address));
 		this.networkBitCount = mask.maskBitCount();
 	}
@@ -116,17 +116,17 @@ public class IPv4Subnet extends IPv4Range implements IPSubnet<IPv4Subnet, IPv4Ra
 	}
 
 	@Override
-	public IPv4Address getNetworkMask() {
+	public Ipv4Address getNetworkMask() {
 		return IPv4SubnetMask.fromMaskLen(this.networkBitCount).toAddress();
 	}
 
 	@Override
 	public int getHostBitCount() {
-		return IPv4Address.ADDRESS_BITS - this.networkBitCount;
+		return Ipv4Address.ADDRESS_BITS - this.networkBitCount;
 	}
 
 	@Override
-	public IPv4Address getNetworkAddress() {
+	public Ipv4Address getNetworkAddress() {
 		return getFirst();
 	}
 

@@ -13,13 +13,13 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import co.ipregistry.ineter.base.IPAddress;
+import co.ipregistry.ineter.base.IpAddress;
 
 //@formatter:off
-public interface IPRange<
-		R extends IPRange<R, S, I, L>,
-        S extends IPSubnet<S, R, I, L>,
-		I extends IPAddress,
+public interface IpRange<
+		R extends IpRange<R, S, I, L>,
+        S extends IpSubnet<S, R, I, L>,
+		I extends IpAddress,
 		L extends Number & Comparable<L> > extends Iterable<I>, Serializable {
 //@formatter:on
 
@@ -30,7 +30,7 @@ public interface IPRange<
 	/**
 	 * Checks whether this range has any overlapping addresses with a given range.
 	 * To check whether all addresses are contained, use
-	 * {@link IPRange#contains(IPRange)}
+	 * {@link IpRange#contains(IpRange)}
 	 *
 	 * @param range the range to check for overlap
 	 * @return true if the given range overlaps with this one
@@ -54,7 +54,7 @@ public interface IPRange<
 
 	/**
 	 * Checks whether this range contains all addresses of a given range. To check
-	 * for partial overlap, use {@link IPRange#overlaps(IPRange)}
+	 * for partial overlap, use {@link IpRange#overlaps(IpRange)}
 	 *
 	 * @param range range to check
 	 * @return true if the entire given range is contained within this range
@@ -116,7 +116,7 @@ public interface IPRange<
 
 	/**
 	 * Returns the list of addresses contained in the range. The list is
-	 * {@link IPRange#intLength()} elements long (up to Integer.MAX_VALUE)
+	 * {@link IpRange#intLength()} elements long (up to Integer.MAX_VALUE)
 	 * 
 	 * @return The list of addresses contained in the range
 	 */

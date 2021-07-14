@@ -26,7 +26,7 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitPlatform.class)
-public class IPv6AddressParseTest {
+public class Ipv6AddressParseTest {
 
 	// Do not rename used by @MethodSource below
 	public static List<String> generateIP6AddressStrings() {
@@ -69,7 +69,7 @@ public class IPv6AddressParseTest {
 			"1:2:3:4:5:6:7:8", "12:34:56::abcd", "::", "1:02:003:0004::", "1000:200:30:4::" })
 	void passeAndToString(String addressStr) throws UnknownHostException {
 		String java = InetAddress.getByName(addressStr).getHostAddress();
-		IPv6Address ineter = IPv6Address.of(addressStr);
+		Ipv6Address ineter = Ipv6Address.of(addressStr);
 		assertFalse(ineter.isZoned());
 		assertEquals(java, ineter.toString());
 	}
@@ -78,7 +78,7 @@ public class IPv6AddressParseTest {
 	@MethodSource("generateIP6AddressStrings")
 	void randomAddressesCompareParsing(String addressStr) throws UnknownHostException {
 		String java = InetAddress.getByName(addressStr).getHostAddress();
-		String ineter = IPv6Address.of(addressStr).toString();
+		String ineter = Ipv6Address.of(addressStr).toString();
 		assertEquals(java, ineter);
 	}
 
@@ -87,21 +87,21 @@ public class IPv6AddressParseTest {
 			"[abcd:dbca:1234:4321:aabb:bbaa:ccdd:ddcc]", "[A:B:C:D:E:F:a:B]" })
 	void validBrackets(String addressStr) throws UnknownHostException {
 		String java = InetAddress.getByName(addressStr).getHostAddress();
-		String ineter = IPv6Address.of(addressStr).toString();
+		String ineter = Ipv6Address.of(addressStr).toString();
 		assertEquals(java, ineter);
 	}
 
 	@ParameterizedTest
 	@ValueSource(strings = { "::1]", "[1::" })
 	void invalidBrackets(String addressStr) {
-		assertThrows(IllegalArgumentException.class, () -> IPv6Address.of(addressStr));
+		assertThrows(IllegalArgumentException.class, () -> Ipv6Address.of(addressStr));
 	}
 
 	@ParameterizedTest
 	@ValueSource(strings = { "", "1", "[0000:0000:0000:0000:0000:0000:0000:00001]", })
 	void badLength(String addressStr) {
 		try {
-			IPv6Address.of(addressStr);
+			Ipv6Address.of(addressStr);
 		} catch (IllegalArgumentException e) {
 			assertTrue(e.getMessage().contains("length"));
 			return;
@@ -118,7 +118,7 @@ public class IPv6AddressParseTest {
 			"::00001:0000", "::00001" })
 	void tooManyDigitsInPart(String addressStr) {
 		try {
-			IPv6Address.of(addressStr);
+			Ipv6Address.of(addressStr);
 		} catch (IllegalArgumentException e) {
 			assertTrue(e.getMessage().contains("digits"));
 			return;
@@ -133,7 +133,7 @@ public class IPv6AddressParseTest {
 			"1:1:1:1:1:1::1:1:1", "1:1:1:1:1:1:1::1:1", "1:1:1:1:1:1:1:1::1", "1:1:1:1:1:1:1:1:1::", })
 	void numberOfParts(String addressStr) {
 		try {
-			IPv6Address.of(addressStr);
+			Ipv6Address.of(addressStr);
 		} catch (IllegalArgumentException e) {
 			assertTrue(e.getMessage().contains("parts"));
 			return;
@@ -148,7 +148,7 @@ public class IPv6AddressParseTest {
 			"1:1:1:1:1:1::1::1", "1:1:1:1:1:1::1::1", "::1:1:1:1:1:1:1:1::", })
 	void badColons(String addressStr) {
 		try {
-			IPv6Address.of(addressStr);
+			Ipv6Address.of(addressStr);
 		} catch (IllegalArgumentException e) {
 			assertTrue(e.getMessage().contains("colon"));
 			return;
@@ -159,10 +159,10 @@ public class IPv6AddressParseTest {
 	@ParameterizedTest
 	@CsvSource({ "::1%eth0,eth0", "::%eth0,eth0", "1234:1234:1234:1234:1234:1234:1234:1234%blah,blah" })
 	void zoned(String addressStr, String zone) {
-		IPv6Address of = IPv6Address.of(addressStr);
-		assertTrue(of instanceof ZonedIPv6Address);
+		Ipv6Address of = Ipv6Address.of(addressStr);
+		assertTrue(of instanceof ZonedIpv6Address);
 		assertTrue(of.isZoned());
-		ZonedIPv6Address zoned = (ZonedIPv6Address) of;
+		ZonedIpv6Address zoned = (ZonedIpv6Address) of;
 		assertEquals(zoned.getZone(), zone);
 	}
 
@@ -174,7 +174,7 @@ public class IPv6AddressParseTest {
 				.collect(Collectors.toList());
 		for (Character c : charsNoDigits) {
 			try {
-				IPv6Address.of("1::" + c); // After colons
+				Ipv6Address.of("1::" + c); // After colons
 			} catch (IllegalArgumentException e) {
 				assertTrue(e.getMessage().contains("character"));
 				continue;
@@ -184,7 +184,7 @@ public class IPv6AddressParseTest {
 
 		for (Character c : charsNoDigits) {
 			try {
-				IPv6Address.of(c + "::1"); // Before colons
+				Ipv6Address.of(c + "::1"); // Before colons
 			} catch (IllegalArgumentException e) {
 				assertTrue(e.getMessage().contains("character"));
 				continue;

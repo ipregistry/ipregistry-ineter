@@ -19,7 +19,7 @@ import java.net.UnknownHostException;
  *
  * @author maltalex
  */
-public interface IPAddress extends Comparable<IPAddress>, Serializable {
+public interface IpAddress extends Comparable<IpAddress>, Serializable {
 
 	/**
 	 * Returns either an IPv4 or an IPv6 address
@@ -28,12 +28,12 @@ public interface IPAddress extends Comparable<IPAddress>, Serializable {
 	 * @return new IPv4Address / IPv6Address
 	 * @throws IllegalArgumentException if the given array isn't 4 or 16 bytes long
 	 */
-	public static IPAddress of(byte[] bigEndianByteArr) {
-		if (bigEndianByteArr.length == IPv4Address.ADDRESS_BYTES) {
-			return IPv4Address.of(bigEndianByteArr);
+	public static IpAddress of(byte[] bigEndianByteArr) {
+		if (bigEndianByteArr.length == Ipv4Address.ADDRESS_BYTES) {
+			return Ipv4Address.of(bigEndianByteArr);
 		}
-		if (bigEndianByteArr.length == IPv6Address.ADDRESS_BYTES) {
-			return IPv6Address.of(bigEndianByteArr);
+		if (bigEndianByteArr.length == Ipv6Address.ADDRESS_BYTES) {
+			return Ipv6Address.of(bigEndianByteArr);
 		}
 
 		throw new IllegalArgumentException("Array length must be 4 or 16. Given legth: " + bigEndianByteArr.length);
@@ -47,17 +47,17 @@ public interface IPAddress extends Comparable<IPAddress>, Serializable {
 	 * @throws IllegalArgumentException if the given array isn't an IPv4/IPv6
 	 *                                  address
 	 */
-	public static IPAddress of(String ip) {
+	public static IpAddress of(String ip) {
 		if (ip.length() >= 2 && ip.length() <= 41) {
 			// Either a "." or ":" have to appear within the first 6 characters:
 			// [1234: or 123.
 			for (int i = 0; i < 6; i++) {
 				char c = ip.charAt(i);
 				if (c == '.') {
-					return IPv4Address.of(ip);
+					return Ipv4Address.of(ip);
 				}
 				if (c == ':') {
-					return IPv6Address.of(ip);
+					return Ipv6Address.of(ip);
 				}
 			}
 		}
@@ -70,19 +70,19 @@ public interface IPAddress extends Comparable<IPAddress>, Serializable {
 	 * @param address to copy from
 	 * @return IPv4Address or IPv6Address instance
 	 */
-	public static IPAddress of(InetAddress address) {
+	public static IpAddress of(InetAddress address) {
 		if (address instanceof Inet6Address) {
-			return IPv6Address.of((Inet6Address) address);
+			return Ipv6Address.of((Inet6Address) address);
 		}
 
-		return IPv4Address.of((Inet4Address) address);
+		return Ipv4Address.of((Inet4Address) address);
 	}
 
-	public static <C extends IPAddress> C max(C a, C b) {
+	public static <C extends IpAddress> C max(C a, C b) {
 		return a.compareTo(b) > 0 ? a : b;
 	}
 
-	public static <C extends IPAddress> C min(C a, C b) {
+	public static <C extends IpAddress> C min(C a, C b) {
 		return a.compareTo(b) < 0 ? a : b;
 	}
 
@@ -155,7 +155,7 @@ public interface IPAddress extends Comparable<IPAddress>, Serializable {
 	 *
 	 * @return the address following this one
 	 */
-	public IPAddress next();
+	public IpAddress next();
 
 	/**
 	 * Return an address larger than the current one by n, with wraparound
@@ -163,14 +163,14 @@ public interface IPAddress extends Comparable<IPAddress>, Serializable {
 	 * @param n
 	 * @return an address larger by n
 	 */
-	public IPAddress plus(int n);
+	public IpAddress plus(int n);
 
 	/**
 	 * Returns the previous address, with wraparound
 	 *
 	 * @return the address before this one
 	 */
-	public IPAddress previous();
+	public IpAddress previous();
 
 	/**
 	 * Return an address smaller than the current one by n, with wraparound
@@ -178,7 +178,7 @@ public interface IPAddress extends Comparable<IPAddress>, Serializable {
 	 * @param n
 	 * @return an address smaller by n
 	 */
-	public IPAddress minus(int n);
+	public IpAddress minus(int n);
 
 	/**
 	 * The address as an array of bytes, with the highest byte first

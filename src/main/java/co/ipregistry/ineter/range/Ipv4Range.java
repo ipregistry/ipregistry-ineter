@@ -17,82 +17,82 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
-import co.ipregistry.ineter.base.IPAddress;
-import co.ipregistry.ineter.base.IPv4Address;
+import co.ipregistry.ineter.base.IpAddress;
+import co.ipregistry.ineter.base.Ipv4Address;
 
-public class IPv4Range implements IPRange<IPv4Range, IPv4Subnet, IPv4Address, Long> {
+public class Ipv4Range implements IpRange<Ipv4Range, Ipv4Subnet, Ipv4Address, Long> {
 
 	private static final long serialVersionUID = 3L;
 
-	public static IPv4Range of(IPv4Address firstAddress, IPv4Address lastAddress) {
-		return new IPv4Range(firstAddress, lastAddress);
+	public static Ipv4Range of(Ipv4Address firstAddress, Ipv4Address lastAddress) {
+		return new Ipv4Range(firstAddress, lastAddress);
 	}
 
-	public static IPv4Range of(IPv4Address address) {
-		return IPv4Range.of(address, address);
+	public static Ipv4Range of(Ipv4Address address) {
+		return Ipv4Range.of(address, address);
 	}
 
-	public static IPv4Range of(String firstAddress, String lastAddress) {
-		return new IPv4Range(IPv4Address.of(firstAddress), IPv4Address.of(lastAddress));
+	public static Ipv4Range of(String firstAddress, String lastAddress) {
+		return new Ipv4Range(Ipv4Address.of(firstAddress), Ipv4Address.of(lastAddress));
 	}
 
-	public static IPv4Range of(String address) {
-		return IPv4Range.of(address, address);
+	public static Ipv4Range of(String address) {
+		return Ipv4Range.of(address, address);
 	}
 
-	public static IPv4Range of(byte[] firstAddress, byte[] lastAddress) {
-		return new IPv4Range(IPv4Address.of(firstAddress), IPv4Address.of(lastAddress));
+	public static Ipv4Range of(byte[] firstAddress, byte[] lastAddress) {
+		return new Ipv4Range(Ipv4Address.of(firstAddress), Ipv4Address.of(lastAddress));
 	}
 
-	public static IPv4Range of(byte[] address) {
-		return IPv4Range.of(address, address);
+	public static Ipv4Range of(byte[] address) {
+		return Ipv4Range.of(address, address);
 	}
 
-	public static IPv4Range of(Inet4Address firstAddress, Inet4Address lastAddress) {
-		return new IPv4Range(IPv4Address.of(firstAddress), IPv4Address.of(lastAddress));
+	public static Ipv4Range of(Inet4Address firstAddress, Inet4Address lastAddress) {
+		return new Ipv4Range(Ipv4Address.of(firstAddress), Ipv4Address.of(lastAddress));
 	}
 
-	public static IPv4Range of(Inet4Address address) {
-		return IPv4Range.of(address, address);
+	public static Ipv4Range of(Inet4Address address) {
+		return Ipv4Range.of(address, address);
 	}
 
 	/**
-	 * merges the given {@link IPv4Range} instances to a minimal list of
+	 * merges the given {@link Ipv4Range} instances to a minimal list of
 	 * non-overlapping ranges
 	 *
-	 * @return a list of {@link IPv4Range}
+	 * @return a list of {@link Ipv4Range}
 	 */
-	public static List<IPv4Range> merge(IPv4Range... ranges) {
+	public static List<Ipv4Range> merge(Ipv4Range... ranges) {
 		return merge(Arrays.asList(ranges));
 	}
 
 	/**
-	 * merges the given collection of {@link IPv4Range} instances to a minimal list
+	 * merges the given collection of {@link Ipv4Range} instances to a minimal list
 	 * of non-overlapping ranges
 	 *
-	 * @return a list of {@link IPv4Range}
+	 * @return a list of {@link Ipv4Range}
 	 */
-	public static List<IPv4Range> merge(Collection<IPv4Range> ranges) {
-		return IPRangeUtils.merge(ranges, IPv4Range::of);
+	public static List<Ipv4Range> merge(Collection<Ipv4Range> ranges) {
+		return IpRangeUtils.merge(ranges, Ipv4Range::of);
 	}
 
 	/**
-	 * Parses the given String into an {@link IPv4Range} The String can be either a
+	 * Parses the given String into an {@link Ipv4Range} The String can be either a
 	 * single address, a range such as "192.168.0.0-192.168.1.2" or a subnet such as
 	 * "192.168.0.0/16"
 	 *
 	 * @param from - a String representation of a single IPv4 address, a range or a
 	 *             subnet
-	 * @return An {@link IPv4Range}
+	 * @return An {@link Ipv4Range}
 	 */
-	public static IPv4Range parse(String from) {
-		return IPRangeUtils.parseRange(from, IPv4Range::of, IPv4Subnet::of);
+	public static Ipv4Range parse(String from) {
+		return IpRangeUtils.parseRange(from, Ipv4Range::of, Ipv4Subnet::of);
 	}
 
-	protected final IPv4Address firstAddress;
-	protected final IPv4Address lastAddress;
+	protected final Ipv4Address firstAddress;
+	protected final Ipv4Address lastAddress;
 
-	public IPv4Range(IPv4Address firstAddress, IPv4Address lastAddress) {
+	public Ipv4Range(Ipv4Address firstAddress, Ipv4Address lastAddress) {
 		this.firstAddress = firstAddress;
 		this.lastAddress = lastAddress;
 		if (this.firstAddress == null || this.lastAddress == null) {
@@ -107,12 +107,12 @@ public class IPv4Range implements IPRange<IPv4Range, IPv4Subnet, IPv4Address, Lo
 	}
 
 	@Override
-	public IPv4Address getFirst() {
+	public Ipv4Address getFirst() {
 		return this.firstAddress;
 	}
 
 	@Override
-	public IPv4Address getLast() {
+	public Ipv4Address getLast() {
 		return this.lastAddress;
 	}
 
@@ -136,9 +136,9 @@ public class IPv4Range implements IPRange<IPv4Range, IPv4Subnet, IPv4Address, Lo
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof IPv4Range))
+		if (!(obj instanceof Ipv4Range))
 			return false;
-		IPv4Range other = (IPv4Range) obj;
+		Ipv4Range other = (Ipv4Range) obj;
 		return this.firstAddress != null && other.firstAddress != null && this.lastAddress != null
 				&& other.lastAddress != null && this.firstAddress.equals(other.firstAddress)
 				&& this.lastAddress.equals(other.lastAddress);
@@ -150,13 +150,13 @@ public class IPv4Range implements IPRange<IPv4Range, IPv4Subnet, IPv4Address, Lo
 	}
 
 	@Override
-	public Iterator<IPv4Address> iterator(boolean skipFirst, boolean skipLast) {
-		return new Iterator<IPv4Address>() {
+	public Iterator<Ipv4Address> iterator(boolean skipFirst, boolean skipLast) {
+		return new Iterator<Ipv4Address>() {
 
 			final AtomicLong next = new AtomicLong(
-					skipFirst ? IPv4Range.this.firstAddress.next().toLong() : IPv4Range.this.firstAddress.toLong());
-			final long last = skipLast ? IPv4Range.this.lastAddress.previous().toLong()
-					: IPv4Range.this.lastAddress.toLong();
+					skipFirst ? Ipv4Range.this.firstAddress.next().toLong() : Ipv4Range.this.firstAddress.toLong());
+			final long last = skipLast ? Ipv4Range.this.lastAddress.previous().toLong()
+					: Ipv4Range.this.lastAddress.toLong();
 
 			@Override
 			public void remove() {
@@ -169,34 +169,34 @@ public class IPv4Range implements IPRange<IPv4Range, IPv4Subnet, IPv4Address, Lo
 			}
 
 			@Override
-			public IPv4Address next() {
+			public Ipv4Address next() {
 				long tempNext;
 				if ((tempNext = this.next.getAndIncrement()) <= this.last) {
-					return IPv4Address.of((int) tempNext);
+					return Ipv4Address.of((int) tempNext);
 				}
 				throw new NoSuchElementException();
 			}
 		};
 	}
 
-	protected IPv4Subnet maxSubnetInRange(IPv4Address addr) {
+	protected Ipv4Subnet maxSubnetInRange(Ipv4Address addr) {
 		int addrHostBits = Integer.numberOfTrailingZeros(addr.toInt());
 		int networkBitsEq = Integer.numberOfLeadingZeros(this.lastAddress.toInt() ^ addr.toInt());
-		int hostBitsMax = IPv4Address.ADDRESS_BITS - networkBitsEq;
+		int hostBitsMax = Ipv4Address.ADDRESS_BITS - networkBitsEq;
 		if (Integer.numberOfTrailingZeros(~this.lastAddress.toInt()) < hostBitsMax) {
 			hostBitsMax--;
 		}
 
 		int hostBits = Math.min(addrHostBits, hostBitsMax);
-		return IPv4Subnet.of(addr, 32 - hostBits);
+		return Ipv4Subnet.of(addr, 32 - hostBits);
 	}
 
 	@Override
-	public List<IPv4Subnet> toSubnets() {
-		ArrayList<IPv4Subnet> result = new ArrayList<>();
-		IPv4Address lastAddress = this.firstAddress.previous();
+	public List<Ipv4Subnet> toSubnets() {
+		ArrayList<Ipv4Subnet> result = new ArrayList<>();
+		Ipv4Address lastAddress = this.firstAddress.previous();
 		do {
-			IPv4Subnet nextSubnet = maxSubnetInRange(lastAddress.next());
+			Ipv4Subnet nextSubnet = maxSubnetInRange(lastAddress.next());
 			result.add(nextSubnet);
 			lastAddress = nextSubnet.lastAddress;
 		} while (lastAddress.compareTo(this.lastAddress) < 0);
@@ -210,50 +210,50 @@ public class IPv4Range implements IPRange<IPv4Range, IPv4Subnet, IPv4Address, Lo
 	}
 
 	@Override
-	public IPv4Range withFirst(IPv4Address address) {
-		return IPv4Range.of(address, this.getLast());
+	public Ipv4Range withFirst(Ipv4Address address) {
+		return Ipv4Range.of(address, this.getLast());
 	}
 
 	@Override
-	public IPv4Range withLast(IPv4Address address) {
-		return IPv4Range.of(this.getFirst(), address);
+	public Ipv4Range withLast(Ipv4Address address) {
+		return Ipv4Range.of(this.getFirst(), address);
 	}
 
-	public List<IPv4Range> withRemoved(Collection<IPv4Range> ranges) {
-		List<IPv4Range> ret = new ArrayList<>(ranges.size() + 1);
-		List<IPv4Range> merged = IPv4Range.merge(ranges);
+	public List<Ipv4Range> withRemoved(Collection<Ipv4Range> ranges) {
+		List<Ipv4Range> ret = new ArrayList<>(ranges.size() + 1);
+		List<Ipv4Range> merged = Ipv4Range.merge(ranges);
 		ret.add(this);
-		for (IPv4Range toRemove : merged) {
-			IPv4Range next = ret.remove(ret.size() - 1);
+		for (Ipv4Range toRemove : merged) {
+			Ipv4Range next = ret.remove(ret.size() - 1);
 			// a bit faster than calling withRemoved() one range at a time
 			if (toRemove.getFirst().compareTo(next.getFirst()) > 0) {
 				if (toRemove.getLast().compareTo(next.getLast()) < 0) {
-					ret.add(IPv4Range.of(next.getFirst(), toRemove.getFirst().previous()));
-					ret.add(IPv4Range.of(toRemove.getLast().next(), next.getLast()));
+					ret.add(Ipv4Range.of(next.getFirst(), toRemove.getFirst().previous()));
+					ret.add(Ipv4Range.of(toRemove.getLast().next(), next.getLast()));
 					continue;
 				}
-				ret.add(IPv4Range.of(next.getFirst(), IPAddress.min(next.getLast(), toRemove.getFirst().previous())));
+				ret.add(Ipv4Range.of(next.getFirst(), IpAddress.min(next.getLast(), toRemove.getFirst().previous())));
 				break;
 			}
 			if (toRemove.getLast().compareTo(next.getLast()) < 0) {
-				ret.add(IPv4Range.of(IPAddress.max(toRemove.getLast().next(), next.getFirst()), next.getLast()));
+				ret.add(Ipv4Range.of(IpAddress.max(toRemove.getLast().next(), next.getFirst()), next.getLast()));
 			}
 		}
 		return ret;
 	}
 
-	public List<IPv4Range> withRemoved(IPv4Range r) {
+	public List<Ipv4Range> withRemoved(Ipv4Range r) {
 		if (r.getFirst().compareTo(this.getFirst()) > 0) {
 			if (r.getLast().compareTo(this.getLast()) < 0) {
-				return Arrays.asList(IPv4Range.of(this.getFirst(), r.getFirst().previous()),
-						IPv4Range.of(r.getLast().next(), this.getLast()));
+				return Arrays.asList(Ipv4Range.of(this.getFirst(), r.getFirst().previous()),
+						Ipv4Range.of(r.getLast().next(), this.getLast()));
 			}
 			// noinspection ArraysAsListWithZeroOrOneArgument
-			return Arrays.asList(IPv4Range.of(this.getFirst(), IPAddress.min(this.getLast(), r.getFirst().previous())));
+			return Arrays.asList(Ipv4Range.of(this.getFirst(), IpAddress.min(this.getLast(), r.getFirst().previous())));
 		}
 		if (r.getLast().compareTo(this.getLast()) < 0) {
 			// noinspection ArraysAsListWithZeroOrOneArgument
-			return Arrays.asList(IPv4Range.of(IPAddress.max(r.getLast().next(), this.getFirst()), this.getLast()));
+			return Arrays.asList(Ipv4Range.of(IpAddress.max(r.getLast().next(), this.getFirst()), this.getLast()));
 		}
 
 		return Collections.emptyList();

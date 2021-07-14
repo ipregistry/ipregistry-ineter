@@ -18,18 +18,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 
-import co.ipregistry.ineter.base.IPv4Address;
+import co.ipregistry.ineter.base.Ipv4Address;
 
 @RunWith(JUnitPlatform.class)
-class IPRangeTest {
+class IpRangeTest {
 
-	static class TestIPRange extends IPv4Range {
+	static class TestIPRange extends Ipv4Range {
 		private static final long serialVersionUID = 1L;
 		boolean intLengthUsed = false;
 		boolean lengthUsed = false;
 		private int intLength;
 
-		public TestIPRange(IPv4Address firstAddress, IPv4Address lastAddress, int intLength) {
+		public TestIPRange(Ipv4Address firstAddress, Ipv4Address lastAddress, int intLength) {
 			super(firstAddress, lastAddress);
 			this.intLength = intLength;
 		}
@@ -49,10 +49,10 @@ class IPRangeTest {
 
 	@Test
 	void testListEqualToIter() {
-		IPv4Range range = IPv4Range.of("10.0.0.0", "10.0.0.100");
-		List<IPv4Address> list = range.toList();
+		Ipv4Range range = Ipv4Range.of("10.0.0.0", "10.0.0.100");
+		List<Ipv4Address> list = range.toList();
 		assertEquals(range.intLength(), list.size());
-		Iterator<IPv4Address> iterator = range.iterator();
+		Iterator<Ipv4Address> iterator = range.iterator();
 		int i = 0;
 		while (iterator.hasNext()) {
 			assertEquals(iterator.next(), list.get(i++));
@@ -61,8 +61,8 @@ class IPRangeTest {
 
 	@Test
 	void testToListUsesIntLength_NotLength() {
-		TestIPRange range = new TestIPRange(IPv4Address.of("10.0.0.0"), IPv4Address.of("10.0.0.100"), 5);
-		List<IPv4Address> list = range.toList();
+		TestIPRange range = new TestIPRange(Ipv4Address.of("10.0.0.0"), Ipv4Address.of("10.0.0.100"), 5);
+		List<Ipv4Address> list = range.toList();
 		assertEquals(range.intLength(), list.size());
 		assertTrue(range.intLengthUsed);
 		assertFalse(range.lengthUsed);

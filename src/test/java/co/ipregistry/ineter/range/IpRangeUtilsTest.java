@@ -18,17 +18,17 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitPlatform.class)
-class IPRangeUtilsTest {
+class IpRangeUtilsTest {
 
-	private static final BiFunction<String, String, IPv4Range> IPv4_RANGE_PRODUCER = IPv4Range::of;
-	private static final Function<String, IPv4Subnet> IPv4_SUBNET_PRODUCER = IPv4Subnet::of;
+	private static final BiFunction<String, String, Ipv4Range> IPv4_RANGE_PRODUCER = Ipv4Range::of;
+	private static final Function<String, Ipv4Subnet> IPv4_SUBNET_PRODUCER = Ipv4Subnet::of;
 
 	@Test
 	void parseRange() {
 		final String from = "127.0.0.1-127.0.0.2";
-		final IPv4Range iPv4Addresses = IPRangeUtils.parseRange(from, IPv4_RANGE_PRODUCER, IPv4_SUBNET_PRODUCER);
+		final Ipv4Range iPv4Addresses = IpRangeUtils.parseRange(from, IPv4_RANGE_PRODUCER, IPv4_SUBNET_PRODUCER);
 
-		final IPv4Range range = IPv4Range.of("127.0.0.1", "127.0.0.2");
+		final Ipv4Range range = Ipv4Range.of("127.0.0.1", "127.0.0.2");
 
 		assertEquals(range, iPv4Addresses);
 	}
@@ -36,9 +36,9 @@ class IPRangeUtilsTest {
 	@Test
 	void parseSubnetAsRange() {
 		final String from = "172.20.88.0/24";
-		final IPv4Range iPv4Addresses = IPRangeUtils.parseRange(from, IPv4_RANGE_PRODUCER, IPv4_SUBNET_PRODUCER);
+		final Ipv4Range iPv4Addresses = IpRangeUtils.parseRange(from, IPv4_RANGE_PRODUCER, IPv4_SUBNET_PRODUCER);
 
-		final IPv4Subnet range = IPv4Subnet.of("172.20.88.0", 24);
+		final Ipv4Subnet range = Ipv4Subnet.of("172.20.88.0", 24);
 
 		assertEquals(range, iPv4Addresses);
 	}
@@ -47,42 +47,42 @@ class IPRangeUtilsTest {
 	void throwOnNonsenseOnRange() {
 		final String from = "127-127-127";
 		assertThrows(IllegalArgumentException.class,
-				() -> IPRangeUtils.parseRange(from, IPv4_RANGE_PRODUCER, IPv4_SUBNET_PRODUCER));
+				() -> IpRangeUtils.parseRange(from, IPv4_RANGE_PRODUCER, IPv4_SUBNET_PRODUCER));
 	}
 
 	@Test
 	void parseSubnet() {
 		final String from = "172.20.88.0/24";
-		final IPv4Subnet parsedSubnet = IPRangeUtils.parseSubnet(from, IPv4Subnet::of, (byte) 32);
+		final Ipv4Subnet parsedSubnet = IpRangeUtils.parseSubnet(from, Ipv4Subnet::of, (byte) 32);
 
-		final IPv4Subnet subnet = IPv4Subnet.of("172.20.88.0/24");
+		final Ipv4Subnet subnet = Ipv4Subnet.of("172.20.88.0/24");
 		assertEquals(subnet, parsedSubnet);
 	}
 
 	@Test
 	void parseSingleAddressSubnet() {
 		final String from = "172.20.88.1";
-		final IPv4Subnet parsedSubnet = IPRangeUtils.parseSubnet(from, IPv4Subnet::of, (byte) 32);
+		final Ipv4Subnet parsedSubnet = IpRangeUtils.parseSubnet(from, Ipv4Subnet::of, (byte) 32);
 
-		final IPv4Subnet subnet = IPv4Subnet.of("172.20.88.1/32");
+		final Ipv4Subnet subnet = Ipv4Subnet.of("172.20.88.1/32");
 		assertEquals(subnet, parsedSubnet);
 	}
 
 	@Test
 	void throwOnNonsenseOnSubnet() {
 		final String from = "127/127/127";
-		assertThrows(IllegalArgumentException.class, () -> IPRangeUtils.parseSubnet(from, IPv4Subnet::of, (byte) 32));
+		assertThrows(IllegalArgumentException.class, () -> IpRangeUtils.parseSubnet(from, Ipv4Subnet::of, (byte) 32));
 	}
 
 	@Test
 	void throwOnInvalidSplit() {
 		assertThrows(IllegalArgumentException.class,
-				() -> IPRangeUtils.parseRange("0.0.0.0-1.1.1.1-", IPv4Range::of, IPv4Subnet::of));
+				() -> IpRangeUtils.parseRange("0.0.0.0-1.1.1.1-", Ipv4Range::of, Ipv4Subnet::of));
 		assertThrows(IllegalArgumentException.class,
-				() -> IPRangeUtils.parseRange("-0.0.0.0-1.1.1.1", IPv4Range::of, IPv4Subnet::of));
+				() -> IpRangeUtils.parseRange("-0.0.0.0-1.1.1.1", Ipv4Range::of, Ipv4Subnet::of));
 		assertThrows(IllegalArgumentException.class,
-				() -> IPRangeUtils.parseSubnet("0.0.0.0/24/", IPv4Subnet::of, (byte) 32));
+				() -> IpRangeUtils.parseSubnet("0.0.0.0/24/", Ipv4Subnet::of, (byte) 32));
 		assertThrows(IllegalArgumentException.class,
-				() -> IPRangeUtils.parseSubnet("/0.0.0.0/24", IPv4Subnet::of, (byte) 32));
+				() -> IpRangeUtils.parseSubnet("/0.0.0.0/24", Ipv4Subnet::of, (byte) 32));
 	}
 }

@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import co.ipregistry.ineter.base.IPAddress;
+import co.ipregistry.ineter.base.IpAddress;
 
-abstract class IPRangeUtils {
+abstract class IpRangeUtils {
 
 	static <T> T parseRange(String from, BiFunction<String, String, ? extends T> rangeProducer,
 			Function<String, ? extends T> subnetProducer) {
@@ -50,7 +50,7 @@ abstract class IPRangeUtils {
 		return subnetProducer.apply(from.trim(), singleAddressMask);
 	}
 
-	static <L extends Number & Comparable<L>, I extends IPAddress, R extends IPRange<R, ?, I, L>> List<R> merge(
+	static <L extends Number & Comparable<L>, I extends IpAddress, R extends IpRange<R, ?, I, L>> List<R> merge(
 			Collection<R> rangesToMerge, BiFunction<I, I, R> rangeCreator) {
 		if (rangesToMerge.isEmpty()) {
 			return Collections.emptyList();
@@ -71,7 +71,7 @@ abstract class IPRangeUtils {
 					break;
 				}
 				mergedRange = rangeCreator.apply(pendingRangeStart,
-						IPAddress.max(mergedRange.getLast(), candidateRange.getLast()));
+						IpAddress.max(mergedRange.getLast(), candidateRange.getLast()));
 				candidateIndex++;
 			}
 			sortedRanges.set(mergedRangeIndex++, mergedRange);
@@ -80,7 +80,7 @@ abstract class IPRangeUtils {
 		return new ArrayList<>(sortedRanges.subList(0, mergedRangeIndex));
 	}
 
-	static <L extends Number & Comparable<L>, I extends IPAddress, R extends IPRange<R, ?, I, L>> boolean overlapsOrAdjacent(
+	static <L extends Number & Comparable<L>, I extends IpAddress, R extends IpRange<R, ?, I, L>> boolean overlapsOrAdjacent(
 			R mergedRange, R candidateRange) {
 		return mergedRange.overlaps(candidateRange) || mergedRange.getLast().next().equals(candidateRange.getFirst());
 	}

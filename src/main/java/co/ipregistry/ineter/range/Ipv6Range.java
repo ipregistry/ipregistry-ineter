@@ -18,84 +18,84 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
-import co.ipregistry.ineter.base.IPAddress;
-import co.ipregistry.ineter.base.IPv6Address;
+import co.ipregistry.ineter.base.IpAddress;
+import co.ipregistry.ineter.base.Ipv6Address;
 
-public class IPv6Range implements IPRange<IPv6Range, IPv6Subnet, IPv6Address, BigInteger> {
+public class Ipv6Range implements IpRange<Ipv6Range, Ipv6Subnet, Ipv6Address, BigInteger> {
 
 	private static final BigInteger INTEGER_MAX_VALUE = new BigInteger(
 			new byte[] { 0x7f, (byte) 0xff, (byte) 0xff, (byte) 0xff });
 	private static final long serialVersionUID = 3L;
 
-	public static IPv6Range of(IPv6Address firstAddress, IPv6Address lastAddress) {
-		return new IPv6Range(firstAddress, lastAddress);
+	public static Ipv6Range of(Ipv6Address firstAddress, Ipv6Address lastAddress) {
+		return new Ipv6Range(firstAddress, lastAddress);
 	}
 
-	public static IPv6Range of(IPv6Address address) {
-		return IPv6Range.of(address, address);
+	public static Ipv6Range of(Ipv6Address address) {
+		return Ipv6Range.of(address, address);
 	}
 
-	public static IPv6Range of(String firstAddress, String lastAddress) {
-		return new IPv6Range(IPv6Address.of(firstAddress), IPv6Address.of(lastAddress));
+	public static Ipv6Range of(String firstAddress, String lastAddress) {
+		return new Ipv6Range(Ipv6Address.of(firstAddress), Ipv6Address.of(lastAddress));
 	}
 
-	public static IPv6Range of(String address) {
-		return IPv6Range.of(address, address);
+	public static Ipv6Range of(String address) {
+		return Ipv6Range.of(address, address);
 	}
 
-	public static IPv6Range of(byte[] firstAddress, byte[] lastAddress) {
-		return new IPv6Range(IPv6Address.of(firstAddress), IPv6Address.of(lastAddress));
+	public static Ipv6Range of(byte[] firstAddress, byte[] lastAddress) {
+		return new Ipv6Range(Ipv6Address.of(firstAddress), Ipv6Address.of(lastAddress));
 	}
 
-	public static IPv6Range of(byte[] address) {
-		return IPv6Range.of(address, address);
+	public static Ipv6Range of(byte[] address) {
+		return Ipv6Range.of(address, address);
 	}
 
-	public static IPv6Range of(Inet6Address firstAddress, Inet6Address lastAddress) {
-		return new IPv6Range(IPv6Address.of(firstAddress), IPv6Address.of(lastAddress));
+	public static Ipv6Range of(Inet6Address firstAddress, Inet6Address lastAddress) {
+		return new Ipv6Range(Ipv6Address.of(firstAddress), Ipv6Address.of(lastAddress));
 	}
 
-	public static IPv6Range of(Inet6Address address) {
-		return IPv6Range.of(address, address);
+	public static Ipv6Range of(Inet6Address address) {
+		return Ipv6Range.of(address, address);
 	}
 
 	/**
-	 * merges the given {@link IPv6Range} instances to a minimal list of
+	 * merges the given {@link Ipv6Range} instances to a minimal list of
 	 * non-overlapping ranges
 	 * 
-	 * @return a list of {@link IPv6Range}
+	 * @return a list of {@link Ipv6Range}
 	 */
-	public static List<IPv6Range> merge(IPv6Range... ranges) {
+	public static List<Ipv6Range> merge(Ipv6Range... ranges) {
 		return merge(Arrays.asList(ranges));
 	}
 
 	/**
-	 * merges the given collection of {@link IPv6Range} instances to a minimal list
+	 * merges the given collection of {@link Ipv6Range} instances to a minimal list
 	 * of non-overlapping ranges
 	 * 
-	 * @return a list of {@link IPv6Range}
+	 * @return a list of {@link Ipv6Range}
 	 */
-	public static List<IPv6Range> merge(Collection<IPv6Range> ranges) {
-		return IPRangeUtils.merge(ranges, IPv6Range::of);
+	public static List<Ipv6Range> merge(Collection<Ipv6Range> ranges) {
+		return IpRangeUtils.merge(ranges, Ipv6Range::of);
 	}
 
 	/**
-	 * Parses the given String into an {@link IPv6Range} The String can be either a
+	 * Parses the given String into an {@link Ipv6Range} The String can be either a
 	 * single address, a range such as "2001::-2002::" or a subnet such as
 	 * "2001::/16"
 	 * 
 	 * @param from - a String representation of a single IPv6 address, a range or a
 	 *             subnet
-	 * @return An {@link IPv6Range}
+	 * @return An {@link Ipv6Range}
 	 */
-	public static IPv6Range parse(String from) {
-		return IPRangeUtils.parseRange(from, IPv6Range::of, IPv6Subnet::of);
+	public static Ipv6Range parse(String from) {
+		return IpRangeUtils.parseRange(from, Ipv6Range::of, Ipv6Subnet::of);
 	}
 
-	final IPv6Address firstAddress;
-	final IPv6Address lastAddress;
+	final Ipv6Address firstAddress;
+	final Ipv6Address lastAddress;
 
-	public IPv6Range(IPv6Address firstAddress, IPv6Address lastAddress) {
+	public Ipv6Range(Ipv6Address firstAddress, Ipv6Address lastAddress) {
 		this.firstAddress = firstAddress;
 		this.lastAddress = lastAddress;
 		if (this.firstAddress == null || this.lastAddress == null) {
@@ -110,12 +110,12 @@ public class IPv6Range implements IPRange<IPv6Range, IPv6Subnet, IPv6Address, Bi
 	}
 
 	@Override
-	public IPv6Address getFirst() {
+	public Ipv6Address getFirst() {
 		return this.firstAddress;
 	}
 
 	@Override
-	public IPv6Address getLast() {
+	public Ipv6Address getLast() {
 		return this.lastAddress;
 	}
 
@@ -139,9 +139,9 @@ public class IPv6Range implements IPRange<IPv6Range, IPv6Subnet, IPv6Address, Bi
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof IPv6Range))
+		if (!(obj instanceof Ipv6Range))
 			return false;
-		IPv6Range other = (IPv6Range) obj;
+		Ipv6Range other = (Ipv6Range) obj;
 		if (this.firstAddress == null) {
 			if (other.firstAddress != null)
 				return false;
@@ -159,8 +159,8 @@ public class IPv6Range implements IPRange<IPv6Range, IPv6Subnet, IPv6Address, Bi
 	}
 
 	@Override
-	public Iterator<IPv6Address> iterator(boolean skipFirst, boolean skipLast) {
-		return new Iterator<IPv6Address>() {
+	public Iterator<Ipv6Address> iterator(boolean skipFirst, boolean skipLast) {
+		return new Iterator<Ipv6Address>() {
 
 			final AtomicLong nextAddition = new AtomicLong(skipFirst ? 1 : 0);
 			// Will throw exception if length is greater than max long
@@ -177,53 +177,53 @@ public class IPv6Range implements IPRange<IPv6Range, IPv6Subnet, IPv6Address, Bi
 			}
 
 			@Override
-			public IPv6Address next() {
+			public Ipv6Address next() {
 				long tempNext;
 				if ((tempNext = this.nextAddition.getAndIncrement()) < this.totalCount) {
-					return IPv6Range.this.firstAddress.plus(tempNext);
+					return Ipv6Range.this.firstAddress.plus(tempNext);
 				}
 				throw new NoSuchElementException();
 			}
 		};
 	}
 
-	protected int numberOfTrailingOnes(IPv6Address a) {
+	protected int numberOfTrailingOnes(Ipv6Address a) {
 		long notLower = ~a.getLower();
-		return (notLower == 0) ? IPv6Address.HOLDER_BITS + Long.numberOfTrailingZeros(~a.getUpper())
+		return (notLower == 0) ? Ipv6Address.HOLDER_BITS + Long.numberOfTrailingZeros(~a.getUpper())
 				: Long.numberOfTrailingZeros(notLower);
 	}
 
-	protected int numberOfTrailingZeros(IPv6Address a) {
-		return (a.getLower() == 0) ? IPv6Address.HOLDER_BITS + Long.numberOfTrailingZeros(a.getUpper())
+	protected int numberOfTrailingZeros(Ipv6Address a) {
+		return (a.getLower() == 0) ? Ipv6Address.HOLDER_BITS + Long.numberOfTrailingZeros(a.getUpper())
 				: Long.numberOfTrailingZeros(a.getLower());
 	}
 
-	protected int numberOfLeadingEq(IPv6Address a, IPv6Address b) {
+	protected int numberOfLeadingEq(Ipv6Address a, Ipv6Address b) {
 		long upperXOR = a.getUpper() ^ b.getUpper();
 		if (upperXOR == 0) {
-			return IPv6Address.HOLDER_BITS + Long.numberOfLeadingZeros(a.getLower() ^ b.getLower());
+			return Ipv6Address.HOLDER_BITS + Long.numberOfLeadingZeros(a.getLower() ^ b.getLower());
 		}
 		return Long.numberOfLeadingZeros(upperXOR);
 	}
 
-	protected IPv6Subnet maxSubnetInRange(IPv6Address addr) {
+	protected Ipv6Subnet maxSubnetInRange(Ipv6Address addr) {
 		int addrHostBits = numberOfTrailingZeros(addr);
 		int networkBitsEq = numberOfLeadingEq(this.lastAddress, addr);
-		int hostBitsMax = IPv6Address.ADDRESS_BITS - networkBitsEq;
+		int hostBitsMax = Ipv6Address.ADDRESS_BITS - networkBitsEq;
 		if (numberOfTrailingOnes(this.lastAddress) < hostBitsMax) {
 			hostBitsMax--;
 		}
 
 		int hostBits = Math.min(addrHostBits, hostBitsMax);
-		return IPv6Subnet.of(addr, IPv6Address.ADDRESS_BITS - hostBits);
+		return Ipv6Subnet.of(addr, Ipv6Address.ADDRESS_BITS - hostBits);
 	}
 
 	@Override
-	public List<IPv6Subnet> toSubnets() {
-		ArrayList<IPv6Subnet> result = new ArrayList<>();
-		IPv6Address lastAddress = this.firstAddress.previous();
+	public List<Ipv6Subnet> toSubnets() {
+		ArrayList<Ipv6Subnet> result = new ArrayList<>();
+		Ipv6Address lastAddress = this.firstAddress.previous();
 		do {
-			IPv6Subnet nextSubnet = maxSubnetInRange(lastAddress.next());
+			Ipv6Subnet nextSubnet = maxSubnetInRange(lastAddress.next());
 			result.add(nextSubnet);
 			lastAddress = nextSubnet.lastAddress;
 		} while (lastAddress.compareTo(this.lastAddress) < 0);
@@ -237,48 +237,48 @@ public class IPv6Range implements IPRange<IPv6Range, IPv6Subnet, IPv6Address, Bi
 	}
 
 	@Override
-	public IPv6Range withFirst(IPv6Address address) {
-		return IPv6Range.of(address, this.getLast());
+	public Ipv6Range withFirst(Ipv6Address address) {
+		return Ipv6Range.of(address, this.getLast());
 	}
 
 	@Override
-	public IPv6Range withLast(IPv6Address address) {
-		return IPv6Range.of(this.getFirst(), address);
+	public Ipv6Range withLast(Ipv6Address address) {
+		return Ipv6Range.of(this.getFirst(), address);
 	}
 
-	public List<IPv6Range> withRemoved(Collection<IPv6Range> ranges) {
-		List<IPv6Range> ret = new ArrayList<>(ranges.size() + 1);
-		List<IPv6Range> merged = IPv6Range.merge(ranges);
+	public List<Ipv6Range> withRemoved(Collection<Ipv6Range> ranges) {
+		List<Ipv6Range> ret = new ArrayList<>(ranges.size() + 1);
+		List<Ipv6Range> merged = Ipv6Range.merge(ranges);
 		ret.add(this);
-		for (IPv6Range toRemove : merged) {
-			IPv6Range next = ret.remove(ret.size() - 1);
+		for (Ipv6Range toRemove : merged) {
+			Ipv6Range next = ret.remove(ret.size() - 1);
 			// a bit faster than calling withRemoved() one range at a time
 			if (toRemove.getFirst().compareTo(next.getFirst()) > 0) {
 				if (toRemove.getLast().compareTo(next.getLast()) < 0) {
-					ret.add(IPv6Range.of(next.getFirst(), toRemove.getFirst().previous()));
-					ret.add(IPv6Range.of(toRemove.getLast().next(), next.getLast()));
+					ret.add(Ipv6Range.of(next.getFirst(), toRemove.getFirst().previous()));
+					ret.add(Ipv6Range.of(toRemove.getLast().next(), next.getLast()));
 					continue;
 				}
-				ret.add(IPv6Range.of(next.getFirst(), IPAddress.min(next.getLast(), toRemove.getFirst().previous())));
+				ret.add(Ipv6Range.of(next.getFirst(), IpAddress.min(next.getLast(), toRemove.getFirst().previous())));
 				break;
 			}
 			if (toRemove.getLast().compareTo(next.getLast()) < 0) {
-				ret.add(IPv6Range.of(IPAddress.max(toRemove.getLast().next(), next.getFirst()), next.getLast()));
+				ret.add(Ipv6Range.of(IpAddress.max(toRemove.getLast().next(), next.getFirst()), next.getLast()));
 			}
 		}
 		return ret;
 	}
 
-	public List<IPv6Range> withRemoved(IPv6Range r) {
+	public List<Ipv6Range> withRemoved(Ipv6Range r) {
 		if (r.getFirst().compareTo(this.getFirst()) > 0) {
 			if (r.getLast().compareTo(this.getLast()) < 0) {
-				return Arrays.asList(IPv6Range.of(this.getFirst(), r.getFirst().previous()),
-						IPv6Range.of(r.getLast().next(), this.getLast()));
+				return Arrays.asList(Ipv6Range.of(this.getFirst(), r.getFirst().previous()),
+						Ipv6Range.of(r.getLast().next(), this.getLast()));
 			}
-			return Arrays.asList(IPv6Range.of(this.getFirst(), IPAddress.min(this.getLast(), r.getFirst().previous())));
+			return Arrays.asList(Ipv6Range.of(this.getFirst(), IpAddress.min(this.getLast(), r.getFirst().previous())));
 		}
 		if (r.getLast().compareTo(this.getLast()) < 0) {
-			return Arrays.asList(IPv6Range.of(IPAddress.max(r.getLast().next(), this.getFirst()), this.getLast()));
+			return Arrays.asList(Ipv6Range.of(IpAddress.max(r.getLast().next(), this.getFirst()), this.getLast()));
 		}
 
 		return Collections.emptyList();

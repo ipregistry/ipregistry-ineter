@@ -9,9 +9,9 @@ package co.ipregistry.ineter.range;
 
 import java.math.BigInteger;
 
-import co.ipregistry.ineter.base.IPv6Address;
+import co.ipregistry.ineter.base.Ipv6Address;
 
-public class IPv6Subnet extends IPv6Range implements IPSubnet<IPv6Subnet, IPv6Range, IPv6Address, BigInteger> {
+public class Ipv6Subnet extends Ipv6Range implements IpSubnet<Ipv6Subnet, Ipv6Range, Ipv6Address, BigInteger> {
 
 	enum IPv6SubnetMask {
 
@@ -35,7 +35,7 @@ public class IPv6Subnet extends IPv6Range implements IPSubnet<IPv6Subnet, IPv6Ra
 		//@formatter:on
 
 		public static IPv6SubnetMask fromMaskLen(int maskLen) {
-			if (maskLen >= 0 && maskLen <= IPv6Address.ADDRESS_BITS) {
+			if (maskLen >= 0 && maskLen <= Ipv6Address.ADDRESS_BITS) {
 				return IPv6SubnetMask.values()[maskLen];
 			}
 			throw new IllegalArgumentException("The mask length must be between 0 and 128");
@@ -56,22 +56,22 @@ public class IPv6Subnet extends IPv6Range implements IPSubnet<IPv6Subnet, IPv6Ra
 			return this.bitCount;
 		}
 
-		public IPv6Address and(IPv6Address ip) {
-			return IPv6Address.of(ip.getUpper() & this.maskUpper, ip.getLower() & this.maskLower);
+		public Ipv6Address and(Ipv6Address ip) {
+			return Ipv6Address.of(ip.getUpper() & this.maskUpper, ip.getLower() & this.maskLower);
 		}
 
-		public IPv6Address orInverted(IPv6Address ip) {
-			return IPv6Address.of(ip.getUpper() | ~this.maskUpper, ip.getLower() | ~this.maskLower);
+		public Ipv6Address orInverted(Ipv6Address ip) {
+			return Ipv6Address.of(ip.getUpper() | ~this.maskUpper, ip.getLower() | ~this.maskLower);
 		}
 
-		public IPv6Address toAddress() {
-			return IPv6Address.of(this.maskUpper, this.maskLower);
+		public Ipv6Address toAddress() {
+			return Ipv6Address.of(this.maskUpper, this.maskLower);
 		}
 	}
 
 	private static final long serialVersionUID = 3L;
 
-	public static IPv6Subnet of(String cidr) {
+	public static Ipv6Subnet of(String cidr) {
 		int slashIndex = cidr.indexOf('/');
 		if (slashIndex == -1) {
 			throw new IllegalArgumentException("Expected '/' in cidr");
@@ -79,25 +79,25 @@ public class IPv6Subnet extends IPv6Range implements IPSubnet<IPv6Subnet, IPv6Ra
 		return of(cidr.substring(0, slashIndex), cidr.substring(slashIndex + 1));
 	}
 
-	public static IPv6Subnet parse(String from) {
-		return IPRangeUtils.parseSubnet(from, IPv6Subnet::of, 128);
+	public static Ipv6Subnet parse(String from) {
+		return IpRangeUtils.parseSubnet(from, Ipv6Subnet::of, 128);
 	}
 
-	public static IPv6Subnet of(String address, int maskLen) {
-		return new IPv6Subnet(IPv6Address.of(address), IPv6SubnetMask.fromMaskLen(maskLen));
+	public static Ipv6Subnet of(String address, int maskLen) {
+		return new Ipv6Subnet(Ipv6Address.of(address), IPv6SubnetMask.fromMaskLen(maskLen));
 	}
 
-	public static IPv6Subnet of(IPv6Address address, int maskLen) {
-		return new IPv6Subnet(address, IPv6SubnetMask.fromMaskLen(maskLen));
+	public static Ipv6Subnet of(Ipv6Address address, int maskLen) {
+		return new Ipv6Subnet(address, IPv6SubnetMask.fromMaskLen(maskLen));
 	}
 
-	public static IPv6Subnet of(String address, String maskLen) {
-		return new IPv6Subnet(IPv6Address.of(address), IPv6SubnetMask.fromMaskLen(Integer.parseUnsignedInt(maskLen)));
+	public static Ipv6Subnet of(String address, String maskLen) {
+		return new Ipv6Subnet(Ipv6Address.of(address), IPv6SubnetMask.fromMaskLen(Integer.parseUnsignedInt(maskLen)));
 	}
 
 	protected final int networkBitCount;
 
-	public IPv6Subnet(IPv6Address address, IPv6SubnetMask mask) {
+	public Ipv6Subnet(Ipv6Address address, IPv6SubnetMask mask) {
 		super(mask.and(address), mask.orInverted(address));
 		this.networkBitCount = mask.maskBitCount();
 	}
@@ -113,17 +113,17 @@ public class IPv6Subnet extends IPv6Range implements IPSubnet<IPv6Subnet, IPv6Ra
 	}
 
 	@Override
-	public IPv6Address getNetworkMask() {
+	public Ipv6Address getNetworkMask() {
 		return IPv6SubnetMask.fromMaskLen(this.networkBitCount).toAddress();
 	}
 
 	@Override
 	public int getHostBitCount() {
-		return IPv6Address.ADDRESS_BITS - this.networkBitCount;
+		return Ipv6Address.ADDRESS_BITS - this.networkBitCount;
 	}
 
 	@Override
-	public IPv6Address getNetworkAddress() {
+	public Ipv6Address getNetworkAddress() {
 		return getFirst();
 	}
 }

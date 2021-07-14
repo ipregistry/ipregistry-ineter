@@ -23,8 +23,8 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.infra.Blackhole;
 
-import co.ipregistry.ineter.base.IPv6Address;
-import co.ipregistry.ineter.base.IPv6AddressParseTest;
+import co.ipregistry.ineter.base.Ipv6Address;
+import co.ipregistry.ineter.base.Ipv6AddressParseTest;
 
 import com.google.common.net.InetAddresses;
 
@@ -32,20 +32,20 @@ import com.google.common.net.InetAddresses;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Benchmark)
-public class IPv6ParsingBenchmark {
+public class Ipv6ParsingBenchmark {
 	private static final int ADDR_CNT = 1000;
 	private List<String> addresses;
 
 	@Setup(Level.Trial)
 	public void setUp() {
 		// no brackets, guava doesn't like it
-		this.addresses = IPv6AddressParseTest.generateIP6AddressStrings(0, ADDR_CNT, false);
+		this.addresses = Ipv6AddressParseTest.generateIP6AddressStrings(0, ADDR_CNT, false);
 	}
 
 	@Benchmark
 	public void ineterParsing(Blackhole hole) {
 		for (String addr : this.addresses) {
-			hole.consume(IPv6Address.of(addr));
+			hole.consume(Ipv6Address.of(addr));
 		}
 	}
 
