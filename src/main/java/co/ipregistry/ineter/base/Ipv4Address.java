@@ -278,6 +278,11 @@ public class Ipv4Address implements IpAddress {
 		return IPv4KnownRange.TRANSLATION_6_TO_4.contains(this);
 	}
 
+	@Override
+	public boolean isAnyLocal() {
+		return ip == 0;
+	}
+
 	/**
 	 * Is this the broadcast address?
 	 *

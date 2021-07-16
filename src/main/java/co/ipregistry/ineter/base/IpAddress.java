@@ -93,6 +93,8 @@ public interface IpAddress extends Comparable<IpAddress>, Serializable {
 	 */
 	boolean is6To4();
 
+	boolean isAnyLocal();
+
 	/**
 	 * Martian addresses are reserved and private addresses that should not appear
 	 * on the public internet

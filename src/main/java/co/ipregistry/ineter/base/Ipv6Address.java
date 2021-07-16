@@ -512,6 +512,11 @@ public class Ipv6Address implements IpAddress {
 	}
 
 	@Override
+	public boolean isAnyLocal() {
+		return upper == 0 && lower == 0;
+	}
+
+	@Override
 	public boolean isMartian() {
 		return isUnspecified() || isLoopback() || IPv6KnownRange.IPV4_MAPPED_IPV6.contains(this)
 				|| IPv6KnownRange.IPV4_COMPATIBLE_IPV6_DEPRECATED.contains(this)
