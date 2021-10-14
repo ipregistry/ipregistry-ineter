@@ -24,7 +24,7 @@ abstract class IpRangeUtils {
 		// The shortest valid string is :: (length 2)
 		for (int i = from.length() - 1; i > 1; i--) {
 			final char c = from.charAt(i);
-			if (c == '-') {
+			if (c == ',' || c == '-') {
 				return rangeProducer.apply(from.substring(0, i).trim(), from.substring(i + 1).trim());
 			}
 			if (c == '/') {

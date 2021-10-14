@@ -140,7 +140,7 @@ public class Ipv4Range implements IpRange<Ipv4Range, Ipv4Subnet, Ipv4Address, Lo
 
 	@Override
 	public String toString() {
-		return this.getFirst().toString() + " - " + this.getLast().toString();
+		return this.getFirst().toString() + ',' + this.getLast().toString();
 	}
 
 	@Override
