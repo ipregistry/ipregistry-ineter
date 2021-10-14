@@ -375,10 +375,8 @@ public class Ipv4Address implements IpAddress {
 
 	@Override
 	public String toString() {
-		return String.join(".", Integer.toString(Ip4Octet.OCTET_A.isolateAsInt(this.ip)),
-				Integer.toString(Ip4Octet.OCTET_B.isolateAsInt(this.ip)),
-				Integer.toString(Ip4Octet.OCTET_C.isolateAsInt(this.ip)),
-				Integer.toString(Ip4Octet.OCTET_D.isolateAsInt(this.ip)));
+		return Integer.toString(Ip4Octet.OCTET_A.isolateAsInt(this.ip)) + '.' + Ip4Octet.OCTET_B.isolateAsInt(this.ip)
+				+ '.' + Ip4Octet.OCTET_C.isolateAsInt(this.ip) + '.' + Ip4Octet.OCTET_D.isolateAsInt(this.ip);
 	}
 
 	/**

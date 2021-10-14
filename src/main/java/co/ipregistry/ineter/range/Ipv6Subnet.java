@@ -104,7 +104,7 @@ public class Ipv6Subnet extends Ipv6Range implements IpSubnet<Ipv6Subnet, Ipv6Ra
 
 	@Override
 	public String toString() {
-		return String.format("%s/%s", super.firstAddress, this.networkBitCount);
+		return super.firstAddress.toString() + '/' + this.networkBitCount;
 	}
 
 	@Override

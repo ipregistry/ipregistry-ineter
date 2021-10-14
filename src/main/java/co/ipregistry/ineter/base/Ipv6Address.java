@@ -685,13 +685,13 @@ public class Ipv6Address implements IpAddress {
 
 	@Override
 	public String toString() {
-		return Integer.toHexString(LongShort.SHORT_A.isolateAsInt(this.upper)) + ":"
-				+ Integer.toHexString(LongShort.SHORT_B.isolateAsInt(this.upper)) + ":"
-				+ Integer.toHexString(LongShort.SHORT_C.isolateAsInt(this.upper)) + ":"
-				+ Integer.toHexString(LongShort.SHORT_D.isolateAsInt(this.upper)) + ":"
-				+ Integer.toHexString(LongShort.SHORT_A.isolateAsInt(this.lower)) + ":"
-				+ Integer.toHexString(LongShort.SHORT_B.isolateAsInt(this.lower)) + ":"
-				+ Integer.toHexString(LongShort.SHORT_C.isolateAsInt(this.lower)) + ":"
+		return Integer.toHexString(LongShort.SHORT_A.isolateAsInt(this.upper)) + ':'
+				+ Integer.toHexString(LongShort.SHORT_B.isolateAsInt(this.upper)) + ':'
+				+ Integer.toHexString(LongShort.SHORT_C.isolateAsInt(this.upper)) + ':'
+				+ Integer.toHexString(LongShort.SHORT_D.isolateAsInt(this.upper)) + ':'
+				+ Integer.toHexString(LongShort.SHORT_A.isolateAsInt(this.lower)) + ':'
+				+ Integer.toHexString(LongShort.SHORT_B.isolateAsInt(this.lower)) + ':'
+				+ Integer.toHexString(LongShort.SHORT_C.isolateAsInt(this.lower)) + ':'
 				+ Integer.toHexString(LongShort.SHORT_D.isolateAsInt(this.lower));
 	}
 

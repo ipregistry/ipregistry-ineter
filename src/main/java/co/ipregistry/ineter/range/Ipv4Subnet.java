@@ -107,7 +107,7 @@ public class Ipv4Subnet extends Ipv4Range implements IpSubnet<Ipv4Subnet, Ipv4Ra
 
 	@Override
 	public String toString() {
-		return String.format("%s/%d", super.firstAddress, this.networkBitCount);
+		return super.firstAddress.toString() + '/' + this.networkBitCount;
 	}
 
 	@Override

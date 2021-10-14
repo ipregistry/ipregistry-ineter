@@ -155,7 +155,7 @@ public class Ipv6Range implements IpRange<Ipv6Range, Ipv6Subnet, Ipv6Address, Bi
 
 	@Override
 	public String toString() {
-		return String.format("%s - %s", this.getFirst().toString(), this.getLast().toString());
+		return this.getFirst().toString() + " - " + this.getLast().toString();
 	}
 
 	@Override

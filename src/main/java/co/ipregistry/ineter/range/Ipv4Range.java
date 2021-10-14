@@ -8,13 +8,7 @@
 package co.ipregistry.ineter.range;
 
 import java.net.Inet4Address;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 import co.ipregistry.ineter.base.IpAddress;
@@ -146,7 +140,7 @@ public class Ipv4Range implements IpRange<Ipv4Range, Ipv4Subnet, Ipv4Address, Lo
 
 	@Override
 	public String toString() {
-		return String.format("%s - %s", this.getFirst().toString(), this.getLast().toString());
+		return this.getFirst().toString() + " - " + this.getLast().toString();
 	}
 
 	@Override

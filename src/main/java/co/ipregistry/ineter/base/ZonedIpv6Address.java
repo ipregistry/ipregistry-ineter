@@ -137,7 +137,7 @@ public class ZonedIpv6Address extends Ipv6Address {
 
 	@Override
 	public String toString() {
-		return String.format("%s%%%s", super.toString(), this.zone);
+		return super.toString() + '%' + this.zone;
 	}
 
 	@Override
