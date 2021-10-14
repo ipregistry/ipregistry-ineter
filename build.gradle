@@ -39,7 +39,7 @@ publishing {
 		github(MavenPublication) {
 			groupId = 'co.ipregistry'
 			artifactId = 'ipregistry-ineter'
-			version = '2.0.2'
+			version = '2.1.0'
 
 			from(components.java)
 		}
