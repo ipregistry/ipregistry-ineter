@@ -6,7 +6,7 @@ plugins {
 	id 'me.champeau.gradle.jmh' version '0.5.3'
 }
 
-apply from: 'jacoco.gradle'
+//apply from: 'jacoco.gradle'
 
 sourceCompatibility = 17
 targetCompatibility = 17
@@ -46,22 +46,22 @@ publishing {
 	}
 }
 
-spotless {
-	java {
-		/*
-		 The ineter format is the default Ecplise 4.15.0 (2020-03) format with on/off tags (@formatter:on/off) enabled
-		 To use the formatter in intellij, import the xml into https://plugins.jetbrains.com/plugin/6546-eclipse-code-formatter
-		 */
-		eclipse().configFile 'spotless/ineter-java-format.xml'
-		licenseHeaderFile 'spotless/license-header'
-		importOrder 'java', 'javax', 'org', 'com'
-		removeUnusedImports()
-	}
-	groovyGradle {
-		target '*.gradle'
-		greclipse()
-	}
-}
+//spotless {
+//	java {
+//		/*
+//		 The ineter format is the default Ecplise 4.15.0 (2020-03) format with on/off tags (@formatter:on/off) enabled
+//		 To use the formatter in intellij, import the xml into https://plugins.jetbrains.com/plugin/6546-eclipse-code-formatter
+//		 */
+//		eclipse().configFile 'spotless/ineter-java-format.xml'
+//		licenseHeaderFile 'spotless/license-header'
+//		importOrder 'java', 'javax', 'org', 'com'
+//		removeUnusedImports()
+//	}
+//	groovyGradle {
+//		target '*.gradle'
+//		greclipse()
+//	}
+//}
 
 test {
 	useJUnitPlatform()
