@@ -15,7 +15,7 @@ repositories {
 	mavenCentral()
 }
 
-def guavaDep = 'com.google.guava:guava:31.0.1-jre'
+def guavaDep = 'com.google.guava:guava:30.1.1-jre' // do not upgrade without checking compatibility
 dependencies {
 	jmh guavaDep
 	testImplementation guavaDep
@@ -39,7 +39,7 @@ publishing {
 		github(MavenPublication) {
 			groupId = 'co.ipregistry'
 			artifactId = 'ipregistry-ineter'
-			version = '2.2.0'
+			version = '2.2.1'
 
 			from(components.java)
 		}
