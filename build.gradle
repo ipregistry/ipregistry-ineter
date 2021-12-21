@@ -1,5 +1,5 @@
 plugins {
-	id 'com.diffplug.spotless' version '5.17.1'
+	id 'com.diffplug.spotless' version '6.0.5'
 	id 'com.github.ben-manes.versions' version '0.39.0'
 	id 'java-library'
 	id 'maven-publish'
@@ -19,9 +19,9 @@ def guavaDep = 'com.google.guava:guava:31.0.1-jre'
 dependencies {
 	jmh guavaDep
 	testImplementation guavaDep
-	testImplementation 'org.junit.platform:junit-platform-runner:1.8.1'
-	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.1'
+	testImplementation 'org.junit.platform:junit-platform-runner:1.8.2'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
 }
 
 publishing {
@@ -39,7 +39,7 @@ publishing {
 		github(MavenPublication) {
 			groupId = 'co.ipregistry'
 			artifactId = 'ipregistry-ineter'
-			version = '2.2.2'
+			version = '2.2.3'
 
 			from(components.java)
 		}
