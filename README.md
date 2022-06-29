@@ -72,3 +72,7 @@ ineter (pronounced "Eye-netter") is a tiny Java library for working with:
 
 	ipv4Subnet.getNetworkMask(); //255.255.0.0
 	ipv4Subnet.getNetworkBitCount(); //16
+
+## Acknowledgements
+
+This repository original work has been forked from https://github.com/maltalex/ineter at commit 6187c20887c177fb09a6e5b6316844d1d5808e06.
