@@ -21,7 +21,11 @@ public class Ipv4Range implements IpRange<Ipv4Range, Ipv4Subnet, Ipv4Address, Lo
 	private static final long serialVersionUID = 3L;
 
 	public static Ipv4Range of(final Ipv4Address firstAddress, final Ipv4Address lastAddress) {
-		return new Ipv4Range(firstAddress, lastAddress);
+		return of(firstAddress, lastAddress, false);
+	}
+
+	static Ipv4Range of(final Ipv4Address firstAddress, final Ipv4Address lastAddress, final boolean unchecked) {
+		return new Ipv4Range(firstAddress, lastAddress, unchecked);
 	}
 
 	public static Ipv4Range of(final Ipv4Address address) {
@@ -50,6 +54,10 @@ public class Ipv4Range implements IpRange<Ipv4Range, Ipv4Subnet, Ipv4Address, Lo
 
 	public static Ipv4Range of(final Inet4Address address) {
 		return Ipv4Range.of(address, address);
+	}
+
+	public static Ipv4Range of(final Ipv4Subnet subnet) {
+		return Ipv4Range.of(subnet.firstAddress, subnet.lastAddress, true);
 	}
 
 	/**
@@ -89,16 +97,23 @@ public class Ipv4Range implements IpRange<Ipv4Range, Ipv4Subnet, Ipv4Address, Lo
 	protected final Ipv4Address lastAddress;
 
 	public Ipv4Range(final Ipv4Address firstAddress, final Ipv4Address lastAddress) {
+		this(firstAddress, lastAddress, false);
+	}
+
+	Ipv4Range(final Ipv4Address firstAddress, final Ipv4Address lastAddress, final boolean unchecked) {
 		this.firstAddress = firstAddress;
 		this.lastAddress = lastAddress;
-		if (this.firstAddress == null || this.lastAddress == null) {
-			throw new NullPointerException("Neither the first nor the last address can be null");
-		}
 
-		if (this.firstAddress.compareTo(lastAddress) > 0) {
-			throw new IllegalArgumentException(
-					String.format("The first address in the range (%s) has to be lower than the last address (%s)",
-							firstAddress, lastAddress));
+		if (!unchecked) {
+			if (this.firstAddress == null || this.lastAddress == null) {
+				throw new NullPointerException("Neither the first nor the last address can be null");
+			}
+
+			if (this.firstAddress.compareTo(lastAddress) > 0) {
+				throw new IllegalArgumentException(
+						String.format("The first address in the range (%s) has to be lower than the last address (%s)",
+								firstAddress, lastAddress));
+			}
 		}
 	}
 

@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import co.ipregistry.ineter.base.IpAddress;
+import co.ipregistry.ineter.base.Ipv4Address;
 import co.ipregistry.ineter.base.Ipv6Address;
 
 public class Ipv6Range implements IpRange<Ipv6Range, Ipv6Subnet, Ipv6Address, BigInteger> {
@@ -31,6 +32,10 @@ public class Ipv6Range implements IpRange<Ipv6Range, Ipv6Subnet, Ipv6Address, Bi
 
 	public static Ipv6Range of(final Ipv6Address firstAddress, final Ipv6Address lastAddress) {
 		return new Ipv6Range(firstAddress, lastAddress);
+	}
+
+	static Ipv6Range of(final Ipv6Address firstAddress, final Ipv6Address lastAddress, final boolean unchecked) {
+		return new Ipv6Range(firstAddress, lastAddress, unchecked);
 	}
 
 	public static Ipv6Range of(final Ipv6Address address) {
@@ -98,16 +103,23 @@ public class Ipv6Range implements IpRange<Ipv6Range, Ipv6Subnet, Ipv6Address, Bi
 	final Ipv6Address lastAddress;
 
 	public Ipv6Range(final Ipv6Address firstAddress, final Ipv6Address lastAddress) {
+		this(firstAddress, lastAddress, false);
+	}
+
+	Ipv6Range(final Ipv6Address firstAddress, final Ipv6Address lastAddress, final boolean unchecked) {
 		this.firstAddress = firstAddress;
 		this.lastAddress = lastAddress;
-		if (this.firstAddress == null || this.lastAddress == null) {
-			throw new NullPointerException("Neither the first nor the last address can be null");
-		}
 
-		if (this.firstAddress.compareTo(lastAddress) > 0) {
-			throw new IllegalArgumentException(
-					String.format("The first address in the range (%s) has to be lower than the last address (%s)",
-							firstAddress, lastAddress));
+		if (!unchecked) {
+			if (this.firstAddress == null || this.lastAddress == null) {
+				throw new NullPointerException("Neither the first nor the last address can be null");
+			}
+
+			if (this.firstAddress.compareTo(lastAddress) > 0) {
+				throw new IllegalArgumentException(
+						String.format("The first address in the range (%s) has to be lower than the last address (%s)",
+								firstAddress, lastAddress));
+			}
 		}
 	}
 
