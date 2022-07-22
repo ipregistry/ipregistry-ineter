@@ -66,6 +66,10 @@ public class Ipv6Range implements IpRange<Ipv6Range, Ipv6Subnet, Ipv6Address, Bi
 		return Ipv6Range.of(address, address);
 	}
 
+	public static Ipv6Range of(final Ipv6Subnet subnet) {
+		return Ipv6Range.of(subnet.firstAddress, subnet.lastAddress, true);
+	}
+
 	/**
 	 * merges the given {@link Ipv6Range} instances to a minimal list of
 	 * non-overlapping ranges
