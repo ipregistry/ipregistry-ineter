@@ -7,6 +7,7 @@
  */
 package co.ipregistry.ineter.base;
 
+import java.io.Serial;
 import java.net.Inet4Address;
 
 import co.ipregistry.ineter.range.Ipv4Range;
@@ -123,6 +124,7 @@ public class Ipv4Address implements IpAddress {
 	public static final Ipv4Address MIN_ADDR = Ipv4Address.of("0.0.0.0");
 	public static final Ipv4Address MAX_ADDR = Ipv4Address.of("255.255.255.255");
 
+	@Serial
 	private static final long serialVersionUID = 2L;
 
 	/**

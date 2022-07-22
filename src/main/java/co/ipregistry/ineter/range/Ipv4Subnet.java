@@ -9,6 +9,8 @@ package co.ipregistry.ineter.range;
 
 import co.ipregistry.ineter.base.Ipv4Address;
 
+import java.io.Serial;
+
 public class Ipv4Subnet extends Ipv4Range implements IpSubnet<Ipv4Subnet, Ipv4Range, Ipv4Address, Long> {
 
 	protected enum IPv4SubnetMask {
@@ -68,6 +70,7 @@ public class Ipv4Subnet extends Ipv4Range implements IpSubnet<Ipv4Subnet, Ipv4Ra
 		}
 	}
 
+	@Serial
 	private static final long serialVersionUID = 3L;
 
 	public static Ipv4Subnet of(final String cidr) {

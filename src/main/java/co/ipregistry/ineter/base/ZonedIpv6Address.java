@@ -7,11 +7,13 @@
  */
 package co.ipregistry.ineter.base;
 
+import java.io.Serial;
 import java.net.Inet6Address;
 import java.util.Objects;
 
 public class ZonedIpv6Address extends Ipv6Address {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**

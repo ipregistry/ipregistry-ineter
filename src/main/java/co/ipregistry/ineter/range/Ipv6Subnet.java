@@ -7,6 +7,7 @@
  */
 package co.ipregistry.ineter.range;
 
+import java.io.Serial;
 import java.math.BigInteger;
 
 import co.ipregistry.ineter.base.Ipv6Address;
@@ -69,6 +70,7 @@ public class Ipv6Subnet extends Ipv6Range implements IpSubnet<Ipv6Subnet, Ipv6Ra
 		}
 	}
 
+	@Serial
 	private static final long serialVersionUID = 3L;
 
 	public static Ipv6Subnet of(final String cidr) {

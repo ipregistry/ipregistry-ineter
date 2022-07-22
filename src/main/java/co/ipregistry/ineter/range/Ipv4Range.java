@@ -7,6 +7,7 @@
  */
 package co.ipregistry.ineter.range;
 
+import java.io.Serial;
 import java.net.Inet4Address;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -16,6 +17,7 @@ import co.ipregistry.ineter.base.Ipv4Address;
 
 public class Ipv4Range implements IpRange<Ipv4Range, Ipv4Subnet, Ipv4Address, Long> {
 
+	@Serial
 	private static final long serialVersionUID = 3L;
 
 	public static Ipv4Range of(final Ipv4Address firstAddress, final Ipv4Address lastAddress) {

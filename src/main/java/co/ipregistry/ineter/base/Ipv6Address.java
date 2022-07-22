@@ -7,6 +7,7 @@
  */
 package co.ipregistry.ineter.base;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.net.Inet6Address;
 
@@ -188,6 +189,7 @@ public class Ipv6Address implements IpAddress {
 	public static final Ipv6Address MIN_ADDR = Ipv6Address.of("::");
 	public static final Ipv6Address MAX_ADDR = Ipv6Address.of("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff");
 
+	@Serial
 	private static final long serialVersionUID = 2L;
 	private static final BigInteger NEGATIVE_ONE = BigInteger.ONE.negate();
 

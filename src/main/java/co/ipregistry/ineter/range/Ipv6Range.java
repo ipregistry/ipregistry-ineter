@@ -7,6 +7,7 @@
  */
 package co.ipregistry.ineter.range;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.net.Inet6Address;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class Ipv6Range implements IpRange<Ipv6Range, Ipv6Subnet, Ipv6Address, Bi
 
 	private static final BigInteger INTEGER_MAX_VALUE = new BigInteger(
 			new byte[] { 0x7f, (byte) 0xff, (byte) 0xff, (byte) 0xff });
+	@Serial
 	private static final long serialVersionUID = 3L;
 
 	public static Ipv6Range of(final Ipv6Address firstAddress, final Ipv6Address lastAddress) {
