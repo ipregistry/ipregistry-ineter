@@ -30,10 +30,10 @@ public class Ipv6AddressParseTest {
 
 	// Do not rename used by @MethodSource below
 	public static List<String> generateIP6AddressStrings() {
-		return generateIP6AddressStrings(0, 10_000, true);
+		return ip6AddressStrings(0, 10_000, true);
 	}
 
-	public static List<String> generateIP6AddressStrings(final int seed, final int count, final boolean brackets) {
+	public static List<String> ip6AddressStrings(final int seed, final int count, final boolean brackets) {
 		final List<String> addresses = new ArrayList<>(count);
 		final Random r = new Random(seed);
 

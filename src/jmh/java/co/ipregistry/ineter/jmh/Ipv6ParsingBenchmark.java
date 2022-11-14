@@ -39,7 +39,7 @@ public class Ipv6ParsingBenchmark {
 	@Setup(Level.Trial)
 	public void setUp() {
 		// no brackets, guava doesn't like it
-		this.addresses = Ipv6AddressParseTest.generateIP6AddressStrings(0, ADDR_CNT, false);
+		this.addresses = Ipv6AddressParseTest.ip6AddressStrings(0, ADDR_CNT, false);
 	}
 
 	@Benchmark
