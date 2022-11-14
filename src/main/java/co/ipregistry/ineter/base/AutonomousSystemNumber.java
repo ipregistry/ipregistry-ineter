@@ -48,6 +48,10 @@ public final class AutonomousSystemNumber implements Comparable<AutonomousSystem
     }
 
     public boolean isPrivate() {
+        return isPrivate(value);
+    }
+
+    public static boolean isPrivate(final long value) {
         return (value >= 64512 && value <= 65534) ||
                 (value >= 4200000000L && value <= 4294967294L);
     }
