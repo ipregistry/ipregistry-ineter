@@ -235,6 +235,9 @@ public class Ipv4Range implements IpRange<Ipv4Range, Ipv4Subnet, Ipv4Address, Lo
 		final List<Ipv4Range> merged = Ipv4Range.merge(ranges);
 		ret.add(this);
 		for (final Ipv4Range toRemove : merged) {
+			if (ret.isEmpty()) {
+				break;
+			}
 			final Ipv4Range next = ret.remove(ret.size() - 1);
 			// a bit faster than calling withRemoved() one range at a time
 			if (toRemove.getFirst().compareTo(next.getFirst()) > 0) {

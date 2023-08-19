@@ -395,8 +395,8 @@ public class Ipv4RangeTest {
 				Ipv4Range.parse("10.0.0.0/24").withRemoved(Arrays.asList(Ipv4Range.parse("10.0.0.0/24"))));
 		assertEquals(emptyList(),
 				Ipv4Range.parse("10.0.0.0/24").withRemoved(Arrays.asList(Ipv4Range.parse("0.0.0.0/0"))));
-		assertEquals(emptyList(),
-				Ipv4Range.parse("10.0.0.0/24").withRemoved(Arrays.asList(Ipv4Range.parse("9.0.0.0-11.0.0.0"))));
+		assertEquals(emptyList(), Ipv4Range.parse("10.0.0.0/24")
+				.withRemoved(Arrays.asList(Ipv4Range.parse("9.0.0.0-11.0.0.0"), Ipv4Range.parse("13.0.0.0/24"))));
 	}
 
 	@ParameterizedTest

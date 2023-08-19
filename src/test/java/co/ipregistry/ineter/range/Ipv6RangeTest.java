@@ -391,8 +391,8 @@ public class Ipv6RangeTest {
 		assertEquals(emptyList(),
 				Ipv6Range.parse("1234::/16").withRemoved(Arrays.asList(Ipv6Range.parse("1234::/16"))));
 		assertEquals(emptyList(), Ipv6Range.parse("1234::/16").withRemoved(Arrays.asList(Ipv6Range.parse("::/0"))));
-		assertEquals(emptyList(),
-				Ipv6Range.parse("1234::/16").withRemoved(Arrays.asList(Ipv6Range.parse("1230::-1240::"))));
+		assertEquals(emptyList(), Ipv6Range.parse("1234::/16")
+				.withRemoved(Arrays.asList(Ipv6Range.parse("1230::-1240::"), Ipv6Range.parse("2222::0/16"))));
 	}
 
 	@ParameterizedTest
