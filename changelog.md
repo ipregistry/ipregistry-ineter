@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.0.0 (2025-10-24)
+
+- Add support for Java 25.
+
 ## v0.2.0 (2020-01-17)
 
 - Abstract classes were replaced with lightweight interfaces for more flexibility. This shouldn't affect most users, but
